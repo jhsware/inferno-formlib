@@ -1,6 +1,7 @@
 # inferno-formlib
 The goal of this project is to create a bootstrap compatible form generation library for Inferno.js using isomorphic-schema schema definitions.
 
+
 ### DEV NOTES
 ```jsx
 <Form schema={mySchema} onChange={}>
