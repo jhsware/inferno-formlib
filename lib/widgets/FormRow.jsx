@@ -12,7 +12,7 @@ import { createAdapter, globalRegistry } from 'component-registry'
 import { interfaces } from 'isomorphic-schema'
 import { IFormRowWidget }  from '../interfaces'
 
-import { animateOnAdd, animateOnRemove } from '../animated.jsx'
+import { animateOnAdd, animateOnRemove } from '../animated'
 
 import classNames from 'classnames'
 

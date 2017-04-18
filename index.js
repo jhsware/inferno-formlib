@@ -1,15 +1,15 @@
-import { FormRows } from './dist/FormRows.jsx'
+var FormRows = require('./dist/FormRows').FormRows
 
-require('./dist/widgets/BoolField.jsx')
-require('./dist/widgets/InputField.jsx')
-require('./dist/widgets/PasswordField.jsx')
-require('./dist/widgets/TextAreaField.jsx')
-require('./dist/widgets/ObjectField.jsx')
-require('./dist/widgets/ListField.jsx')
-require('./dist/widgets/FormRow.jsx')
-require('./dist/widgets/SelectField.jsx')
-require('./dist/widgets/MultiSelectField.jsx')
+require('./dist/widgets/BoolField')
+require('./dist/widgets/InputField')
+require('./dist/widgets/PasswordField')
+require('./dist/widgets/TextAreaField')
+require('./dist/widgets/ObjectField')
+require('./dist/widgets/ListField')
+require('./dist/widgets/FormRow')
+require('./dist/widgets/SelectField')
+require('./dist/widgets/MultiSelectField')
 
-export {
-    FormRows
+module.exports = {
+    FormRows: FormRows
 }

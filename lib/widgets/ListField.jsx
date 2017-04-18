@@ -10,7 +10,7 @@ import { createAdapter, globalRegistry } from 'component-registry'
 import Inferno from 'inferno'
 import Component from 'inferno-component'
 
-import { animateOnAdd, animateOnRemove } from '../animated.jsx'
+import { animateOnAdd, animateOnRemove } from '../animated'
 
 import { interfaces } from 'isomorphic-schema'
 import { IInputFieldWidget, IFormRowWidget }  from '../interfaces'
