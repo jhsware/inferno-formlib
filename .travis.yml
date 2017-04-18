@@ -1,3 +1,11 @@
 language: node_js
 node_js:
 - '6.1'
+deploy:
+  provider: npm
+  email: sebastian@urbantalk.se
+  api_key:
+    secure: GEFtEKyjgHx5O9+Wi19AnmLzuKslgF+70E290D6Cc0Z8Hj7Vy0pLHYHeHuTLoVO4ndLU1/GOu/OqBk23O67S+Z/3CTOjZtPRPl4OmqszaGbszWqYOMleE8LZMizejWNFanAaKh7hYkJZoX1z6n03GwhN1WOcXwEqc/0DzYkWETyvoKVIza9jGqPTZdyrjnrLLCPAaJ94dwmGOpoYapMf7/puvZI8BIHqcuQFKeV8acOfBEKmO76QRJ3BiLA9oYulStdtIoBE++QY4wC0M1U7DEnWiGGYzF1fRKJZPnuEiS/Fh13jwteWHj2U4No7OzbuacA9VGV60jyfxkhNUMxoxPV35NnrTuARkW0Ir6D34gnf90nisFZb9ZeZ8rbuhzq+jfGHcwcb3Xwx6N0ko4c8r8s1Izs5xwrOpRabqGLQk9auQncFsxJSmQkge7Po3589KUa89wLP8xnP0Cuhh1yixBjwJXqFIognw+F2+Hpdhg7wv6mT8xqwoVcvpygd6KYLtBRXwC0j2iyRsFkkJeNKEFkhOw5kE2BN2YpJHkdRokpcn1jUW6do1n4pA3mefNfVe8J3lnR5o8rJI3Di9vKtWdVm9EZ/46i27dITVVMIu8pVD0P83hOjhvgoQLcbUfHN0mCkqc4bDWgDYdQnlCFEAKbLjsXD2Bixzk0v5Lum/1c=
+  on:
+    tags: true
+    repo: jhsware/inferno-formlib
