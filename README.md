@@ -26,3 +26,31 @@
 </Form>
 
 <ActionBar message={} onSubmit={} onCancel={} />
+
+
+### DEV NOTES
+
+```json
+  "// babel": "Babel presets in package.json so they are applied to symlinked packages https://github.com/babel/babel-loader/issues/149",
+  "babel": {
+    "env": {
+      "development": {
+        "presets": [
+          "es2015",
+          "stage-0"
+        ]
+      }
+    },
+    "plugins": [
+      "transform-decorators-legacy",
+      "transform-runtime",
+      "babel-plugin-syntax-jsx",
+      [
+        "babel-plugin-inferno",
+        {
+          "imports": true
+        }
+      ]
+    ]
+  }
+  ```
