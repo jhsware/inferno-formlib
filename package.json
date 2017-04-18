@@ -4,7 +4,7 @@
   "description": "Form library for inferno",
   "main": "index.js",
   "scripts": {
-    "test": "test",
+    "test": "echo \"TODO: Write tests...\"",
     "postinstall": "npm run build",
     "prepublish": "npm run build",
     "build": "rm -rf ./dist && NODE_ENV=production babel lib --out-dir dist  --source-maps",
