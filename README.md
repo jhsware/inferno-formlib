@@ -1,3 +1,8 @@
+# inferno-formlib
+The goal of this project is to create a bootstrap compatible form generation library for Inferno.js using isomorphic-schema schema definitions.
+
+### DEV NOTES
+```jsx
 <Form schema={mySchema} onChange={}>
   <div>
     <Field name="yada" />
@@ -26,9 +31,7 @@
 </Form>
 
 <ActionBar message={} onSubmit={} onCancel={} />
-
-
-### DEV NOTES
+```
 
 ```json
   "// babel": "Babel presets in package.json so they are applied to symlinked packages https://github.com/babel/babel-loader/issues/149",
