@@ -82,9 +82,11 @@ export const animateOnRemove = function (component, animationName) {
   nrofTransitionsLeft = dur.length - 1
   setTimeout(onTransitionEnd, Math.round(animTimeout * 1000) + 50) // Fallback if transitionend fails
 
+  /*
   console.log('----- transition-duration', cs.getPropertyValue('transition-duration'))
   console.log('----- transition-delay', cs.getPropertyValue('transition-delay'))
   console.log('----- animTimeout', Math.round(animTimeout * 1000) + 50)
+  */
 
   // 4. Activate target state
   setTimeout(() => {
@@ -132,10 +134,12 @@ export const animateOnAdd = function (component, animationName) {
   nrofTransitionsLeft = dur.length - 1
   setTimeout(onTransitionEnd, Math.round(animTimeout * 1000) + 50) // Fallback if transitionend fails
 
+  /*
   console.log('----- transition-duration', cs.getPropertyValue('transition-duration'))
   console.log('----- transition-delay', cs.getPropertyValue('transition-delay'))
   console.log('----- animTimeout', Math.round(animTimeout * 1000) + 50)
-
+  */
+  
   // 4. Activate target state
   setTimeout(() => {
     node.style.height = height + 'px'
