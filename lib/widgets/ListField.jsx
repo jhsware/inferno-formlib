@@ -9,6 +9,7 @@ import { createAdapter, globalRegistry } from 'component-registry'
 
 import Inferno from 'inferno'
 import Component from 'inferno-component'
+import { safeGet } from 'safe-utils'
 
 import { animateOnAdd, animateOnRemove } from '../animated'
 
@@ -55,7 +56,7 @@ class ListFieldRow extends Component {
     }
 }
 
-function renderRows (field, value, keyObj, errors, onChange, onDelete, onDrop) {
+function renderRows (field, value, itemKeys, errors, onChange, onDelete, onDrop) {
   if (value === undefined) return
 
   return value.map((item, index) => {
@@ -69,11 +70,8 @@ function renderRows (field, value, keyObj, errors, onChange, onDelete, onDrop) {
     const Row = RowAdapter.Component
     const InputField = InputFieldAdapter.Component
 
-    // Find the key for this item
-    let key = _getKey(keyObj, item, index)
-
     return (
-      <ListFieldRow key={key} data-drag-index={index} onDrop={onDrop}>
+      <ListFieldRow key={itemKeys[index]} data-drag-index={index} onDrop={onDrop}>
         <Row adapter={RowAdapter} validationError={validationError}>
             <InputField adapter={InputFieldAdapter} propName={index} value={value[index]} onChange={onChange} />
         </Row>
@@ -84,22 +82,6 @@ function renderRows (field, value, keyObj, errors, onChange, onDelete, onDrop) {
       </ListFieldRow>
     )
   })
-}
-
-function _getKey(keyObj, item, index) {
-    if (typeof item !== 'object') {
-        // We only get reference pointers to objects
-        return Object.keys(keyObj)[index]
-    }
-    let key
-    const tmpKeys = Object.keys(keyObj)
-    for (var i = 0; i < tmpKeys.length; i++) {
-        if (keyObj[tmpKeys[i]] === item) {
-            key = tmpKeys[i]
-            break
-        }
-    }
-    return key
 }
 
 function Placeholder (props) {
@@ -116,15 +98,15 @@ export class ListFieldWidget extends Component {
     super(props)
 
     const keys = {}
+
+    this.keysNext = 0
+    this.keys = []
+    // Initialise keys for passed array if any
     if (Array.isArray(props.value)) {
-        props.value.forEach((item, index) => {
-            keys[index + ''] = item
-        })
-    }
-    this.state = {
-        keys: keys,
-        keyCounter: Object.keys(keys).length,
-        value: this.props.value
+        for (var i = 0; i < props.value.length; i++) {
+            this.keys.push(this.keysNext)
+            this.keysNext++
+        }
     }
 
     this.didUpdate = this.didUpdate.bind(this)
@@ -134,77 +116,28 @@ export class ListFieldWidget extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    if (!Array.isArray(nextProps.value)) return
-    
-    let tmpList = nextProps.value.slice()
-    let nextKeys = {}
-    // Check first item in list to determine if we should do a simple match
-    // or proper object type check
-    if (typeof tmpList[0] !== 'object') {
-        // Only check length of list if we don't have objects
-        const currentKeyObj = this.state['keys']
-        const currentKeys = Object.keys(currentKeyObj)
-
-        if (currentKeys.length > tmpList.length) {
-            // Remove extra keys
-            currentKeys.splice(tmpList.length)
-
-            // And create next key object
-            currentKeys.forEach((key) => {
-                nextKeys[key] = currentKeyObj[key]
-            })
-        } else if (currentKeys.length <= tmpList.length) {
-            tmpList.splice(0, currentKeys.length)
-        }
-        currentKeys.forEach((key) => {
-            nextKeys[key] = currentKeyObj[key]
-        })
-    } else {
-        // Match by object reference if we have a list of objects
-        const matchedKeys = {}
-        Object.keys(this.state['keys']).forEach((key, index) => {
-            let matchObj = this.state['keys'][key]
-            for (let i = 0; i < tmpList.length; i++) {
-                if (matchObj === tmpList[i]) {
-                    matchedKeys[key] = true
-                    tmpList.splice(i, 1)
-                    break
-                }
-            }
-        })
-        // Remove key references for items that don't exist any more so they get garbage collected
-        nextKeys = this.state.keys
-        Object.keys(nextKeys).forEach((key) => {
-            if (!matchedKeys[key]) delete nextKeys[key]
-        })
+    if (!Array.isArray(nextProps.value) || nextProps.value.length < this.keys.length) {
+        // We got undefined or fewer values than previously, need to shorten the keys array
+        this.keys.splice(safeGet(() => nextProps.value.length, 0))
+        return
     }
 
-    // Add keys for remaining items in tmpList if there are any
-    let keyCounter = this.state.keyCounter
-    tmpList.forEach((item) => {
-        nextKeys[keyCounter + ''] = item
-        keyCounter++
-    })
-    
-    this.setState({
-        keys: nextKeys,
-        keyCounter: keyCounter,
-        value: nextProps.value
-    })
+    // New array is larger so need to add som keys
+    for (var i = this.keys.length; i < nextProps.value.length; i++) {
+        this.keys.push(this.keysNext)
+        this.keysNext++
+    }
   }
 
   didUpdate (propName, data) {
     const value = this.props.value
     value[propName] = data
-    this.setState({
-        value: value
-    })
     this.props.onChange(this.props.propName, value)
   }
 
   doAddRow (e) {
     e.preventDefault()
-    const value = this.state.value || []
+    const value = this.props.value || []
     value.push(undefined)
     this.props.onChange(this.props.propName, value)
   }
@@ -212,53 +145,32 @@ export class ListFieldWidget extends Component {
   doDeleteRow (index) {
     const value = this.props.value
     const removedVal = value.splice(index, 1)
+    const removedKey = this.keys.splice(index, 1)
 
-    const keyObj = this.state.keys
-    if (typeof removeVal !== 'object') {
-        delete keyObj[Object.keys(keyObj)[index]]
-    }
-    this.setState({
-        keys: keyObj,
-        value: value
-    })
     this.props.onChange(this.props.propName, value)
   }
 
   didDrop (sourceIndex, targetIndex) {
-    const value = this.state.value
-    const keys = Object.keys(this.state.keys)
+    const value = this.props.value
 
     const source = value.splice(sourceIndex, 1)[0]
-    const sourceKey = keys.splice(sourceIndex, 1)[0]
+    const sourceKey = this.keys.splice(sourceIndex, 1)[0]
     if (sourceIndex < targetIndex) {
         targetIndex--
     }
     value.splice(targetIndex, 0, source)
+    this.keys.splice(targetIndex, 0, sourceKey)
 
-    let newKeys = {}
-    if (typeof source !== 'object') {
-        keys.splice(targetIndex, 0, sourceKey)
-        keys.forEach((key) => {
-            newKeys[key] = this.state.keys[key]
-        })
-    } else {
-        newKeys = this.state.keys
-    }
-
-    this.setState({
-        keys: newKeys,
-        value: value
-    })
     this.props.onChange(this.props.propName, value)
   }
 
   render() {
     const field = this.props.adapter.context
-    const emptyArray = this.state.value === undefined || this.state.value.length === 0
-    console.log(Object.keys(this.state.keys))
+    const emptyArray = this.props.value === undefined || this.props.value.length === 0
+    console.log(Object.keys(this.keys))
     return <div className="InfernoFormlib-ListField InfernoFormlib-DragContainer">
         {emptyArray && field.placeholder && <ListFieldRow key="placeholder"><Placeholder text={field.placeholder} /></ListFieldRow>}
-        {renderRows(field, this.state.value, this.state.keys, this.props.validationError, this.didUpdate, this.doDeleteRow, this.didDrop)}
+        {renderRows(field, this.props.value, this.keys, this.props.validationError, this.didUpdate, this.doDeleteRow, this.didDrop)}
         <div className="InfernoFormlib-ListFieldActionBar">
             <input type="button" value="Lägg till" onClick={this.doAddRow} />
         </div>
