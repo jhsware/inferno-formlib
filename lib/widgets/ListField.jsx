@@ -167,7 +167,6 @@ export class ListFieldWidget extends Component {
   render() {
     const field = this.props.adapter.context
     const emptyArray = this.props.value === undefined || this.props.value.length === 0
-    console.log(Object.keys(this.keys))
     return <div className="InfernoFormlib-ListField InfernoFormlib-DragContainer">
         {emptyArray && field.placeholder && <ListFieldRow key="placeholder"><Placeholder text={field.placeholder} /></ListFieldRow>}
         {renderRows(field, this.props.value, this.keys, this.props.validationError, this.didUpdate, this.doDeleteRow, this.didDrop)}
