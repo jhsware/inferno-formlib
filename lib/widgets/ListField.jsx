@@ -50,7 +50,7 @@ class ListFieldRow extends Component {
     }
 
     render () {
-        return <div className="InfernoFormlib-ListFieldRow InfernoFormlib-DragItem" data-drag-index={this.props['data-drag-index']} draggable="true">
+        return <div className={"InfernoFormlib-ListFieldRow" + (this.props.className ? ' ' + this.props.className : '')} data-drag-index={this.props['data-drag-index']}>
             {this.props.children}
         </div>
     }
@@ -71,7 +71,9 @@ function renderRows (field, value, itemKeys, errors, onChange, onDelete, onDrop)
     const InputField = InputFieldAdapter.Component
 
     return (
-      <ListFieldRow key={itemKeys[index]} data-drag-index={index} onDrop={onDrop}>
+      <ListFieldRow className="InfernoFormlib-DragItem" key={itemKeys[index]} data-drag-index={index} onDrop={onDrop}>
+        <div className="InfernoFormlib-DragHandle" draggable="true"></div>
+
         <Row adapter={RowAdapter} validationError={validationError}>
             <InputField adapter={InputFieldAdapter} propName={index} value={value[index]} onChange={onChange} />
         </Row>

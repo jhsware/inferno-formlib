@@ -33,8 +33,9 @@
     "babel-preset-stage-0": "^6.24.1"
   },
   "dependencies": {
+    "classnames": "^2.2.5",
     "inferno": "^3",
     "inferno-component": "^3",
-    "classnames": "^2.2.5"
+    "safe-utils": "^0.1.1"
   }
 }
