@@ -20,7 +20,9 @@ import { handleDragStart, handleDragOver, handleDragEnter, handleDragLeave, hand
 
 class ListFieldRow extends Component {
     componentDidMount () {
-        animateOnAdd(this, 'InfernoFormlib-ListFieldRow--Animation')
+        if (!this.props.isFirstMount) {
+            animateOnAdd(this, 'InfernoFormlib-ListFieldRow--Animation')
+        }
 
         if (!this.listenersAdded) {
             let domEl = this._vNode.dom
@@ -56,7 +58,7 @@ class ListFieldRow extends Component {
     }
 }
 
-function renderRows (field, value, itemKeys, errors, onChange, onDelete, onDrop) {
+function renderRows (field, value, itemKeys, errors, onChange, onDelete, onDrop, isMounted) {
   if (value === undefined) return
 
   return value.map((item, index) => {
@@ -71,7 +73,7 @@ function renderRows (field, value, itemKeys, errors, onChange, onDelete, onDrop)
     const InputField = InputFieldAdapter.Component
 
     return (
-      <ListFieldRow className="InfernoFormlib-DragItem" key={itemKeys[index]} data-drag-index={index} onDrop={onDrop}>
+      <ListFieldRow className="InfernoFormlib-DragItem" key={itemKeys[index]} data-drag-index={index} onDrop={onDrop} isFirstMount={!isMounted}>
         <div className="InfernoFormlib-DragHandle" draggable="true"></div>
 
         <Row adapter={RowAdapter} validationError={validationError}>
@@ -118,6 +120,9 @@ export class ListFieldWidget extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
+    // I need this to pass to List rows in order to avoid animations on first render
+    this.isMounted = true
+
     if (!Array.isArray(nextProps.value) || nextProps.value.length < this.keys.length) {
         // We got undefined or fewer values than previously, need to shorten the keys array
         this.keys.splice(safeGet(() => nextProps.value.length, 0))
@@ -171,7 +176,7 @@ export class ListFieldWidget extends Component {
     const emptyArray = this.props.value === undefined || this.props.value.length === 0
     return <div className="InfernoFormlib-ListField InfernoFormlib-DragContainer">
         {emptyArray && field.placeholder && <ListFieldRow key="placeholder"><Placeholder text={field.placeholder} /></ListFieldRow>}
-        {renderRows(field, this.props.value, this.keys, this.props.validationError, this.didUpdate, this.doDeleteRow, this.didDrop)}
+        {renderRows(field, this.props.value, this.keys, this.props.validationError, this.didUpdate, this.doDeleteRow, this.didDrop, this.isMounted)}
         <div className="InfernoFormlib-ListFieldActionBar">
             <input type="button" value="Lägg till" onClick={this.doAddRow} />
         </div>
