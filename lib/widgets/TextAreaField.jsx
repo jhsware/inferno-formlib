@@ -21,7 +21,7 @@ class TextAreaWidget extends Component {
         super(props)
 
         this.state = {
-            value: this.props.value
+            value: props.value
         }
         this.didGetInput = this.didGetInput.bind(this)
     }
