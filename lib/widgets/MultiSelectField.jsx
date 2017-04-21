@@ -30,6 +30,7 @@ class MultiSelectFieldWidget extends Component {
     }
 
     didGetChange (e) {
+        const field = this.props.adapter.context
         const selectedOptions = e.target.selectedOptions
         const values = []
         for (var i = 0; i < selectedOptions.length; i++) {

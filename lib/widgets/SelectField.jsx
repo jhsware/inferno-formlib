@@ -30,7 +30,8 @@ class SelectFieldWidget extends Component {
     }
 
     didGetChange (e) {
-        this.props.onChange(this.props.propName, e.target.value)
+        const field = this.props.adapter.context
+        this.props.onChange(this.props.propName, field.fromString(e.target.value))
     }
 
     render () {

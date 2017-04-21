@@ -41,7 +41,8 @@ class Input extends Component {
     }
 
     didGetChange (e) {
-        this.props.onChange(this.props.propName, this.state.value)
+        const field = this.props.adapter.context
+        this.props.onChange(this.props.propName, field.fromString(this.state.value))
     }
 
     render () {
@@ -52,7 +53,7 @@ class Input extends Component {
             "InfernoFormlib-TextField--readonly": field.readOnly
         }
 
-        return <input className={classNames(cls)} type="text" placeholder={field.placeholder} readonly={field.readOnly && 'true'} value={this.state.value} 
+        return <input className={classNames(cls)} type="text" placeholder={field.placeholder} readonly={field.readOnly && 'true'} value={field.toFormattedString(this.state.value)} 
                     onChange={this.didGetChange} onInput={this.didGetInput} />
     }
 }
