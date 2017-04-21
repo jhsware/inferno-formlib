@@ -68,7 +68,7 @@ export const animateOnRemove = function (component, animationName) {
     // parent.removeChild(clone)
     // Why does inferno use removeChild?
     clone.remove()
-    console.log('----- removed')
+    // console.log('----- removed')
   }
 
   clone.addEventListener("transitionend", onTransitionEnd, false)
@@ -119,7 +119,7 @@ export const animateOnAdd = function (component, animationName) {
     node.style.height = node.style.width = ''
     node.classList.remove(animationName + '-enter-active')
     node.classList.remove(animationName + '-enter-end')
-    console.log('----- added')
+    // console.log('----- added')
   }
   node.addEventListener("transitionend", onTransitionEnd, false)
   const dummy = node.clientHeight

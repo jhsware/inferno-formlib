@@ -17,11 +17,20 @@ import classNames from 'classnames'
 // Placeholder
 
 class SelectFieldWidget extends Component {
+    constructor (props) {
+        super(props)
+
+        this.didGetChange = this.didGetChange.bind(this)
+    }
 
     componentWillReceiveProps (nextProps) {
         this.setState({
             value: nextProps.value
         })
+    }
+
+    didGetChange (e) {
+        this.props.onChange(this.props.propName, e.target.value)
     }
 
     render () {
@@ -33,11 +42,7 @@ class SelectFieldWidget extends Component {
         }
 
         return <select className={classNames(cls)} type="text" readonly={field.readOnly && 'true'} value={this.props.value} 
-                    onChange={
-                        (e) => {
-                            this.props.onChange(this.props.propName, e.target.value)
-                        }
-                    }>
+                    onChange={this.didGetChange}>
             {field.placeholder && <option value="">{field.placeholder}</option>}
             {field.options.map((item) => <option value={item.name}>{item.title}</option>)}
         </select>

@@ -24,6 +24,7 @@ class Input extends Component {
             value: props.value
         }
         this.didGetInput = this.didGetInput.bind(this)
+        this.didGetChange = this.didGetChange.bind(this)
     }
 
     componentWillReceiveProps (nextProps) {
@@ -39,6 +40,10 @@ class Input extends Component {
         })
     }
 
+    didGetChange (e) {
+        this.props.onChange(this.props.propName, this.state.value)
+    }
+
     render () {
         const field = this.props.adapter.context
 
@@ -48,11 +53,7 @@ class Input extends Component {
         }
 
         return <input className={classNames(cls)} type="password" placeholder={field.placeholder} readonly={field.readOnly && 'true'} value={this.state.value} 
-                    onChange={
-                        (e) => {
-                            this.props.onChange(this.props.propName, this.state.value)
-                        }
-                    } onInput={this.didGetInput} />
+                    onChange={this.didGetChange} onInput={this.didGetInput} />
     }
 }
 

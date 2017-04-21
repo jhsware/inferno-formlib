@@ -17,11 +17,20 @@ import classNames from 'classnames'
 // Placeholder
 
 class CheckboxWidget extends Component {
+    constructor (props) {
+        super(props)
+
+        this.didGetChange = this.didGetChange.bind(this)
+    }
 
     componentWillReceiveProps (nextProps) {
         this.setState({
             value: nextProps.value
         })
+    }
+
+    didGetChange (e) {
+        this.props.onChange(this.props.propName, e.target.checked)
     }
 
     render () {
@@ -33,11 +42,7 @@ class CheckboxWidget extends Component {
         }
 
         return <input className={classNames(cls)} type="checkbox" readonly={field.readOnly && 'true'} value={this.props.value ? 'checked' : undefined} 
-                    onChange={
-                        (e) => {
-                            this.props.onChange(this.props.propName, e.target.checked)
-                        }
-                    } />
+                    onChange={this.didGetChange} />
     }
 }
 

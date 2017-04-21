@@ -17,11 +17,25 @@ import classNames from 'classnames'
 // Placeholder
 
 class MultiSelectFieldWidget extends Component {
+    constructor (props) {
+        super(props)
+
+        this.didGetChange = this.didGetChange.bind(this)
+    }
 
     componentWillReceiveProps (nextProps) {
         this.setState({
             value: nextProps.value
         })
+    }
+
+    didGetChange (e) {
+        const selectedOptions = e.target.selectedOptions
+        const values = []
+        for (var i = 0; i < selectedOptions.length; i++) {
+            values.push(field.fromString(selectedOptions[i].value))
+        }
+        this.props.onChange(this.props.propName, values)
     }
 
     render () {
@@ -33,16 +47,7 @@ class MultiSelectFieldWidget extends Component {
         }
 
         return <select className={classNames(cls)} type="text" multiple="true" readonly={field.readOnly && 'true'} value={this.props.value} 
-                    onChange={
-                        (e) => {
-                            const selectedOptions = e.target.selectedOptions
-                            const values = []
-                            for (var i = 0; i < selectedOptions.length; i++) {
-                                values.push(field.fromString(selectedOptions[i].value))
-                            }
-                            this.props.onChange(this.props.propName, values)
-                        }
-                    }>
+                    onChange={this.didGetChange}>
             {field.placeholder && <option value="">{field.placeholder}</option>}
             {field.options.map((item) => <option value={item.name}>{item.title}</option>)}
         </select>
