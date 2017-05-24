@@ -53,6 +53,13 @@ class Row extends Component {
     // TODO: Add animation support
 
     // support required
+    componentDidMount () {
+        animateOnAdd(this, 'InfernoFormlib-Row--Animation')
+    }
+
+    componentWillUnmount () {
+        animateOnRemove(this, 'InfernoFormlib-Row--Animation')
+    }
 
     render () {
         const field = this.props.adapter.context
@@ -85,6 +92,13 @@ class ObjectRow extends Component {
     // TODO: Add animation support
 
     // support required
+    componentDidMount () {
+        animateOnAdd(this, 'InfernoFormlib-Row--Animation')
+    }
+
+    componentWillUnmount () {
+        animateOnRemove(this, 'InfernoFormlib-Row--Animation')
+    }
 
     render () {
         const field = this.props.adapter.context
@@ -118,6 +132,13 @@ class BoolRow extends Component {
     // TODO: Add animation support
 
     // support required
+    componentDidMount () {
+        animateOnAdd(this, 'InfernoFormlib-Row--Animation')
+    }
+
+    componentWillUnmount () {
+        animateOnRemove(this, 'InfernoFormlib-Row--Animation')
+    }
 
     render () {
         const field = this.props.adapter.context
