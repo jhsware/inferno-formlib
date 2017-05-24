@@ -13,7 +13,7 @@ import Component from 'inferno-component'
 import { interfaces } from 'isomorphic-schema'
 import { IInputFieldWidget, IFormRowWidget }  from '../interfaces'
 
-function renderRows (schema, value, errors, onChange) {
+function renderRows ({ schema, value, namespace, errors, onChange }) {
   const widgetAdapters = Object.keys(schema._fields).map((key) => {
     const field = schema._fields[key]
     const validationError = errors && errors.fieldErrors[key]
@@ -59,7 +59,13 @@ export class ObjectFieldWidget extends Component {
   render() {
     const field = this.props.adapter.context
     return <div className="InfernoFormlib-ObjectField">
-        {renderRows(field.schema, this.props.value, this.props.validationError, this.didUpdate)}
+        {renderRows({
+          schema: field.schema,
+          namespace: this.props.namespace || [],
+          value: this.props.value,
+          validationErrors: this.props.validationError,
+          onChange: this.didUpdate
+        })}
     </div>
   }
 }

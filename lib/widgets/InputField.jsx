@@ -16,7 +16,7 @@ import classNames from 'classnames'
 
 // Placeholder
 
-class Input extends Component {
+class InputWidget extends Component {
     constructor (props) {
         super(props)
 
@@ -58,26 +58,28 @@ class Input extends Component {
     }
 }
 
+export default InputWidget
+
 createAdapter({
     implements: IInputFieldWidget,
     adapts: interfaces.ITextField,
-    Component: Input
+    Component: InputWidget
 }).registerWith(globalRegistry)
 
 createAdapter({
     implements: IInputFieldWidget,
     adapts: interfaces.IIntegerField,
-    Component: Input
+    Component: InputWidget
 }).registerWith(globalRegistry)
 
 createAdapter({
     implements: IInputFieldWidget,
     adapts: interfaces.IDecimalField,
-    Component: Input
+    Component: InputWidget
 }).registerWith(globalRegistry)
 
 createAdapter({
     implements: IInputFieldWidget,
     adapts: interfaces.IDateField,
-    Component: Input
+    Component: InputWidget
 }).registerWith(globalRegistry)
