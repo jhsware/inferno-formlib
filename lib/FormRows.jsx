@@ -5,7 +5,7 @@ import { globalRegistry } from 'component-registry'
 import { IInputFieldWidget, IFormRowWidget }  from './interfaces'
 
 
-function renderFormRows ({ schema, value, errors, namespace, onChange }) {
+function renderFormRows ({ schema, value, errors, namespace, isMounted, onChange }) {
   // TODO: Unpack the invariant errors so they can be found by field key
 
   let widgetAdapters = Object.keys(schema._fields).map((key) => {
@@ -47,24 +47,33 @@ function renderFormRows ({ schema, value, errors, namespace, onChange }) {
 
     // TODO: Key should be namespace parent.propName
     return (
-      <Row key={myNamespace.join('.')} adapter={RowAdapter} validationError={validationError}>
-        <InputField adapter={InputFieldAdapter} namespace={myNamespace} propName={propName} value={value[propName]} validationError={validationError} onChange={onChange}/>
+      <Row key={myNamespace.join('.')} adapter={RowAdapter} validationError={validationError} formIsMounted={isMounted}>
+        <InputField adapter={InputFieldAdapter} namespace={myNamespace} propName={propName} value={value[propName]} validationError={validationError}  formIsMounted={isMounted} onChange={onChange}/>
       </Row>
     )
   } )
   return widgets
 }
 
-function FormRows (props) {
-  return <div className="InfernoFormlib-FormRows">
-    {renderFormRows({
-      schema: props.schema,
-      namespace: props.namespace || [],
-      value: props.value,
-      validationErrors: props.validationErrors,
-      onChange: props.onChange
-    })}
-  </div>
+class FormRows extends Component {
+
+  componentWillReceiveProps (nextProps) {
+    // I need this to pass to rows in order to avoid animations on first render
+    this.isMounted = true
+  }
+
+  render () {
+    return <div className="InfernoFormlib-FormRows">
+      {renderFormRows({
+        schema: this.props.schema,
+        namespace: this.props.namespace || [],
+        value: this.props.value,
+        validationErrors: this.props.validationErrors,
+        isMounted: this.isMounted,
+        onChange: this.props.onChange
+      })}
+    </div>
+  }
 }
 
 export {

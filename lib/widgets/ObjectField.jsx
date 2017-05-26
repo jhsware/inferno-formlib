@@ -13,7 +13,7 @@ import Component from 'inferno-component'
 import { interfaces } from 'isomorphic-schema'
 import { IInputFieldWidget, IFormRowWidget }  from '../interfaces'
 
-function renderRows ({ schema, value, namespace, errors, onChange }) {
+function renderRows ({ schema, value, namespace, errors, isMounted, onChange }) {
   const widgetAdapters = Object.keys(schema._fields).map((key) => {
     const field = schema._fields[key]
     const validationError = errors && errors.fieldErrors[key]
@@ -34,8 +34,8 @@ function renderRows ({ schema, value, namespace, errors, onChange }) {
     const InputField = InputFieldAdapter.Component
 
     return (
-      <Row adapter={RowAdapter} validationError={validationError}>
-        <InputField adapter={InputFieldAdapter} propName={propName} value={value && value[propName]} onChange={onChange}/>
+      <Row adapter={RowAdapter} validationError={validationError} formIsMounted={isMounted}>
+        <InputField adapter={InputFieldAdapter} propName={propName} value={value && value[propName]} formIsMounted={isMounted} onChange={onChange}/>
       </Row>
     )
   } )
@@ -48,6 +48,11 @@ export class ObjectFieldWidget extends Component {
     super(props)
 
     this.didUpdate = this.didUpdate.bind(this)
+  }
+
+  componentWillReceiveProps (nextProps) {
+    // Because this is a container we set isMounted here instead of getting it from parent
+    this.isMounted = true
   }
 
   didUpdate (propName, data) {
@@ -64,7 +69,8 @@ export class ObjectFieldWidget extends Component {
           namespace: this.props.namespace || [],
           value: this.props.value,
           validationErrors: this.props.validationError,
-          onChange: this.didUpdate
+          onChange: this.didUpdate,
+          isMounted: this.isMounted
         })}
     </div>
   }

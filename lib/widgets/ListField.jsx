@@ -71,16 +71,22 @@ function renderRows ({ field, value, namespace, itemKeys, errors, onChange, onDe
 
     const Row = RowAdapter.Component
     const InputField = InputFieldAdapter.Component
+    
+    console.log(itemKeys[index])
 
     const myNamespace = namespace.slice()
-    myNamespace.push(itemKeys[index])
+    myNamespace.push(itemKeys[index].key)
+    // We need to know if this should be animated
+    const justAdded = itemKeys[index].justAdded
+    itemKeys[index].justAdded = false
+
 
     return (
       <ListFieldRow className="InfernoFormlib-DragItem" key={myNamespace.join('.')} data-drag-index={index} onDrop={onDrop} isFirstMount={!isMounted}>
         <div className="InfernoFormlib-DragHandle" draggable="true"></div>
 
-        <Row adapter={RowAdapter} validationError={validationError}>
-            <InputField adapter={InputFieldAdapter} namespace={myNamespace} propName={index} value={value[index]} onChange={onChange} />
+        <Row adapter={RowAdapter} validationError={validationError} formIsMounted={!justAdded}>
+            <InputField adapter={InputFieldAdapter} namespace={myNamespace} propName={index} value={value[index]} formIsMounted={!justAdded} onChange={onChange} />
         </Row>
         <input className="InfernoFormlib-ListFieldRowDeleteBtn" type="button" onClick={(e) => {
             e.preventDefault()
@@ -111,7 +117,7 @@ export class ListFieldWidget extends Component {
     // Initialise keys for passed array if any
     if (Array.isArray(props.value)) {
         for (var i = 0; i < props.value.length; i++) {
-            this.keys.push(this.keysNext)
+            this.keys.push({ key: this.keysNext, justAdded: true })
             this.keysNext++
         }
     }
@@ -123,7 +129,7 @@ export class ListFieldWidget extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    // I need this to pass to List rows in order to avoid animations on first render
+    // Because this is a container we set isMounted here instead of getting it from parent
     this.isMounted = true
 
     if (!Array.isArray(nextProps.value) || nextProps.value.length < this.keys.length) {
@@ -134,7 +140,7 @@ export class ListFieldWidget extends Component {
 
     // New array is larger so need to add som keys
     for (var i = this.keys.length; i < nextProps.value.length; i++) {
-        this.keys.push(this.keysNext)
+        this.keys.push({ key: this.keysNext, justAdded: true })
         this.keysNext++
     }
   }
@@ -178,7 +184,7 @@ export class ListFieldWidget extends Component {
     const field = this.props.adapter.context
     const emptyArray = this.props.value === undefined || this.props.value.length === 0
     return <div className="InfernoFormlib-ListField InfernoFormlib-DragContainer">
-        {emptyArray && field.placeholder && <ListFieldRow key="placeholder"><Placeholder text={field.placeholder} /></ListFieldRow>}
+        {emptyArray && field.placeholder && <ListFieldRow key="placeholder" isFirstMount={!this.props.formIsMounted}><Placeholder text={field.placeholder} /></ListFieldRow>}
         {renderRows({
             field: field,
             value: this.props.value,

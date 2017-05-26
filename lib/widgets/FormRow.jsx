@@ -54,7 +54,9 @@ class Row extends Component {
 
     // support required
     componentDidMount () {
-        animateOnAdd(this, 'InfernoFormlib-Row--Animation')
+        if (this.props.formIsMounted) {
+            animateOnAdd(this, 'InfernoFormlib-Row--Animation')
+        }
     }
 
     componentWillUnmount () {
@@ -93,7 +95,9 @@ class ObjectRow extends Component {
 
     // support required
     componentDidMount () {
-        animateOnAdd(this, 'InfernoFormlib-Row--Animation')
+        if (this.props.formIsMounted) {
+            animateOnAdd(this, 'InfernoFormlib-Row--Animation')
+        }
     }
 
     componentWillUnmount () {
@@ -133,7 +137,9 @@ class BoolRow extends Component {
 
     // support required
     componentDidMount () {
-        animateOnAdd(this, 'InfernoFormlib-Row--Animation')
+        if (this.props.formIsMounted) {
+            animateOnAdd(this, 'InfernoFormlib-Row--Animation')
+        }
     }
 
     componentWillUnmount () {
