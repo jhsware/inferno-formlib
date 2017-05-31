@@ -5,7 +5,7 @@ import { globalRegistry } from 'component-registry'
 import { IInputFieldWidget, IFormRowWidget }  from './interfaces'
 
 
-function renderFormRows ({ schema, value, errors, namespace, isMounted, onChange }) {
+function renderFormRows ({ schema, value, validationErrors, namespace, isMounted, onChange }) {
   // TODO: Unpack the invariant errors so they can be found by field key
 
   let widgetAdapters = Object.keys(schema._fields).map((key) => {
@@ -22,7 +22,7 @@ function renderFormRows ({ schema, value, errors, namespace, isMounted, onChange
     }
 
     const field = schema._fields[key]
-    const validationError = errors && errors.fieldErrors[key]
+    const validationError = validationErrors && validationErrors.fieldErrors[key]
     // Support readOnly
     // Support validation constraints
     const InputFieldAdapter = globalRegistry.getAdapter(field, IInputFieldWidget)
