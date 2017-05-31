@@ -1,6 +1,7 @@
 var FormRows = require('./dist/FormRows').FormRows
 
-var InputField = require('./dist/widgets/InputField').default 
+var InputField = require('./dist/widgets/InputField').default
+var SelectAsyncBaseWidget = require('./dist/widgets/SelectAsyncBaseWidget').default
 require('./dist/widgets/BoolField')
 require('./dist/widgets/PasswordField')
 require('./dist/widgets/TextAreaField')
@@ -15,6 +16,7 @@ module.exports = {
     FormRows: FormRows,
     interfaces: require('./dist/interfaces'),
     widgets: {
-        InputField: InputField
+        InputField: InputField,
+        SelectAsyncBaseWidget: SelectAsyncBaseWidget
     } 
 }
