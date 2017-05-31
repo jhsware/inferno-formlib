@@ -12,7 +12,7 @@ import { createAdapter, globalRegistry } from 'component-registry'
 import { interfaces } from 'isomorphic-schema'
 import { IFormRowWidget }  from '../interfaces'
 
-import { animateOnAdd, animateOnRemove } from '../animated'
+import { animateOnAdd, animateOnRemove } from 'inferno-animation'
 
 import classNames from 'classnames'
 

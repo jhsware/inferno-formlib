@@ -11,7 +11,7 @@ import Inferno from 'inferno'
 import Component from 'inferno-component'
 import { safeGet } from 'safe-utils'
 
-import { animateOnAdd, animateOnRemove } from '../animated'
+import { animateOnAdd, animateOnRemove } from 'inferno-animation'
 
 import { interfaces } from 'isomorphic-schema'
 import { IInputFieldWidget, IFormRowWidget }  from '../interfaces'
@@ -72,7 +72,7 @@ function renderRows ({ field, value, namespace, itemKeys, errors, onChange, onDe
     const Row = RowAdapter.Component
     const InputField = InputFieldAdapter.Component
     
-    console.log(itemKeys[index])
+    // console.log(itemKeys[index])
 
     const myNamespace = namespace.slice()
     myNamespace.push(itemKeys[index].key)
