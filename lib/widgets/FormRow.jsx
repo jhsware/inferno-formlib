@@ -115,8 +115,8 @@ class ObjectRow extends Component {
 
         return <div className={classNames(cls)}>
             <Label text={field.label} id={this.props.id} />
-            {this.props.validationError ? <ErrorMsg message={this.props.validationError.message} submitted={this.props.submitted} /> : null}
-            {field.helpMsg && <HelpMsg text={field.helpMsg} required={field._isRequired} />}
+            {(this.props.validationError ? <ErrorMsg message={this.props.validationError.message} submitted={this.props.submitted} /> : null)}
+            {(field.helpMsg ? <HelpMsg text={field.helpMsg} required={field._isRequired} /> : null)}
             <div className="InfernoFormlib-RowFieldContainer">
                 {this.props.children}
             </div>
@@ -132,7 +132,7 @@ createAdapter({
 }).registerWith(globalRegistry)
 
 
-class BoolRow extends Component {
+class CheckboxRow extends Component {
     // TODO: Add animation support
 
     // support required
@@ -170,5 +170,7 @@ createAdapter({
     implements: IFormRowWidget,
     adapts: interfaces.IBoolField,
     
-    Component: BoolRow
+    Component: CheckboxRow
 }).registerWith(globalRegistry)
+
+export { CheckboxRow, ObjectRow, Row }

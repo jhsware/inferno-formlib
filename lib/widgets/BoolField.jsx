@@ -46,6 +46,8 @@ class CheckboxWidget extends Component {
     }
 }
 
+export default CheckboxWidget
+
 createAdapter({
     implements: IInputFieldWidget,
     adapts: interfaces.IBoolField,

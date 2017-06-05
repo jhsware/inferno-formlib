@@ -55,6 +55,8 @@ class MultiSelectFieldWidget extends Component {
     }
 }
 
+export default MultiSelectFieldWidget
+
 createAdapter({
     implements: IInputFieldWidget,
     adapts: interfaces.IMultiSelectField,

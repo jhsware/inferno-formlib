@@ -204,6 +204,8 @@ export class ListFieldWidget extends Component {
   }
 }
 
+export default ListFieldWidget
+
 createAdapter({
     implements: IInputFieldWidget,
     adapts: interfaces.IListField,

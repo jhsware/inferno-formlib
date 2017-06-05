@@ -57,7 +57,7 @@ export default class SelectAsyncBaseWidget extends Component {
 
     didGetChange (e) {
         const field = this.props.adapter.context
-        this.props.onChange(this.props.propName, field.fromString(e.target.value))
+        this.props.onChange(this.props.propName, field.valueType.fromString(e.target.value))
     }
 
     render () {

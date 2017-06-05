@@ -57,6 +57,8 @@ class AnyOf extends Component {
     }
 }
 
+export default AnyOf
+
 createAdapter({
     implements: IInputFieldWidget,
     adapts: interfaces.IAnyOf,

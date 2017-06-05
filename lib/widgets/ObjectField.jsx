@@ -83,6 +83,8 @@ export class ObjectFieldWidget extends Component {
   }
 }
 
+export default ObjectFieldWidget
+
 createAdapter({
     implements: IInputFieldWidget,
     adapts: interfaces.IObjectField,

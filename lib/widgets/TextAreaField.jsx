@@ -57,6 +57,8 @@ class TextAreaWidget extends Component {
     }
 }
 
+export default TextAreaWidget
+
 createAdapter({
     implements: IInputFieldWidget,
     adapts: interfaces.ITextAreaField,

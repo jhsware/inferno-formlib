@@ -16,7 +16,7 @@ import classNames from 'classnames'
 
 // Placeholder
 
-class Input extends Component {
+class PassworWidget extends Component {
     constructor (props) {
         super(props)
 
@@ -57,8 +57,10 @@ class Input extends Component {
     }
 }
 
+export default PassworWidget
+
 createAdapter({
     implements: IInputFieldWidget,
     adapts: interfaces.IPasswordField,
-    Component: Input
+    Component: PassworWidget
 }).registerWith(globalRegistry)

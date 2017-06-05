@@ -50,6 +50,8 @@ class SelectFieldWidget extends Component {
     }
 }
 
+export default SelectFieldWidget
+
 createAdapter({
     implements: IInputFieldWidget,
     adapts: interfaces.ISelectField,
