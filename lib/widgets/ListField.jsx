@@ -14,7 +14,8 @@ import { safeGet } from 'safe-utils'
 import { animateOnAdd, animateOnRemove } from 'inferno-animation'
 
 import { interfaces } from 'isomorphic-schema'
-import { IInputFieldWidget, IFormRowWidget }  from '../interfaces'
+import { IInputFieldWidget }  from '../interfaces'
+import getWidgetAdapters from '../getWidgetAdapters'
 
 import { handleDragStart, handleDragOver, handleDragEnter, handleDragLeave, handleDragEnd, handleDrop } from '../draggable'
 
@@ -58,24 +59,23 @@ class ListFieldRow extends Component {
     }
 }
 
-function renderRows ({ field, value, namespace, itemKeys, errors, onChange, onDelete, onDrop, isMounted }) {
+function renderRows ({ field, value, namespace, itemKeys, validationErrors, customWidgets, onChange, onDelete, onDrop, isMounted }) {
   if (value === undefined) return
 
   return value.map((item, index) => {
     const valueType = field.valueType
-    const validationError = errors && errors.fieldErrors[index]
+    const validationError = safeGet(() => validationErrors.fieldErrors[index])
+
     // Support readOnly
-    // Support validation constraints
-    const InputFieldAdapter = globalRegistry.getAdapter(valueType, IInputFieldWidget)
-    const RowAdapter = globalRegistry.getAdapter(valueType, IFormRowWidget)
-
-    const Row = RowAdapter.Component
-    const InputField = InputFieldAdapter.Component
-    
-    // console.log(itemKeys[index])
-
+    // Support validation constraints    
     const myNamespace = namespace.slice()
     myNamespace.push(itemKeys[index].key)
+
+    const { InputFieldAdapter, RowAdapter } = getWidgetAdapters(valueType, myNamespace.join('.'), customWidgets)
+
+    const InputField = InputFieldAdapter.Component
+    const Row = RowAdapter.Component
+
     // We need to know if this should be animated
     const justAdded = itemKeys[index].justAdded
     itemKeys[index].justAdded = false
@@ -86,7 +86,7 @@ function renderRows ({ field, value, namespace, itemKeys, errors, onChange, onDe
         <div className="InfernoFormlib-DragHandle" draggable="true"></div>
 
         <Row adapter={RowAdapter} validationError={validationError} formIsMounted={!justAdded}>
-            <InputField adapter={InputFieldAdapter} namespace={myNamespace} propName={index} value={value[index]} formIsMounted={!justAdded} onChange={onChange} />
+            <InputField adapter={InputFieldAdapter} namespace={myNamespace} propName={index} value={value[index]} formIsMounted={!justAdded} customWidgets={customWidgets} onChange={onChange} />
         </Row>
         <input className="InfernoFormlib-ListFieldRowDeleteBtn" type="button" onClick={(e) => {
             e.preventDefault()
@@ -190,7 +190,8 @@ export class ListFieldWidget extends Component {
             value: this.props.value,
             namespace: this.props.namespace || [],
             itemKeys: this.keys,
-            errors: this.props.validationError,
+            validationErrors: this.props.validationError,
+            customWidgets: this.props.customWidgets,
             onChange: this.didUpdate,
             onDelete: this.doDeleteRow,
             onDrop: this.didDrop,

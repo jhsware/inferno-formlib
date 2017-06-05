@@ -9,18 +9,24 @@ import { createAdapter, globalRegistry } from 'component-registry'
 
 import Inferno from 'inferno'
 import Component from 'inferno-component'
+import { safeGet } from 'safe-utils'
 
 import { interfaces } from 'isomorphic-schema'
-import { IInputFieldWidget, IFormRowWidget }  from '../interfaces'
+import { IInputFieldWidget }  from '../interfaces'
+import getWidgetAdapters from '../getWidgetAdapters'
 
-function renderRows ({ schema, value, namespace, errors, isMounted, onChange }) {
+function renderRows ({ schema, value, namespace, validationErrors, isMounted, customWidgets, onChange }) {
   const widgetAdapters = Object.keys(schema._fields).map((key) => {
     const field = schema._fields[key]
-    const validationError = errors && errors.fieldErrors[key]
+    const validationError = safeGet(() => validationErrors.fieldErrors[key])
     // Support readOnly
     // Support validation constraints
-    const InputFieldAdapter = globalRegistry.getAdapter(field, IInputFieldWidget)
-    const RowAdapter = globalRegistry.getAdapter(field, IFormRowWidget)
+
+    const myNamespace = namespace.slice()
+    myNamespace.push(key)
+    const { InputFieldAdapter, RowAdapter } = getWidgetAdapters(field, myNamespace.join('.'), customWidgets)
+
+
     return {
       validationError: validationError,
       propName: key,
@@ -35,7 +41,7 @@ function renderRows ({ schema, value, namespace, errors, isMounted, onChange }) 
 
     return (
       <Row adapter={RowAdapter} validationError={validationError} formIsMounted={isMounted}>
-        <InputField adapter={InputFieldAdapter} propName={propName} value={value && value[propName]} formIsMounted={isMounted} onChange={onChange}/>
+        <InputField adapter={InputFieldAdapter} propName={propName} value={value && value[propName]} formIsMounted={isMounted} customWidgets={customWidgets} onChange={onChange}/>
       </Row>
     )
   } )
@@ -69,6 +75,7 @@ export class ObjectFieldWidget extends Component {
           namespace: this.props.namespace || [],
           value: this.props.value,
           validationErrors: this.props.validationError,
+          customWidgets: this.props.customWidgets,
           onChange: this.didUpdate,
           isMounted: this.isMounted
         })}
