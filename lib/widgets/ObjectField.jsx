@@ -15,7 +15,7 @@ import { interfaces } from 'isomorphic-schema'
 import { IInputFieldWidget }  from '../interfaces'
 import getWidgetAdapters from '../getWidgetAdapters'
 
-function renderRows ({ schema, value, namespace, validationErrors, isMounted, customWidgets, onChange }) {
+function renderRows ({ schema, value, lang, namespace, validationErrors, isMounted, customWidgets, onChange }) {
   const widgetAdapters = Object.keys(schema._fields).map((key) => {
     const field = schema._fields[key]
     const validationError = safeGet(() => validationErrors.fieldErrors[key])
@@ -41,7 +41,7 @@ function renderRows ({ schema, value, namespace, validationErrors, isMounted, cu
 
     return (
       <Row adapter={RowAdapter} validationError={validationError} formIsMounted={isMounted}>
-        <InputField adapter={InputFieldAdapter} propName={propName} value={value && value[propName]} options={{parentValue: value, lang: props.lang}} formIsMounted={isMounted} customWidgets={customWidgets} onChange={onChange}/>
+        <InputField adapter={InputFieldAdapter} propName={propName} value={value && value[propName]} options={{parentValue: value, lang: lang}} formIsMounted={isMounted} customWidgets={customWidgets} onChange={onChange}/>
       </Row>
     )
   } )
@@ -71,6 +71,7 @@ export class ObjectFieldWidget extends Component {
     const field = this.props.adapter.context
     return <div className="InfernoFormlib-ObjectField">
         {renderRows({
+          lang: this.props.options.lang,
           schema: field.schema,
           namespace: this.props.namespace || [],
           value: this.props.value,

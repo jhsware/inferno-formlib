@@ -59,7 +59,7 @@ class ListFieldRow extends Component {
     }
 }
 
-function renderRows ({ field, value, namespace, itemKeys, validationErrors, customWidgets, onChange, onDelete, onDrop, isMounted }) {
+function renderRows ({ field, value, lang, namespace, itemKeys, validationErrors, customWidgets, onChange, onDelete, onDrop, isMounted }) {
   if (value === undefined) return
 
   return value.map((item, index) => {
@@ -86,7 +86,7 @@ function renderRows ({ field, value, namespace, itemKeys, validationErrors, cust
         <div className="InfernoFormlib-DragHandle" draggable="true"></div>
 
         <Row adapter={RowAdapter} validationError={validationError} formIsMounted={!justAdded}>
-            <InputField adapter={InputFieldAdapter} namespace={myNamespace} propName={index} value={value[index]} options={{parentValue: value, lang: props.lang}} formIsMounted={!justAdded} customWidgets={customWidgets} onChange={onChange} />
+            <InputField adapter={InputFieldAdapter} namespace={myNamespace} propName={index} value={value[index]} options={{parentValue: value, lang: lang}} formIsMounted={!justAdded} customWidgets={customWidgets} onChange={onChange} />
         </Row>
         <input className="InfernoFormlib-ListFieldRowDeleteBtn" type="button" onClick={(e) => {
             e.preventDefault()
@@ -186,6 +186,7 @@ export class ListFieldWidget extends Component {
     return <div className="InfernoFormlib-ListField InfernoFormlib-DragContainer">
         {emptyArray && field.placeholder && <ListFieldRow key="placeholder" isFirstMount={!this.props.formIsMounted}><Placeholder text={field.placeholder} /></ListFieldRow>}
         {renderRows({
+            lang: this.props.options.lang,
             field: field,
             value: this.props.value,
             namespace: this.props.namespace || [],

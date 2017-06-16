@@ -4,7 +4,7 @@ import { safeGet } from 'safe-utils'
 
 import getWidgetAdapters from './getWidgetAdapters'
 
-function renderFormRows ({ schema, value, validationErrors, namespace, isMounted, customWidgets, onChange }) {
+function renderFormRows ({ schema, value, lang, validationErrors, namespace, isMounted, customWidgets, onChange }) {
   // TODO: Unpack the invariant errors so they can be found by field key
 
   let widgetAdapters = Object.keys(schema._fields).map((key) => {
@@ -47,7 +47,7 @@ function renderFormRows ({ schema, value, validationErrors, namespace, isMounted
     // TODO: Key should be namespace parent.propName
     return (
       <Row key={myNamespace.join('.')} adapter={RowAdapter} validationError={validationError} formIsMounted={isMounted}>
-        <InputField adapter={InputFieldAdapter} namespace={myNamespace} propName={propName} value={value[propName]} options={{parentValue: value, lang: props.lang}} validationError={validationError} formIsMounted={isMounted} customWidgets={customWidgets} onChange={onChange}/>
+        <InputField adapter={InputFieldAdapter} namespace={myNamespace} propName={propName} value={value[propName]} options={{parentValue: value, lang: lang}} validationError={validationError} formIsMounted={isMounted} customWidgets={customWidgets} onChange={onChange}/>
       </Row>
     )
   } )
