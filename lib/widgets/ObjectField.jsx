@@ -41,7 +41,7 @@ function renderRows ({ schema, value, namespace, validationErrors, isMounted, cu
 
     return (
       <Row adapter={RowAdapter} validationError={validationError} formIsMounted={isMounted}>
-        <InputField adapter={InputFieldAdapter} propName={propName} value={value && value[propName]} parentValue={value} formIsMounted={isMounted} customWidgets={customWidgets} onChange={onChange}/>
+        <InputField adapter={InputFieldAdapter} propName={propName} value={value && value[propName]} options={{parentValue: value, lang: this.props.lang}} formIsMounted={isMounted} customWidgets={customWidgets} onChange={onChange}/>
       </Row>
     )
   } )
