@@ -71,7 +71,7 @@ class Row extends Component {
             'InfernoFormlib-Row--hasError': this.props.validationError !== undefined
         }
 
-        return <div className={classNames(cls)}>
+        return <div id={this.props.namespace.join('.') + '__Row'} className={classNames(cls)}>
             {field.label && <Label text={field.label} id={this.props.id} />}
             <div className="InfernoFormlib-RowFieldContainer">
                 {this.props.children}

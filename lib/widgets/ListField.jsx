@@ -183,7 +183,7 @@ export class ListFieldWidget extends Component {
   render() {
     const field = this.props.adapter.context
     const emptyArray = this.props.value === undefined || this.props.value.length === 0
-    return <div className="InfernoFormlib-ListField InfernoFormlib-DragContainer">
+    return <div id={this.props.namespace.join(".") + "__Field"} className="InfernoFormlib-ListField InfernoFormlib-DragContainer">
         {emptyArray && field.placeholder && <ListFieldRow key="placeholder" isFirstMount={!this.props.formIsMounted}><Placeholder text={field.placeholder} /></ListFieldRow>}
         {renderRows({
             lang: this.props.options.lang,

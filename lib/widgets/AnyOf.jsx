@@ -52,7 +52,7 @@ class AnyOf extends Component {
             "InfernoFormlib-TextField--readonly": field.readOnly
         }
 
-        return <input className={classNames(cls)} type="text" placeholder={field.placeholder} readonly={field.readOnly && 'true'} value={this.state.value} 
+        return <input id={this.props.namespace.join(".") + "__Field"} className={classNames(cls)} type="text" placeholder={field.placeholder} readonly={field.readOnly && 'true'} value={this.state.value} 
                     onChange={this.didGetChange} onInput={this.didGetInput} />
     }
 }

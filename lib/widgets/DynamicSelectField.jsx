@@ -46,7 +46,7 @@ class DynamicSelectFieldWidget extends Component {
             "InfernoFormlib-SelectField--readonly": field.readOnly
         }
 
-        return <select className={classNames(cls)} type="text" readonly={field.readOnly && 'true'} value={this.props.value} 
+        return <select id={this.props.namespace.join(".") + "__Field"} className={classNames(cls)} type="text" readonly={field.readOnly && 'true'} value={this.props.value} 
                     onChange={this.didGetChange}>
             {field.placeholder && <option value="">{field.placeholder}</option>}
             {options.map((item) => <option value={item.name}>{item.title}</option>)}

@@ -46,7 +46,7 @@ function renderFormRows ({ schema, value, lang, validationErrors, namespace, isM
 
     // TODO: Key should be namespace parent.propName
     return (
-      <Row key={myNamespace.join('.')} adapter={RowAdapter} validationError={validationError} formIsMounted={isMounted}>
+      <Row key={myNamespace.join('.')} namespace={myNamespace} adapter={RowAdapter} validationError={validationError} formIsMounted={isMounted}>
         <InputField adapter={InputFieldAdapter} namespace={myNamespace} propName={propName} value={value[propName]} options={{parentValue: value, lang: lang}} validationError={validationError} formIsMounted={isMounted} customWidgets={customWidgets} onChange={onChange}/>
       </Row>
     )

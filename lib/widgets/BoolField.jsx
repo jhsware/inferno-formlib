@@ -41,7 +41,7 @@ class CheckboxWidget extends Component {
             "InfernoFormlib-BoolField--readonly": field.readOnly
         }
 
-        return <input className={classNames(cls)} type="checkbox" readonly={field.readOnly && 'true'} value={this.props.value ? 'checked' : undefined} 
+        return <input id={this.props.namespace.join(".") + "__Field"} className={classNames(cls)} type="checkbox" readonly={field.readOnly && 'true'} value={this.props.value ? 'checked' : undefined} 
                     onChange={this.didGetChange} />
     }
 }

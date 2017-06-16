@@ -52,7 +52,7 @@ class TextAreaWidget extends Component {
             "InfernoFormlib-TextAreaField--readonly": field.readOnly
         }
 
-        return <textarea className={classNames(cls)} type="text" placeholder={field.placeholder} readonly={field.readOnly && 'true'} value={this.state.value} 
+        return <textarea id={this.props.namespace.join(".") + "__Field"} className={classNames(cls)} type="text" placeholder={field.placeholder} readonly={field.readOnly && 'true'} value={this.state.value} 
                     onChange={this.didGetChange} onInput={this.didGetInput} />
     }
 }

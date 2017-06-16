@@ -207,7 +207,7 @@ class AutoCompleteBaseWidget extends Component {
         const options = this.state.text ? this.state.options : []
 
         return <div className="InfernoFormlib-AutoCompleteField">
-          <input className={classNames(cls)} type="text" placeholder={field.placeholder} readonly={field.readOnly && 'true'} value={this.state.text} 
+          <input id={this.props.namespace.join(".") + "__Field"} className={classNames(cls)} type="text" placeholder={field.placeholder} readonly={field.readOnly && 'true'} value={this.state.text} 
                  onChange={this.didGetChange} onInput={this.didGetInput} />
           {this.state.text && <TypeAhead text={this.state.text} markedValue={this.state.options[this.state.markAtIndex]} />}
           <div className="InfernoFormlib-AutoCompleteItemContainer">
