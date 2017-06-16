@@ -58,6 +58,6 @@ export default DynamicSelectFieldWidget
 
 createAdapter({
     implements: IInputFieldWidget,
-    adapts: interfaces.IDynamicSelectField,
+    adapts: interfaces.IDynamicSelectBaseField,
     Component: DynamicSelectFieldWidget,
 }).registerWith(globalRegistry)
