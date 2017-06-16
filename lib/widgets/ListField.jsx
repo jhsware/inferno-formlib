@@ -86,7 +86,7 @@ function renderRows ({ field, value, namespace, itemKeys, validationErrors, cust
         <div className="InfernoFormlib-DragHandle" draggable="true"></div>
 
         <Row adapter={RowAdapter} validationError={validationError} formIsMounted={!justAdded}>
-            <InputField adapter={InputFieldAdapter} namespace={myNamespace} propName={index} value={value[index]} options={{parentValue: value, lang: this.props.lang}} formIsMounted={!justAdded} customWidgets={customWidgets} onChange={onChange} />
+            <InputField adapter={InputFieldAdapter} namespace={myNamespace} propName={index} value={value[index]} options={{parentValue: value, lang: props.lang}} formIsMounted={!justAdded} customWidgets={customWidgets} onChange={onChange} />
         </Row>
         <input className="InfernoFormlib-ListFieldRowDeleteBtn" type="button" onClick={(e) => {
             e.preventDefault()
