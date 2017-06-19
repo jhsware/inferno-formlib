@@ -32,7 +32,7 @@ function renderRows ({ schema, value, lang, namespace, inputName, validationErro
     const newInputName = (inputName && propName ? inputName + '[' + propName + ']' : inputName || propName)
 
     return (
-      <Row adapter={RowAdapter} validationError={validationError} formIsMounted={isMounted}>
+      <Row adapter={RowAdapter} namespace={myNamespace} validationError={validationError} formIsMounted={isMounted} options={{lang: lang}}>
         <InputField
           adapter={InputFieldAdapter}
           namespace={myNamespace}
