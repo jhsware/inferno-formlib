@@ -81,7 +81,7 @@ class Row extends Component {
                 {this.props.children}
             </div>
             {this.props.validationError ? <ErrorMsg message={this.props.validationError.message} submitted={this.props.submitted} /> : null}
-            {field.helpMsg && <HelpMsg text={field.helpMsg} required={field._isRequired} />}
+            {field.help && <HelpMsg text={field.help} required={field._isRequired} />}
         </div>
     }
 }
