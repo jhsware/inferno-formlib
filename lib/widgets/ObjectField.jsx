@@ -16,26 +16,16 @@ import { IInputFieldWidget }  from '../interfaces'
 import getWidgetAdapters from '../getWidgetAdapters'
 
 function renderRows ({ schema, value, lang, namespace, inputName, validationErrors, isMounted, customWidgets, onChange }) {
-  const widgetAdapters = Object.keys(schema._fields).map((key) => {
-    const field = schema._fields[key]
-    const validationError = safeGet(() => validationErrors.fieldErrors[key])
+  const widgets = Object.keys(schema._fields).map((propName) => {
+    const field = schema._fields[propName]
+    const validationError = safeGet(() => validationErrors.fieldErrors[propName])
     // Support readOnly
     // Support validation constraints
 
     const myNamespace = namespace.slice()
-    myNamespace.push(key)
+    myNamespace.push(propName)
     const { InputFieldAdapter, RowAdapter } = getWidgetAdapters(field, myNamespace.join('.'), customWidgets)
 
-
-    return {
-      validationError: validationError,
-      propName: key,
-      RowAdapter: RowAdapter,
-      InputFieldAdapter: InputFieldAdapter
-    }
-  })
-
-  const widgets = widgetAdapters.map(({RowAdapter, InputFieldAdapter, propName, validationError}) => {
     const Row = RowAdapter.Component
     const InputField = InputFieldAdapter.Component
 
