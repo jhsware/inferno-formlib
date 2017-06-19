@@ -52,8 +52,17 @@ class PassworWidget extends Component {
             "InfernoFormlib-TextField--readonly": field.readOnly
         }
 
-        return <input id={this.props.namespace.join(".") + "__Field"} className={classNames(cls)} type="password" placeholder={field.placeholder} readonly={field.readOnly && 'true'} value={this.state.value} 
-                    onChange={this.didGetChange} onInput={this.didGetInput} />
+        return <input
+            id={this.props.namespace.join(".") + "__Field"}
+            name={this.props.inputName}
+            className={classNames(cls)}
+            type="password"
+            placeholder={field.placeholder}
+            readonly={field.readOnly && 'true'}
+            value={this.state.value}
+            
+            onChange={this.didGetChange}
+            onInput={this.didGetInput} />
     }
 }
 

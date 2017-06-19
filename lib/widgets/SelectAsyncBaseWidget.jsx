@@ -68,8 +68,15 @@ export default class SelectAsyncBaseWidget extends Component {
             "InfernoFormlib-SelectField--readonly": field.readOnly
         }
 
-        return <select id={this.props.namespace.join(".") + "__Field"} className={classNames(cls)} type="text" readonly={field.readOnly && 'true'} value={this.props.value || ''} 
-                    onChange={this.didGetChange}>
+        return <select
+            id={this.props.namespace.join(".") + "__Field"}
+            name={this.props.inputName}
+            className={classNames(cls)}
+            type="text"
+            readonly={field.readOnly && 'true'}
+            value={this.props.value || ''}
+            
+            onChange={this.didGetChange}>
             {field.placeholder && <option value="">{field.placeholder}</option>}
             {this.state.options.map((item) => <option value={item.name}>{item.title}</option>)}
         </select>

@@ -59,7 +59,7 @@ class ListFieldRow extends Component {
     }
 }
 
-function renderRows ({ field, value, lang, namespace, itemKeys, validationErrors, customWidgets, onChange, onDelete, onDrop, isMounted }) {
+function renderRows ({ field, value, lang, namespace, inputName, itemKeys, validationErrors, customWidgets, onChange, onDelete, onDrop, isMounted }) {
   if (value === undefined) return
 
   return value.map((item, index) => {
@@ -80,15 +80,29 @@ function renderRows ({ field, value, lang, namespace, itemKeys, validationErrors
     const justAdded = itemKeys[index].justAdded
     itemKeys[index].justAdded = false
 
+    const newInputName = (inputName && index ? inputName + '[' + index + ']' : inputName || index)
 
     return (
       <ListFieldRow className="InfernoFormlib-DragItem" key={myNamespace.join('.')} data-drag-index={index} onDrop={onDrop} isFirstMount={!isMounted}>
         <div className="InfernoFormlib-DragHandle" draggable="true"></div>
 
         <Row adapter={RowAdapter} validationError={validationError} formIsMounted={!justAdded}>
-            <InputField adapter={InputFieldAdapter} namespace={myNamespace} propName={index} value={value[index]} options={{parentValue: value, lang: lang}} formIsMounted={!justAdded} customWidgets={customWidgets} onChange={onChange} />
+            <InputField
+                adapter={InputFieldAdapter}
+                namespace={myNamespace}
+                inputName={newInputName}
+                propName={index}
+                value={value[index]}
+                options={{parentValue: value, lang: lang}}
+                formIsMounted={!justAdded}
+                customWidgets={customWidgets}
+
+                onChange={onChange} />
         </Row>
-        <input className="InfernoFormlib-ListFieldRowDeleteBtn" type="button" onClick={(e) => {
+        <input
+            className="InfernoFormlib-ListFieldRowDeleteBtn"
+            type="button"
+            onClick={(e) => {
             e.preventDefault()
             onDelete(index)
         }} value="Ta bort" />
@@ -190,6 +204,7 @@ export class ListFieldWidget extends Component {
             field: field,
             value: this.props.value,
             namespace: this.props.namespace || [],
+            inputName: this.props.inputName,
             itemKeys: this.keys,
             validationErrors: this.props.validationError,
             customWidgets: this.props.customWidgets,

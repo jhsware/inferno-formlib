@@ -4,7 +4,7 @@ import { safeGet } from 'safe-utils'
 
 import getWidgetAdapters from './getWidgetAdapters'
 
-function renderFormRows ({ schema, value, lang, validationErrors, namespace, isMounted, customWidgets, onChange }) {
+function renderFormRows ({ schema, value, lang, validationErrors, namespace, inputName, isMounted, customWidgets, onChange }) {
   // TODO: Unpack the invariant errors so they can be found by field key
 
   let widgetAdapters = Object.keys(schema._fields).map((key) => {
@@ -44,10 +44,23 @@ function renderFormRows ({ schema, value, lang, validationErrors, namespace, isM
     const myNamespace = namespace.slice()
     myNamespace.push(propName)
 
+    const newInputName = (inputName && propName ? inputName + '[' + propName + ']' : inputName || propName)
+
     // TODO: Key should be namespace parent.propName
     return (
       <Row key={myNamespace.join('.')} namespace={myNamespace} adapter={RowAdapter} validationError={validationError} formIsMounted={isMounted}>
-        <InputField adapter={InputFieldAdapter} namespace={myNamespace} propName={propName} value={value[propName]} options={{parentValue: value, lang: lang}} validationError={validationError} formIsMounted={isMounted} customWidgets={customWidgets} onChange={onChange}/>
+        <InputField 
+          adapter={InputFieldAdapter}
+          namespace={myNamespace}
+          inputName={newInputName}
+          propName={propName}
+          value={value[propName]}
+          options={{parentValue: value, lang: lang}}
+          validationError={validationError}
+          formIsMounted={isMounted}
+          customWidgets={customWidgets}
+          
+          onChange={onChange}/>
       </Row>
     )
   } )
@@ -79,6 +92,7 @@ class FormRows extends Component {
       {renderFormRows({
         schema: this.props.schema,
         namespace: this.props.namespace || [],
+        inputName: this.props.inputName,
         value: this.props.value,
         validationErrors: this.props.validationErrors,
         isMounted: this.isMounted,

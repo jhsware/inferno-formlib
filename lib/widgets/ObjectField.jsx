@@ -15,7 +15,7 @@ import { interfaces } from 'isomorphic-schema'
 import { IInputFieldWidget }  from '../interfaces'
 import getWidgetAdapters from '../getWidgetAdapters'
 
-function renderRows ({ schema, value, lang, namespace, validationErrors, isMounted, customWidgets, onChange }) {
+function renderRows ({ schema, value, lang, namespace, inputName, validationErrors, isMounted, customWidgets, onChange }) {
   const widgetAdapters = Object.keys(schema._fields).map((key) => {
     const field = schema._fields[key]
     const validationError = safeGet(() => validationErrors.fieldErrors[key])
@@ -39,9 +39,21 @@ function renderRows ({ schema, value, lang, namespace, validationErrors, isMount
     const Row = RowAdapter.Component
     const InputField = InputFieldAdapter.Component
 
+    const newInputName = (inputName && propName ? inputName + '[' + propName + ']' : inputName || propName)
+
     return (
       <Row adapter={RowAdapter} validationError={validationError} formIsMounted={isMounted}>
-        <InputField adapter={InputFieldAdapter} propName={propName} value={value && value[propName]} options={{parentValue: value, lang: lang}} formIsMounted={isMounted} customWidgets={customWidgets} onChange={onChange}/>
+        <InputField
+          adapter={InputFieldAdapter}
+          namespace={myNamespace}
+          inputName={newInputName}
+          propName={propName}
+          value={value && value[propName]}
+          options={{parentValue: value, lang: lang}}
+          formIsMounted={isMounted}
+          customWidgets={customWidgets}
+          
+          onChange={onChange}/>
       </Row>
     )
   } )
@@ -74,6 +86,7 @@ export class ObjectFieldWidget extends Component {
           lang: this.props.options.lang,
           schema: field.schema,
           namespace: this.props.namespace || [],
+          inputName: this.props.inputName,
           value: this.props.value,
           validationErrors: this.props.validationError,
           customWidgets: this.props.customWidgets,

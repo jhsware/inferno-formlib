@@ -53,8 +53,17 @@ class InputWidget extends Component {
             "InfernoFormlib-TextField--readonly": field.readOnly
         }
 
-        return <input id={this.props.namespace.join(".") + "__Field"} className={classNames(cls)} type="text" placeholder={field.placeholder} readonly={field.readOnly && 'true'} value={field.toFormattedString(this.state.value)} 
-                    onChange={this.didGetChange} onInput={this.didGetInput} />
+        return <input
+            id={this.props.namespace.join(".") + "__Field"}
+            name={this.props.inputName}
+            className={classNames(cls)}
+            type="text"
+            placeholder={field.placeholder}
+            readonly={field.readOnly && 'true'}
+            value={field.toFormattedString(this.state.value)}
+
+            onChange={this.didGetChange}
+            onInput={this.didGetInput} />
     }
 }
 
