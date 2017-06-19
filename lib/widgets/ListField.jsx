@@ -86,7 +86,7 @@ function renderRows ({ field, value, lang, namespace, inputName, itemKeys, valid
       <ListFieldRow className="InfernoFormlib-DragItem" key={myNamespace.join('.')} data-drag-index={index} onDrop={onDrop} isFirstMount={!isMounted}>
         <div className="InfernoFormlib-DragHandle" draggable="true"></div>
 
-        <Row adapter={RowAdapter} validationError={validationError} formIsMounted={!justAdded}>
+        <Row adapter={RowAdapter} namespace={myNamespace} validationError={validationError} formIsMounted={!justAdded} options={{lang: lang}}>
             <InputField
                 adapter={InputFieldAdapter}
                 namespace={myNamespace}
