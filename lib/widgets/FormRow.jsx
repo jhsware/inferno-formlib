@@ -25,7 +25,7 @@ function Label (props) {
 function HelpMsg (props) {
     const outp = []
     if (props.text) outp.push(renderString(props.text, props.options && props.options.lang))
-    if (props.required) outp.push(renderString(i18n('InfernoFormlib-i18n-required', '(required)', props.options && props.options.lang)))
+    if (props.required) outp.push(renderString(i18n('InfernoFormlib-i18n-required', '(required)'), props.options && props.options.lang, '(required)'))
 
     return <div className="InfernoFormlib-RowFieldHelpMsg" for={props.id}>{outp.join(' ')}</div>
 }
@@ -41,7 +41,7 @@ class ErrorMsg extends Component {
     }
 
     render () {
-        return <div className="InfernoFormlib-RowFieldErrorMsg">{renderString(this.props.message, props.options && props.options.lang)}</div>
+        return <div className="InfernoFormlib-RowFieldErrorMsg">{renderString(this.props.message, this.props.options && this.props.options.lang)}</div>
     }
 }
 
