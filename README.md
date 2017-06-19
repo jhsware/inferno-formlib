@@ -61,3 +61,8 @@ TODO: Create solution for AnyOf widget
     ]
   }
   ```
+
+## i18n strings
+```
+InfernoFormlib-i18n-required -- string showing field is required
+```

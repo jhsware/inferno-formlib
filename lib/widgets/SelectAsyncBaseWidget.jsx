@@ -13,6 +13,7 @@ import { createAdapter, globalRegistry } from 'component-registry'
 import { interfaces } from 'isomorphic-schema'
 import { IInputFieldWidget }  from '../interfaces'
 import classNames from 'classnames'
+import { renderString } from './common'
 
 // Placeholder
 function _getOptionsAsync (nextProps) {
@@ -77,8 +78,8 @@ export default class SelectAsyncBaseWidget extends Component {
             value={this.props.value || ''}
             
             onChange={this.didGetChange}>
-            {field.placeholder && <option value="">{field.placeholder}</option>}
-            {this.state.options.map((item) => <option value={item.name}>{item.title}</option>)}
+            {field.placeholder && <option value="">{renderString(field.placeholder, this.props.options && this.props.options.lang)}</option>}
+            {this.state.options.map((item) => <option value={item.name}>{renderString(item.title, this.props.options && this.props.options.lang)}</option>)}
         </select>
     }
 }

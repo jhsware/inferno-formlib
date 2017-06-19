@@ -9,21 +9,25 @@ import Inferno from 'inferno'
 import Component from 'inferno-component'
 import { createAdapter, globalRegistry } from 'component-registry'
 
-import { interfaces } from 'isomorphic-schema'
+import { interfaces, i18n } from 'isomorphic-schema'
 import { IFormRowWidget }  from '../interfaces'
 
 import { animateOnAdd, animateOnRemove } from 'inferno-animation'
 
 import classNames from 'classnames'
+import { renderString } from './common'
 
 
 function Label (props) {
-    return <label className="InfernoFormlib-RowFieldLabel">{props.text}</label>
+    return <label className="InfernoFormlib-RowFieldLabel">{renderString(props.text, props.options && props.options.lang)}</label>
 }
 
 function HelpMsg (props) {
-    const text = (props.text || '') + (props.required ? ' (obligatorisk)' : '')
-    return <div className="InfernoFormlib-RowFieldHelpMsg" for={props.id}>{text}</div>
+    const outp = []
+    if (props.text) outp.push(renderString(props.text, props.options && props.options.lang))
+    if (props.required) outp.push(renderString(i18n('InfernoFormlib-i18n-required', '(required)', props.options && props.options.lang)))
+
+    return <div className="InfernoFormlib-RowFieldHelpMsg" for={props.id}>{outp.join(' ')}</div>
 }
 
 class ErrorMsg extends Component {
@@ -37,7 +41,7 @@ class ErrorMsg extends Component {
     }
 
     render () {
-        return <div className="InfernoFormlib-RowFieldErrorMsg">{this.props.message}</div>
+        return <div className="InfernoFormlib-RowFieldErrorMsg">{renderString(this.props.message, props.options && props.options.lang)}</div>
     }
 }
 

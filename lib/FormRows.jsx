@@ -48,7 +48,7 @@ function renderFormRows ({ schema, value, lang, validationErrors, namespace, inp
 
     // TODO: Key should be namespace parent.propName
     return (
-      <Row key={myNamespace.join('.')} namespace={myNamespace} adapter={RowAdapter} validationError={validationError} formIsMounted={isMounted}>
+      <Row key={myNamespace.join('.')} namespace={myNamespace} adapter={RowAdapter} validationError={validationError} formIsMounted={isMounted} options={{lang: lang}}>
         <InputField 
           adapter={InputFieldAdapter}
           namespace={myNamespace}
