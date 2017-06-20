@@ -13,6 +13,7 @@ var PasswordWidget = require('./dist/widgets/PasswordField').default
 var SelectWidget = require('./dist/widgets/SelectField').default
 var TextAreaWidget = require('./dist/widgets/TextAreaField').default
 var SelectAsyncBaseWidget = require('./dist/widgets/SelectAsyncBaseWidget').default
+var { FileUploadWidget, ProgressOverlay } = require('./dist/widgets/FileUploadWidget')
 
 var CustomWidget = require('./dist/CustomWidget').default
 
@@ -27,6 +28,7 @@ module.exports = {
         AnyOfWidget,
         CheckboxWidget,
         DynamicSelectWidget,
+        FileUploadWidget,
         InputWidget,
         ListWidget,
         MultiSelectWidget,
@@ -34,6 +36,8 @@ module.exports = {
         PasswordWidget,
         SelectWidget,
         TextAreaWidget,
-        SelectAsyncBaseWidget
+        SelectAsyncBaseWidget,
+
+        ProgressOverlay
     } 
 }
