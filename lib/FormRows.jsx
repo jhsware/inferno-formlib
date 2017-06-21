@@ -13,7 +13,7 @@ function renderFormRows ({ schema, value, lang, validationErrors, namespace, inp
       return prev && curr(value, key)
     }, true)
 
-    if (!shouldValidate)  {
+    if (!shouldValidate) {
       // Don't render fields that shouldn't be validated
       return
     }
@@ -94,6 +94,7 @@ class FormRows extends Component {
         namespace: this.props.namespace || [],
         inputName: this.props.inputName,
         value: this.props.value,
+        lang: this.props.lang,
         validationErrors: this.props.validationErrors,
         isMounted: this.isMounted,
         customWidgets: customWidgetDict,
