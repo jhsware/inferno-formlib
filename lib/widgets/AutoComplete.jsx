@@ -16,6 +16,7 @@ import { animateOnAdd, animateOnRemove } from 'inferno-animation'
 
 import classNames from 'classnames'
 
+import {renderString} from './common'
 
 // Placeholder
 
@@ -212,7 +213,7 @@ class AutoCompleteBaseWidget extends Component {
             name={this.props.inputName}
             className={classNames(cls)}
             type="text"
-            placeholder={field.placeholder}
+            placeholder={renderString(field.placeholder, this.props.options && this.props.options.lang)}
             readonly={field.readOnly && 'true'}
             value={this.state.text}
 

@@ -11,7 +11,7 @@ import Component from 'inferno-component'
 import { createAdapter, globalRegistry } from 'component-registry'
 
 import { interfaces } from 'isomorphic-schema'
-import { IInputFieldWidget }  from '../interfaces'
+import { IInputFieldWidget } from '../interfaces'
 import classNames from 'classnames'
 
 // Placeholder
