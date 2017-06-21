@@ -206,6 +206,7 @@ class AutoCompleteBaseWidget extends Component {
             id={this.props.namespace.join(".") + "__Field"}
             name={this.props.inputName}
             className={classNames(cls)}
+            autocomplete="off"
             type="text"
             placeholder={renderString(field.placeholder, this.props.options && this.props.options.lang)}
             readonly={field.readOnly && 'true'}
