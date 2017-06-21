@@ -113,16 +113,17 @@ class AutoCompleteBaseWidget extends Component {
         const options = undefined
         const context = undefined
 
-        if (nextProps.value && nextProps.value !== this.props.value) {
+        if (nextProps.value) {
             const field = this.props.adapter.context
 
             this.setState({
                 text: field.toFormattedString(nextProps.value)
             })
+        } else {
+            this.setState({
+                value: nextProps.value
+            })
         }
-        this.setState({
-            value: nextProps.value
-        })
     }
 
     componentDidMount () {
@@ -183,11 +184,11 @@ class AutoCompleteBaseWidget extends Component {
 
     didSelect (value) {
       const field = this.props.adapter.context
-      this.props.onChange(this.props.propName, field.valueType.fromString(value))
       this.setState({
           options: [],
           markAtIndex: undefined
       })
+      this.props.onChange(this.props.propName, field.valueType.fromString(value))
     }
 
     render () {
