@@ -2,7 +2,17 @@
 /*
 
     To use this input widget adapter you need to register it with your
-    adapter registry.
+    adapter registry or include as a custom field.
+
+        createAdapter({
+            implements: IInputFieldWidget,
+            adapts: IYourCustomField,
+            Component: AutoCompleteBaseWidget,
+        }).registerWith(globalRegistry)
+
+    or
+
+        <CustomWidget propPath='customPropName' fieldWidget={AutoCompleteWidget} />
 
 */
 import Inferno from 'inferno'
@@ -224,13 +234,3 @@ class AutoCompleteBaseWidget extends Component {
 }
 
 export default AutoCompleteBaseWidget
-
-/*
-You need to register this widget for you custom field to make sure you get desired behaviour.
-
-createAdapter({
-    implements: IInputFieldWidget,
-    adapts: IYourCustomField,
-    Component: AutoCompleteBaseWidget,
-}).registerWith(globalRegistry)
-*/
