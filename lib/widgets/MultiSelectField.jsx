@@ -43,8 +43,8 @@ class MultiSelectFieldWidget extends Component {
         const field = this.props.adapter.context
 
         const cls = {
-            "InfernoFormlib-MultiSelectField": true,
-            "InfernoFormlib-MultiSelectField--readonly": field.readOnly
+            "form-control": true,
+            "form-control-danger": this.props.validationError
         }
 
         return <select
@@ -53,7 +53,7 @@ class MultiSelectFieldWidget extends Component {
             className={classNames(cls)}
             type="text"
             multiple="true"
-            readonly={field.readOnly && 'true'}
+            readOnly={field.readOnly}
             value={this.props.value}
 
             onChange={this.didGetChange}>

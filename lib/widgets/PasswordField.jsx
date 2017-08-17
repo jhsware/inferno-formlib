@@ -48,8 +48,8 @@ class PassworWidget extends Component {
         const field = this.props.adapter.context
 
         const cls = {
-            "InfernoFormlib-TextField": true,
-            "InfernoFormlib-TextField--readonly": field.readOnly
+            "form-control": true,
+            "form-control-danger": this.props.validationError
         }
 
         return <input
@@ -58,7 +58,7 @@ class PassworWidget extends Component {
             className={classNames(cls)}
             type="password"
             placeholder={field.placeholder}
-            readonly={field.readOnly && 'true'}
+            readOnly={field.readOnly}
             value={this.state.value}
             
             onChange={this.didGetChange}

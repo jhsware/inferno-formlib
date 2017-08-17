@@ -35,7 +35,7 @@
   "dependencies": {
     "classnames": "^2.2.5",
     "inferno": "^3",
-    "inferno-animation": "^0.1.0",
+    "inferno-animation": "^0.3.4",
     "inferno-component": "^3",
     "lodash.tonumber": "^4.0.3",
     "safe-utils": "^0.1.1"

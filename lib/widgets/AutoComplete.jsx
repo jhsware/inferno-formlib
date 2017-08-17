@@ -195,8 +195,8 @@ class AutoCompleteBaseWidget extends Component {
         const field = this.props.adapter.context
 
         const cls = {
-            "InfernoFormlib-TextField": true,
-            "InfernoFormlib-TextField--readonly": field.readOnly
+            "form-control": true,
+            "form-control-danger": this.props.validationError
         }
 
         // Only show options if we have entered text
@@ -210,7 +210,7 @@ class AutoCompleteBaseWidget extends Component {
             autocomplete="off"
             type="text"
             placeholder={renderString(field.placeholder, this.props.options && this.props.options.lang)}
-            readonly={field.readOnly && 'true'}
+            readOnly={field.readOnly}
             value={this.state.text}
 
             onChange={this.didGetChange}

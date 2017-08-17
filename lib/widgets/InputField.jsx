@@ -49,8 +49,8 @@ class InputWidget extends Component {
         const field = this.props.adapter.context
 
         const cls = {
-            "InfernoFormlib-TextField": true,
-            "InfernoFormlib-TextField--readonly": field.readOnly
+            "form-control": true,
+            "form-control-danger": this.props.validationError
         }
 
         return <input
@@ -59,7 +59,7 @@ class InputWidget extends Component {
             className={classNames(cls)}
             type="text"
             placeholder={field.placeholder}
-            readonly={field.readOnly && 'true'}
+            readOnly={field.readOnly}
             value={field.toFormattedString(this.state.value)}
 
             onChange={this.didGetChange}

@@ -27,7 +27,7 @@ class InputWidget extends Component {
           <input
           id={this.props.namespace.join(".") + "__Field"}
           name={this.props.inputName}
-          className="InfernoFormlib-FileField"
+          className="form-control-file"
           type="file"
 
           onChange={(e) => {

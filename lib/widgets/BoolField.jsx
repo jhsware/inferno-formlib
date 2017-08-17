@@ -37,8 +37,8 @@ class CheckboxWidget extends Component {
         const field = this.props.adapter.context
 
         const cls = {
-            "InfernoFormlib-BoolField": true,
-            "InfernoFormlib-BoolField--readonly": field.readOnly
+            "form-check-input": true,
+            "form-control-danger": this.props.validationError
         }
 
         return <input
@@ -46,7 +46,7 @@ class CheckboxWidget extends Component {
             name={this.props.inputName}
             className={classNames(cls)}
             type="checkbox"
-            readonly={field.readOnly && 'true'}
+            readOnly={field.readOnly}
             value={this.props.value ? 'checked' : undefined}
             onChange={this.didGetChange} />
     }

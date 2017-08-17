@@ -43,8 +43,8 @@ class DynamicSelectFieldWidget extends Component {
         const options = field.getOptions(this.props.value, this.props.options)
 
         const cls = {
-            "InfernoFormlib-SelectField": true,
-            "InfernoFormlib-SelectField--readonly": field.readOnly
+            "form-control": true,
+            "form-control-danger": this.props.validationError
         }
 
         return <select
@@ -52,7 +52,7 @@ class DynamicSelectFieldWidget extends Component {
             name={this.props.inputName}
             className={classNames(cls)}
             type="text"
-            readonly={field.readOnly && 'true'}
+            readOnly={field.readOnly}
             value={this.props.value}
             onChange={this.didGetChange}>
             {field.placeholder && <option value="">{renderString(field.placeholder, this.props.options && this.props.options.lang)}</option>}

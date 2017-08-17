@@ -19,7 +19,11 @@ import { renderString } from './common'
 
 
 function Label (props) {
-    return <label className="InfernoFormlib-RowFieldLabel">{renderString(props.text, props.options && props.options.lang)}</label>
+    return <label>{renderString(props.text, props.options && props.options.lang)}</label>
+}
+
+function CheckboxLabel (props) {
+    return <label className="form-check-label">{renderString(props.text, props.options && props.options.lang)}</label>
 }
 
 function HelpMsg (props) {
@@ -27,7 +31,7 @@ function HelpMsg (props) {
     if (props.text) outp.push(renderString(props.text, props.options && props.options.lang))
     if (props.required) outp.push(renderString(i18n('InfernoFormlib-i18n-required', '(required)'), props.options && props.options.lang, '(required)'))
 
-    return <div className="InfernoFormlib-RowFieldHelpMsg" for={props.id}>{outp.join(' ')}</div>
+    return <div className="form-text text-muted" for={props.id}>{outp.join(' ')}</div>
 }
 
 class ErrorMsg extends Component {
@@ -41,7 +45,7 @@ class ErrorMsg extends Component {
     }
 
     render () {
-        return <div className="InfernoFormlib-RowFieldErrorMsg">{renderString(this.props.message, this.props.options && this.props.options.lang)}</div>
+        return <div className="form-control-feedback">{renderString(this.props.message, this.props.options && this.props.options.lang)}</div>
     }
 }
 
@@ -71,8 +75,8 @@ class Row extends Component {
         const field = this.props.adapter.context
 
         var cls = {
-            'InfernoFormlib-Row': true,
-            'InfernoFormlib-Row--hasError': this.props.validationError !== undefined
+            'form-group': true,
+            'has-danger': this.props.validationError !== undefined
         }
 
         return <div id={this.props.namespace.join('.') + '__Row'} className={classNames(cls)}>
@@ -112,9 +116,9 @@ class ObjectRow extends Component {
         const field = this.props.adapter.context
 
         var cls = {
-            'InfernoFormlib-Row': true,
+            'form-group': true,
             'InfernoFormlib-ObjectRow': true,
-            'InfernoFormlib-Row--hasError': this.props.validationError !== undefined
+            'has-danger': this.props.validationError !== undefined
         }
 
         return <div className={classNames(cls)}>
@@ -154,14 +158,13 @@ class CheckboxRow extends Component {
         const field = this.props.adapter.context
 
         var cls = {
-            'InfernoFormlib-Row': true,
-            'InfernoFormlib-BoolRow': true,
-            'InfernoFormlib-Row--hasError': this.props.validationError !== undefined
+            'form-group': true,
+            'has-danger': this.props.validationError !== undefined
         }
 
         return <div className={classNames(cls)}>
             <div className="InfernoFormlib-RowFieldContainer">
-                <Label text={field.label} id={this.props.id} />
+                <CheckboxLabel text={field.label} id={this.props.id} />
                 {this.props.children}
             </div>
             {this.props.validationError ? <ErrorMsg message={this.props.validationError.message} submitted={this.props.submitted} /> : null}
