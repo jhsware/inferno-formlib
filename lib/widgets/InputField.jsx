@@ -13,6 +13,7 @@ import { createAdapter, globalRegistry } from 'component-registry'
 import { interfaces } from 'isomorphic-schema'
 import { IInputFieldWidget } from '../interfaces'
 import classNames from 'classnames'
+import { renderString } from './common'
 
 // Placeholder
 
@@ -58,7 +59,7 @@ class InputWidget extends Component {
             name={this.props.inputName}
             className={classNames(cls)}
             type="text"
-            placeholder={field.placeholder}
+            placeholder={renderString(field.placeholder)}
             readOnly={field.readOnly}
             value={field.toFormattedString(this.state.value)}
 
