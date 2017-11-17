@@ -15,6 +15,8 @@ import { IInputFieldWidget }  from '../interfaces'
 import classNames from 'classnames'
 import { renderString } from './common'
 
+import Input from 'inferno-bootstrap/lib/Form/Input'
+
 // Placeholder
 
 // Placeholder
@@ -42,22 +44,18 @@ class DynamicSelectFieldWidget extends Component {
 
         const options = field.getOptions(this.props.value, this.props.options)
 
-        const cls = {
-            "form-control": true,
-            "form-control-danger": this.props.validationError
-        }
+        const state = this.props.validationError ? 'danger' : undefined
 
-        return <select
+        return <Input type="select"
             id={this.props.namespace.join(".") + "__Field"}
             name={this.props.inputName}
-            className={classNames(cls)}
-            type="text"
+            state={state}
             readOnly={field.readOnly}
             value={this.props.value}
             onChange={this.didGetChange}>
             {field.placeholder && <option value="">{renderString(field.placeholder, this.props.options && this.props.options.lang)}</option>}
             {options.map((item) => <option value={item.name}>{renderString(item.title, this.props.options && this.props.options.lang)}</option>)}
-        </select>
+        </Input>
     }
 }
 

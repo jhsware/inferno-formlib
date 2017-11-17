@@ -15,6 +15,8 @@ import { IInputFieldWidget }  from '../interfaces'
 import classNames from 'classnames'
 import { renderString } from './common'
 
+import Input from 'inferno-bootstrap/lib/Form/Input'
+
 // Placeholder
 function _getOptionsAsync (nextProps) {
     // TODO: How do we supply these because they could be used to get options
@@ -64,23 +66,18 @@ export default class SelectAsyncBaseWidget extends Component {
     render () {
         const field = this.props.adapter.context
 
-        const cls = {
-            "form-control": true,
-            "form-control-danger": this.props.validationError
-        }
+        const state = this.props.validationError ? 'danger' : undefined
 
-        return <select
+        return <Input type="select"
             id={this.props.namespace.join(".") + "__Field"}
             name={this.props.inputName}
-            className={classNames(cls)}
-            type="text"
             readOnly={field.readOnly}
             value={this.props.value || ''}
-            
+            state={state}
             onChange={this.didGetChange}>
             {field.placeholder && <option value="">{renderString(field.placeholder, this.props.options && this.props.options.lang)}</option>}
             {this.state.options.map((item) => <option value={item.name}>{renderString(item.title, this.props.options && this.props.options.lang)}</option>)}
-        </select>
+        </Input>
     }
 }
 

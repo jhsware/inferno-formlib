@@ -12,7 +12,8 @@ import { createAdapter, globalRegistry } from 'component-registry'
 
 import { interfaces } from 'isomorphic-schema'
 import { IInputFieldWidget }  from '../interfaces'
-import classNames from 'classnames'
+
+import Input from 'inferno-bootstrap/lib/Form/Input'
 
 // Placeholder
 
@@ -42,24 +43,19 @@ class MultiSelectFieldWidget extends Component {
     render () {
         const field = this.props.adapter.context
 
-        const cls = {
-            "form-control": true,
-            "form-control-danger": this.props.validationError
-        }
+        const state = this.props.validationError ? 'danger' : undefined
 
-        return <select
+        return <Input type="select"
             id={this.props.namespace.join(".") + "__Field"}
             name={this.props.inputName}
-            className={classNames(cls)}
-            type="text"
             multiple="true"
             readOnly={field.readOnly}
             value={this.props.value}
-
+            state={state}
             onChange={this.didGetChange}>
             {field.placeholder && <option value="">{field.placeholder}</option>}
             {field.options.map((item) => <option value={item.name}>{item.title}</option>)}
-        </select>
+        </Input>
     }
 }
 

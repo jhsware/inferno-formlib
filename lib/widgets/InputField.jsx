@@ -15,6 +15,8 @@ import { IInputFieldWidget } from '../interfaces'
 import classNames from 'classnames'
 import { renderString } from './common'
 
+import Input from 'inferno-bootstrap/lib/Form/Input'
+
 // Placeholder
 
 class InputWidget extends Component {
@@ -49,16 +51,12 @@ class InputWidget extends Component {
     render () {
         const field = this.props.adapter.context
 
-        const cls = {
-            "form-control": true,
-            "form-control-danger": this.props.validationError
-        }
+        const state = this.props.validationError ? 'danger' : undefined
 
-        return <input
+        return <Input
             id={this.props.namespace.join(".") + "__Field"}
             name={this.props.inputName}
-            className={classNames(cls)}
-            type="text"
+            state={state}
             placeholder={renderString(field.placeholder)}
             readOnly={field.readOnly}
             value={field.toFormattedString(this.state.value)}

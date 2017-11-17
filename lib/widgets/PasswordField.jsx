@@ -9,10 +9,12 @@ import Inferno from 'inferno'
 import Component from 'inferno-component'
 
 import { createAdapter, globalRegistry } from 'component-registry'
+import { renderString } from './common'
 
 import { interfaces } from 'isomorphic-schema'
 import { IInputFieldWidget }  from '../interfaces'
-import classNames from 'classnames'
+
+import Input from 'inferno-bootstrap/lib/Form/Input'
 
 // Placeholder
 
@@ -47,20 +49,15 @@ class PassworWidget extends Component {
     render () {
         const field = this.props.adapter.context
 
-        const cls = {
-            "form-control": true,
-            "form-control-danger": this.props.validationError
-        }
+        const state = this.props.validationError ? 'danger' : undefined
 
-        return <input
+        return <Input type="password"
             id={this.props.namespace.join(".") + "__Field"}
             name={this.props.inputName}
-            className={classNames(cls)}
-            type="password"
-            placeholder={field.placeholder}
+            placeholder={renderString(field.placeholder)}
             readOnly={field.readOnly}
             value={this.state.value}
-            
+            state={state}
             onChange={this.didGetChange}
             onInput={this.didGetInput} />
     }

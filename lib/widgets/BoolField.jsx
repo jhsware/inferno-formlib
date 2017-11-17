@@ -14,6 +14,8 @@ import { interfaces } from 'isomorphic-schema'
 import { IInputFieldWidget }  from '../interfaces'
 import classNames from 'classnames'
 
+import Input from 'inferno-bootstrap/lib/Form/Input'
+
 // Placeholder
 
 class CheckboxWidget extends Component {
@@ -36,19 +38,17 @@ class CheckboxWidget extends Component {
     render () {
         const field = this.props.adapter.context
 
-        const cls = {
-            "form-check-input": true,
-            "form-control-danger": this.props.validationError
-        }
+        const state = this.props.validationError ? 'danger' : undefined
 
-        return <input
+        return <Input type="checkbox"
             id={this.props.namespace.join(".") + "__Field"}
             name={this.props.inputName}
-            className={classNames(cls)}
-            type="checkbox"
+            state={state}
+            placeholder={renderString(field.placeholder)}
             readOnly={field.readOnly}
-            value={this.props.value ? 'checked' : undefined}
-            onChange={this.didGetChange} />
+            value={field.toFormattedString(this.state.value)}
+            onChange={this.didGetChange}
+            onInput={this.didGetInput} />
     }
 }
 

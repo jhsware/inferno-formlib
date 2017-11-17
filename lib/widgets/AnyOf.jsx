@@ -14,6 +14,8 @@ import { interfaces } from 'isomorphic-schema'
 import { IInputFieldWidget }  from '../interfaces'
 import classNames from 'classnames'
 
+import Input from 'inferno-bootstrap/lib/Form/Input'
+
 // Placeholder
 
 class AnyOf extends Component {
@@ -47,20 +49,16 @@ class AnyOf extends Component {
     render () {
         const field = this.props.adapter.context
 
-        const cls = {
-            "form-control": true,
-            "form-control-danger": this.props.validationError
-        }
+        const state = this.props.validationError ? 'danger' : undefined
 
-        return <input
+        return <Input
             id={this.props.namespace.join(".") + "__Field"}
             name={this.props.inputName}
-            className={classNames(cls)}
-            type="text"
-            placeholder={field.placeholder}
+            state={state}
+            placeholder={renderString(field.placeholder)}
             readOnly={field.readOnly}
-            value={this.state.value}
-            
+            value={field.toFormattedString(this.state.value)}
+
             onChange={this.didGetChange}
             onInput={this.didGetInput} />
     }
