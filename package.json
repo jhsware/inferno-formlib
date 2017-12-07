@@ -19,7 +19,8 @@
   "license": "MIT",
   "peerDependencies": {
     "component-registry": "^0.2.5",
-    "isomorphic-schema": "^0.5.0"
+    "isomorphic-schema": "^0.5.0",
+    "inferno-bootstrap": "^0.2.7"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
