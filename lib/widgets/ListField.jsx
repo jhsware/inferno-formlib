@@ -17,6 +17,8 @@ import { interfaces } from 'isomorphic-schema'
 import { IInputFieldWidget }  from '../interfaces'
 import getWidgetAdapters from '../getWidgetAdapters'
 
+import Button from 'inferno-bootstrap/lib/Button'
+
 import { handleDragStart, handleDragOver, handleDragEnter, handleDragLeave, handleDragEnd, handleDrop } from '../draggable'
 
 class ListFieldRow extends Component {
@@ -99,13 +101,12 @@ function renderRows ({ field, value, lang, namespace, inputName, itemKeys, valid
 
                 onChange={onChange} />
         </Row>
-        <input
-            className="InfernoFormlib-ListFieldRowDeleteBtn"
-            type="button"
+        <Button className="InfernoFormlib-ListFieldRowDeleteBtn"
+            color="danger"
             onClick={(e) => {
-            e.preventDefault()
-            onDelete(index)
-        }} value="Ta bort" />
+                e.preventDefault()
+                onDelete(index)
+            }}>Ta bort</Button>
       </ListFieldRow>
     )
   })

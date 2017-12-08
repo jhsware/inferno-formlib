@@ -26,6 +26,10 @@ import { animateOnAdd, animateOnRemove } from 'inferno-animation'
 
 import classNames from 'classnames'
 
+import Input from 'inferno-bootstrap/lib/Form/Input'
+import Dropdown from 'inferno-bootstrap/lib/Dropdown'
+import DropdownMenu from 'inferno-bootstrap/lib/DropdownMenu'
+
 import {renderString} from './common'
 
 // Placeholder
@@ -212,13 +216,12 @@ class AutoCompleteBaseWidget extends Component {
         // Only show options if we have entered text
         const options = this.state.text ? this.state.options : []
 
-        return <div className="InfernoFormlib-AutoCompleteField">
-          <input
+        return <Dropdown className="InfernoFormlib-AutoCompleteField" isOpen={this.state.options.length > 0}>
+          <Input type="text" 
             id={this.props.namespace.join(".") + "__Field"}
             name={this.props.inputName}
             className={classNames(cls)}
             autocomplete="off"
-            type="text"
             placeholder={renderString(field.placeholder, this.props.options && this.props.options.lang)}
             readOnly={field.readOnly}
             value={this.state.text}
@@ -226,10 +229,10 @@ class AutoCompleteBaseWidget extends Component {
             onChange={this.didGetChange}
             onInput={this.didGetInput} />
           {this.state.text && <TypeAhead text={this.state.text} markedValue={this.state.options[this.state.markAtIndex]} />}
-          <div className="InfernoFormlib-AutoCompleteItemContainer">
+          <DropdownMenu className="InfernoFormlib-AutoCompleteItemContainer">
             {options.map((item, index) => <AutocompleteItem key={index} value={item} title={item.title} isMarked={index === this.state.markAtIndex} onSelect={this.didSelect} />)}
-          </div>
-        </div>
+          </DropdownMenu>
+        </Dropdown>
     }
 }
 

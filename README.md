@@ -66,3 +66,6 @@ TODO: Create solution for AnyOf widget
 ```
 InfernoFormlib-i18n-required -- string showing field is required
 ```
+TODO: Harmonise i18n rendering of strings:
+
+  `placeholder={renderString(field.placeholder, this.props.options && this.props.options.lang)}`
