@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="172px" height="158px" viewBox="0 0 172 158" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.4.4 (17248) - http://www.bohemiancoding.com/sketch -->
+    <title>trash</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="RichTextEditor" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="trash" sketch:type="MSLayerGroup" fill="#000000">
+            <path d="M85.9999987,0.73046875 C128.797542,0.73046875 171.595086,47.1884705 171.595086,47.1884705 L0.404913533,47.1884705 C0.404913533,47.1884705 43.2024554,0.73046875 85.9999987,0.73046875 Z" id="Polygon-1" sketch:type="MSShapeGroup"></path>
+            <path d="M108,157.811529 L64,157.811529 L64,57.1884705 L108,57.1884705 L108,157.811529 Z M118,157.811529 L138.900673,157.811529 L161.595086,57.1884705 L118,57.1884705 L118,157.811529 Z M54,157.811529 L33.0993273,157.811529 L10.4049135,57.1884705 L54,57.1884705 L54,157.811529 Z" id="Polygon-1" sketch:type="MSShapeGroup"></path>
+        </g>
+    </g>
+</svg>

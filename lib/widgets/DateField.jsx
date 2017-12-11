@@ -72,18 +72,6 @@ export default InputWidget
 
 createAdapter({
     implements: IInputFieldWidget,
-    adapts: interfaces.ITextField,
-    Component: InputWidget
-}).registerWith(globalRegistry)
-
-createAdapter({
-    implements: IInputFieldWidget,
-    adapts: interfaces.IIntegerField,
-    Component: InputWidget
-}).registerWith(globalRegistry)
-
-createAdapter({
-    implements: IInputFieldWidget,
-    adapts: interfaces.IDecimalField,
+    adapts: interfaces.IDateField,
     Component: InputWidget
 }).registerWith(globalRegistry)

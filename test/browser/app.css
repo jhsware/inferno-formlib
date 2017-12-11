@@ -1,0 +1,43 @@
+body {
+  margin: 0 1rem;
+}
+
+.TestContainer {
+  max-width: 30rem;
+}
+
+/**
+ * Animate error messages
+ */
+.InfernoFormlib-ErrorMsg--Animation-leave {
+    opacity: 1;
+}
+
+.InfernoFormlib-ErrorMsg--Animation-leave-active {
+    overflow: hidden;
+    transition: height 0.3s ease-out, opacity 0.2s ease-in;
+}
+
+.InfernoFormlib-ErrorMsg--Animation-leave-end {
+    height: 0;
+    opacity: 0;
+}
+
+.InfernoFormlib-ErrorMsg--Animation-enter {
+    height: 0;
+    opacity: 0;
+}
+
+.InfernoFormlib-ErrorMsg--Animation-enter-active {
+    transition: height 0.2s ease-out, opacity 0.5s ease-in;
+}
+
+.InfernoFormlib-ErrorMsg--Animation-enter-end {
+    opacity: 1;
+}
+
+
+/* Bootstrap overrides */
+.invalid-feedback {
+  display: block;
+}
