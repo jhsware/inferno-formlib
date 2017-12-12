@@ -41,3 +41,42 @@ body {
 .invalid-feedback {
   display: block;
 }
+
+/* DateField Widget */
+.InfernoFormlib-DateFieldCalendar .DateFieldHeaderItem {
+    text-align: center;
+    color: #aaa;
+}
+
+.InfernoFormlib-DateFieldCalendar .DateFieldItem {
+    text-align: center;
+    color: #666;
+}
+
+.InfernoFormlib-DateFieldCalendar .text-muted {
+    color: #bbb !important;
+}
+
+.InfernoFormlib-DateFieldCalendar .DateFieldItem:hover,
+.InfernoFormlib-DateFieldCalendar .DateFieldItem--selected {
+    color: white !important;
+    background-color: #007bff;
+    border-radius: 0.2em;
+} 
+
+.InfernoFormlib-DateFieldCalendar .DateFieldBody {
+    min-width: 20em;
+}
+
+.InfernoFormlib-DateFieldCalendar .nav-item {
+    flex: 0 1;
+} .InfernoFormlib-DateFieldCalendar .nav-link:hover {
+    border-radius: 0.2em;
+    color: white;
+    background-color: #007bff;
+}
+
+.InfernoFormlib-DateFieldCalendar .DateFieldMonth {
+    flex: 1 0;
+    text-align: center;
+}

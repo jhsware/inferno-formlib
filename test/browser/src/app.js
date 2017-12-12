@@ -32,7 +32,7 @@ class AppLayout extends Component {
 }
 
 if (typeof window !== 'undefined') {
-  require('inferno-devtools')
+  // require('inferno-devtools')
   const browserHistory = createBrowserHistory()
 
   const appRoutes = (

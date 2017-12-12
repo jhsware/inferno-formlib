@@ -37,7 +37,8 @@ export default class Page extends Component {
                     <div className="InfernoFormlib-RowFieldContainer">
                         <DateFieldWidget
                             namespace={['value']}
-                            adapter={dummyAdapter} />
+                            adapter={dummyAdapter}
+                            onChange={() => null} />
                     </div>
                     {this.state.validationError ? <ErrorMsg validationError={this.state.validationError} submitted={this.state.submitted} /> : null}
                     {dateField.help && <FormText className="text-muted" for="dateField">{dateField.help}</FormText>}

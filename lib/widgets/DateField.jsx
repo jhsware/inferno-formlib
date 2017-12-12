@@ -15,25 +15,195 @@ import { IInputFieldWidget } from '../interfaces'
 import classNames from 'classnames'
 import { renderString } from './common'
 
+import Button from 'inferno-bootstrap/lib/Button'
 import Input from 'inferno-bootstrap/lib/Form/Input'
+import Popover from 'inferno-bootstrap/lib/Popover'
+import PopoverBody from 'inferno-bootstrap/lib/PopoverBody'
+import PopoverHeader from 'inferno-bootstrap/lib/PopoverHeader'
 
+import Nav from 'inferno-bootstrap/lib/Navigation/Nav'
+import NavItem from 'inferno-bootstrap/lib/Navigation/NavItem'
+import NavLink from 'inferno-bootstrap/lib/Navigation/NavLink'
+
+
+import { Manager, Target } from 'inferno-popper'
 // Placeholder
+
+const months = 'januari_februari_mars_april_maj_juni_juli_augusti_september_oktober_november_december'.split('_')
+const weekdaysMin = 'sö_må_ti_on_to_fr_lö'.split('_')
+
+const weekStartsOn = 1
+
+
+function toMs (days) {
+  return days * 24 * 3600000
+}
+
+function CalendarDay (props) {
+  return (
+    <td onClick={(e) => { e.preventDefault(); props.onClick(props.value)}}
+      className={classNames("DateFieldItem", {
+        "text-muted": !props.isCurrentMonth,
+        "DateFieldItem--selected": props.isSelected
+      })}>{props.dayNr}</td>
+  )
+}
+
+function getCalendar (date, locale) {
+  const firstOfMonth = new Date(date.getUTCFullYear(), date.getUTCMonth(), 1)
+  const showDays = []
+  let rowNr = 0
+  // Get first day to show
+  let tmpDay = new Date(firstOfMonth.valueOf() - toMs(firstOfMonth.getUTCDay() ? firstOfMonth.getUTCDay() - weekStartsOn : 7 - weekStartsOn))
+  while (rowNr === 0 || (tmpDay.getUTCMonth() === date.getUTCMonth()) || (tmpDay.getUTCDay() - weekStartsOn !== 0)) {
+    showDays.push({
+      dayNr: tmpDay.getUTCDate(),
+      isCurrentMonth: tmpDay.getUTCMonth() === date.getUTCMonth(),
+      value: tmpDay.toISOString().slice(0, 10)
+    })
+
+    tmpDay = new Date(tmpDay.valueOf() + toMs(1))
+    if ((tmpDay.getUTCDate() - weekStartsOn) % 7 === 0) {
+      rowNr++
+    }
+  }
+
+  const cal = {
+    monthName: months[date.getUTCMonth()],
+    year: date.getUTCFullYear(),
+    dayHeaders: weekdaysMin.map((item, index) => {
+      return weekdaysMin[(index + weekStartsOn) % 7] // rotate weekdays by weekStartsOn
+    }),
+    days: showDays
+  }
+  return cal
+}
+
+function Calendar (props) {
+  const { showMonth, ...popoverProps} = props
+
+  const tmpDate = new Date(showMonth.year, showMonth.month, 1)
+  const currentMonth = new Date(tmpDate)
+  
+  const calendar = getCalendar(tmpDate)
+
+  const rows = []
+  let days = []
+  let i = 0
+  calendar.days.forEach((day, i) => {
+    days.push(<CalendarDay value={day.value} isSelected={day.value === props.value} isCurrentMonth={day.isCurrentMonth} dayNr={day.dayNr} onClick={props.onSelect} />)
+    i++
+    if (i % 7 === 0) {
+      rows.push(<tr>{days}</tr>)
+      days = []
+    } else if (i === (calendar.days.length)) {
+      rows.push(<tr>{days}</tr>)
+      days = []
+    }
+  })
+
+  return (
+    <Popover {...popoverProps}>
+      <PopoverHeader>
+        <Nav style={{ width: "100%"}}>
+          <NavItem>
+            <NavLink href="<" onClick={(e) => { e.preventDefault(); props.onNavigate(new Date(currentMonth.setMonth(currentMonth.getMonth() - 1))) }}>{'<'}</NavLink>
+          </NavItem>
+          <NavItem className="DateFieldMonth">
+            <NavLink href="#" onClick={(e) => { e.preventDefault(); }}>
+              <small>{calendar.year}</small>
+              {' ' + calendar.monthName}
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink href=">" onClick={(e) => { e.preventDefault(); props.onNavigate(new Date(currentMonth.setMonth(currentMonth.getMonth() + 1))) }}>{'>'}</NavLink>
+          </NavItem>
+        </Nav>
+      </PopoverHeader>
+      <PopoverBody className="DateFieldBody">
+        <table style={{ width: "100%"}}>
+          <tbody>
+            <tr className="DateFieldHeaderRow">
+              {calendar.dayHeaders.map(day => <th className="DateFieldHeaderItem">{day}</th>)}
+            </tr>
+            {rows}
+          </tbody>
+        </table>
+      </PopoverBody>
+    </Popover>      
+  )
+}
 
 class InputWidget extends Component {
     constructor (props) {
         super(props)
 
+        let date = new Date()
+        // Adjust internal date so UTC equals current timezone
+        date = new Date(date.valueOf() - date.getTimezoneOffset() * 60000)
+
         this.state = {
-            value: props.value
+            value: props.value,
+            popoverOpen: false,
+            showMonth: { year: date.getUTCFullYear(), month: date.getUTCMonth()}
         }
         this.didGetInput = this.didGetInput.bind(this)
         this.didGetChange = this.didGetChange.bind(this)
+        this.togglePopover = this.togglePopover.bind(this)
+        this.doShowPopover = this.doShowPopover.bind(this)
+        this.doHidePopover = this.doHidePopover.bind(this)
+
+        this.doUpdateValue = this.doUpdateValue.bind(this)
+        this.doUpdateShowMonth = this.doUpdateShowMonth.bind(this)
+        this.didClickBody = this.didClickBody.bind(this)
+    }
+
+    componentDidMount () {
+      document.addEventListener('click', this.didClickBody )
+    }
+
+    didClickBody (e) {
+      if (this.state.popoverOpen) {
+        let tmpNode = e.target
+        let doesContainTarget = false
+        
+        while (tmpNode) {
+          if (this._el._vNode.dom === tmpNode) {
+            doesContainTarget = true
+            break
+          }
+          tmpNode = tmpNode.parentNode
+        }
+
+        if (!doesContainTarget) {
+          this.doHidePopover()
+        }
+      }
+    }
+
+    componentWillUnmount () {
+      document.removeEventListener('click', didClickBody)
     }
 
     componentWillReceiveProps (nextProps) {
         this.setState({
             value: nextProps.value
         })
+
+        // Todo: Update calendar
+    }
+
+    doUpdateValue (newDate) {
+      this.setState({
+        value: newDate // TODO: Update
+      })
+      this.didGetChange()
+    }
+
+    doUpdateShowMonth (newDate) {
+      this.setState({
+        showMonth: { year: newDate.getFullYear(), month: newDate.getMonth()}
+      })
     }
 
     didGetInput (e) {
@@ -48,23 +218,58 @@ class InputWidget extends Component {
         this.props.onChange(this.props.propName, field.fromString(this.state.value))
     }
 
+    togglePopover () {
+      this.setState({
+        popoverOpen: !this.state.popoverOpen
+      })
+    }
+
+    doShowPopover () {
+      this.setState({
+        popoverOpen: true
+      })
+    }
+
+    doHidePopover (e) {
+      this.setState({
+        popoverOpen: false
+      })
+    }
+
     render () {
         const field = this.props.adapter.context
 
-        const state = this.props.validationError ? 'danger' : undefined
-
         const isValid = this.props.validationError ? false : undefined
 
-        return <Input
-            id={this.props.namespace.join(".") + "__Field"}
-            name={this.props.inputName}
-            valid={isValid}
-            placeholder={renderString(field.placeholder)}
-            readOnly={field.readOnly}
-            value={field.toFormattedString(this.state.value)}
+        const inputId = this.props.namespace.join(".") + "__Field"
+        
+        // TODO: onBlur={this.doHidePopover}
+        return (
+          <Manager ref={(el) => this._el = el}>
+            <Target>
+              <Input
+                id={inputId}
+                name={this.props.inputName}
+                valid={isValid}
+                placeholder={renderString(field.placeholder)}
+                readOnly={field.readOnly}
+                value={field.toFormattedString(this.state.value)}
 
-            onChange={this.didGetChange}
-            onInput={this.didGetInput} />
+                onFocus={this.doShowPopover}
+                
+                onChange={this.didGetChange}
+                onInput={this.didGetInput} />
+            </Target>
+            <Calendar 
+              className="InfernoFormlib-DateFieldCalendar"
+              showMonth={this.state.showMonth}
+              value={this.state.value}
+              placement="bottom" isOpen={this.state.popoverOpen} target={inputId}
+
+              onNavigate={this.doUpdateShowMonth}
+              onSelect={this.doUpdateValue} />
+          </Manager>
+        )  
     }
 }
 
