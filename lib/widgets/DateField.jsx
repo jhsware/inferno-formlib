@@ -44,12 +44,14 @@ function CalendarDay (props) {
     <td onClick={(e) => { e.preventDefault(); props.onClick(props.value)}}
       className={classNames("DateFieldItem", {
         "text-muted": !props.isCurrentMonth,
-        "DateFieldItem--selected": props.isSelected
+        "DateFieldItem--selected": props.isSelected,
+        "DateFieldItem--today": props.isToday
       })}>{props.dayNr}</td>
   )
 }
 
 function getCalendar (date, locale) {
+  const today = new Date()
   const firstOfMonth = new Date(date.getUTCFullYear(), date.getUTCMonth(), 1)
   const showDays = []
   let rowNr = 0
@@ -59,6 +61,7 @@ function getCalendar (date, locale) {
     showDays.push({
       dayNr: tmpDay.getUTCDate(),
       isCurrentMonth: tmpDay.getUTCMonth() === date.getUTCMonth(),
+      isToday: tmpDay.getUTCFullYear() === today.getFullYear() && tmpDay.getUTCMonth() === today.getMonth() && tmpDay.getUTCDate() === today.getDate(),
       value: tmpDay.toISOString().slice(0, 10)
     })
 
@@ -82,7 +85,7 @@ function getCalendar (date, locale) {
 function Calendar (props) {
   const { showMonth, ...popoverProps} = props
 
-  const tmpDate = new Date(showMonth.year, showMonth.month, 1)
+  const tmpDate = new Date(showMonth.year, showMonth.month, 2)
   const currentMonth = new Date(tmpDate)
   
   const calendar = getCalendar(tmpDate)
@@ -91,7 +94,7 @@ function Calendar (props) {
   let days = []
   let i = 0
   calendar.days.forEach((day, i) => {
-    days.push(<CalendarDay value={day.value} isSelected={day.value === props.value} isCurrentMonth={day.isCurrentMonth} dayNr={day.dayNr} onClick={props.onSelect} />)
+    days.push(<CalendarDay value={day.value} isSelected={day.value === props.value} isCurrentMonth={day.isCurrentMonth} isToday={day.isToday} dayNr={day.dayNr} onClick={props.onSelect} />)
     i++
     if (i % 7 === 0) {
       rows.push(<tr>{days}</tr>)
@@ -130,6 +133,9 @@ function Calendar (props) {
           </tbody>
         </table>
       </PopoverBody>
+      <div className="DateFieldFooter">
+        <a href="#showSelected" onClick={props.onShowSelected}>{props.value || 'välj ett datum'}</a>
+      </div>
     </Popover>      
   )
 }
@@ -140,7 +146,7 @@ class InputWidget extends Component {
 
         let date = new Date()
         // Adjust internal date so UTC equals current timezone
-        date = new Date(date.valueOf() - date.getTimezoneOffset() * 60000)
+        date = new Date(date.valueOf() - date.getTimezoneOffset() * 60000 + 12 * 3600)
 
         this.state = {
             value: props.value,
@@ -155,6 +161,7 @@ class InputWidget extends Component {
 
         this.doUpdateValue = this.doUpdateValue.bind(this)
         this.doUpdateShowMonth = this.doUpdateShowMonth.bind(this)
+        this.doShowSelected = this.doShowSelected.bind(this)
         this.didClickBody = this.didClickBody.bind(this)
     }
 
@@ -203,6 +210,13 @@ class InputWidget extends Component {
     doUpdateShowMonth (newDate) {
       this.setState({
         showMonth: { year: newDate.getFullYear(), month: newDate.getMonth()}
+      })
+    }
+
+    doShowSelected (e) {
+      e.preventDefault()
+      this.setState({
+        showMonth: { year: parseInt(this.state.value.slice(0, 4)), month: parseInt(this.state.value.slice(5, 7)) - 1 }
       })
     }
 
@@ -267,6 +281,7 @@ class InputWidget extends Component {
               placement="bottom" isOpen={this.state.popoverOpen} target={inputId}
 
               onNavigate={this.doUpdateShowMonth}
+              onShowSelected={this.doShowSelected}
               onSelect={this.doUpdateValue} />
           </Manager>
         )  
