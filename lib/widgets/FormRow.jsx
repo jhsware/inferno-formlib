@@ -23,11 +23,11 @@ import FormGroup from 'inferno-bootstrap/lib/Form/FormGroup'
 import _bs_Label from 'inferno-bootstrap/lib/Form/Label'
 
 function Label (props) {
-    return <_bs_Label>{renderString(props.text, props.options && props.options.lang)}</_bs_Label>
+    return <_bs_Label>{renderString(props.children, props.options && props.options.lang)}</_bs_Label>
 }
 
 function CheckboxLabel (props) {
-    return <_bs_Label>{renderString(props.text, props.options && props.options.lang)}</_bs_Label>
+    return <_bs_Label>{renderString(props.children, props.options && props.options.lang)}</_bs_Label>
 }
 
 function HelpMsg (props) {
@@ -81,7 +81,7 @@ class Row extends Component {
         const color = this.props.validationError ? 'danger' : undefined
 
         return <FormGroup id={this.props.namespace.join('.') + '__Row'} color={color}>
-            {field.label && <Label text={field.label} id={this.props.id} />}
+            {field.label && <Label id={this.props.id}>{field.label}</Label>}
             <div className="InfernoFormlib-RowFieldContainer">
                 {this.props.children}
             </div>
@@ -119,7 +119,7 @@ class ObjectRow extends Component {
         const color = this.props.validationError ? 'danger' : undefined
 
         return <FormGroup className="InfernoFormlib-ObjectRow" color={color}>
-            <Label text={field.label} id={this.props.id} />
+            <Label id={this.props.id}>{field.label}</Label>
             {(this.props.validationError ? <ErrorMsg validationError={this.props.validationError} submitted={this.props.submitted} /> : null)}
             {(field.helpMsg ? <HelpMsg text={field.helpMsg} required={field._isRequired} /> : null)}
             <div className="InfernoFormlib-RowFieldContainer">
@@ -158,7 +158,7 @@ class CheckboxRow extends Component {
 
         return <FormGroup color={color} check>
             <div className="InfernoFormlib-RowFieldContainer">
-                <CheckboxLabel text={field.label} id={this.props.id} />
+                <CheckboxLabel id={this.props.id}>{field.label}</Label>
                 {this.props.children}
             </div>
             {this.props.validationError ? <ErrorMsg validationError={this.props.validationError} submitted={this.props.submitted} /> : null}

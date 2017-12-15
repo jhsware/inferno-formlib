@@ -92,3 +92,102 @@ body {
     flex: 1 0;
     text-align: center;
 }
+
+/**
+ * FileUploadWidget
+ */
+.InfernoFormlib-FileUploadWidget {
+    position: relative;
+    width: 15rem;
+    height: 5rem;
+}
+
+.InfernoFormlib-FileUploadWidget .DragNDroppable {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border: 4px dashed #ddd;
+    border-radius: 0.8rem;
+
+    transition: all 0.3s ease-in;
+}
+
+.InfernoFormlib-FileUploadWidget .DragNDroppable--drag {
+    background-color: rgba(0,0,0,0.6);
+    border-color: rgba(0,0,0,0);
+} .InfernoFormlib-FileUploadWidget .DragNDroppable--drag .placeholder {
+    color: white;
+}
+
+.InfernoFormlib-FileUploadWidget .DragNDroppable--drag-hover {
+    background-color: rgba(0,0,0,0.8);
+    border-color: rgba(0,0,0,0);
+} .InfernoFormlib-FileUploadWidget .DragNDroppable--drag-hover .placeholder {
+    color: white;
+}
+
+.InfernoFormlib-FileUploadWidget .form-control-file {    
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+}
+
+/* App styling */
+.InfernoFormlib-FileUploadWidget .placeholder {
+    position: absolute;
+    width: 80%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.9em;
+    color: #ccc;
+}
+
+.ImageField.card {
+    border: none;
+    flex-direction: row;
+    height: 5rem;
+    margin-bottom: 0;
+    align-items: center;
+    border-radius: 0;
+}
+
+.ImageField .card-img {
+    border-radius: 0;
+    margin-right: 0.5rem;
+    height: 100%;
+    width: auto;
+}
+
+.ImageField .card-title {
+    font-weight: 100;
+    font-size: 0.85em;
+    margin: 0;
+}
+
+.ImageField .card-subtitle {
+    margin: 0;
+    margin-top: 0.2em;
+}
+
+.ImageField .card-text {
+    font-size: 0.8em;
+    margin: 0;
+    margin-top: 0.2em;
+}
+
+.ImageField .card-body {
+    padding: 0;
+    height: 100%;
+}
+
+.ImageField .card-footer {
+    padding: 0;
+    background: none;
+    border: none; 
+}
+
+.ImageField-Action {
+    line-height: 0.8em;
+    vertical-align: bottom;
+}

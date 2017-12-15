@@ -1,33 +1,26 @@
 'use strict';
 import Inferno from 'inferno'
 import Component from 'inferno-component'
+import classNames from 'classnames'
 
 import { renderString } from '../common'
-
-var DragNDropOverlay = function(props) {
-  return (
-    <div className="InfernoFormlib-DropOverlay">
-      <div className="InfernoFormlib-Center" >
-        {renderString('InfernoFormlib-i18n-drop_to_upload', props.options && props.options.lang, 'Drag\'n\'drop to upload!')}
-      </div>
-    </div>
-  )
-}
 
 export class DragNDrop extends Component {
   constructor (props) {
     super(props)
 
     this.state = {
-      inDragCount: 0
+      inDragCount: 0,
+      isDragging: false
     }
 
     this.setDrag = this.setDrag.bind(this)
+    this.onDocumentDrag = this.onDocumentDrag.bind(this)
+    this.onDocumentDragEnd = this.onDocumentDragEnd.bind(this)
     this.onDragEnter = this.onDragEnter.bind(this)
     this.onDragLeave = this.onDragLeave.bind(this)
     this.onDrop = this.onDrop.bind(this)
     this.onDragOver = this.onDragOver.bind(this)
-    this.dragStart = this.dragStart.bind(this)
     this.componentDidMount = this.componentDidMount.bind(this)
   }
 
@@ -39,6 +32,22 @@ export class DragNDrop extends Component {
 
   element () {
     return this.dropArea
+  }
+
+  onDocumentDrag (e) {
+    if (!this.state.isDragging) {
+      this.setState({
+        isDragging: true
+      })
+    }
+  }
+
+  onDocumentDragEnd (e) {
+    if (this.state.isDragging && !e.relatedTarget) {
+      this.setState({
+        isDragging: false
+      })
+    }
   }
 
   onDragEnter (e) {
@@ -63,15 +72,7 @@ export class DragNDrop extends Component {
 
     console.log("[DragNDrop] file:", file.name);
 
-    // TODO: Handle upload and progress
     this.props.onDrop(file)
-
-    /*
-    var mediaApi = registry.getUtility(IApiPersistance, 'Media')
-    mediaApi.create(file, function(err, media, file, tmpUrl){
-        this.props.dropped && this.props.dropped(media, file, tmpUrl)
-    }.bind(this), this.props.onProgress)
-    */
   }
 
   onDragOver (e){
@@ -87,22 +88,36 @@ export class DragNDrop extends Component {
       el.addEventListener('dragover', this.onDragOver)
       el.addEventListener('drop', this.onDrop)
     }
-      
+    
+    document.addEventListener("dragenter", this.onDocumentDrag)
+    document.addEventListener("dragleave", this.onDocumentDragEnd)
   }
 
   componentDidMount () {
     this.dragStart()
   }
+
+  componentWillUnmount () {
+    var el = this.element()
+    if (el) {
+      el.removeEventListener('dragenter', this.onDragEnter)  
+      el.removeEventListener('dragleave', this.onDragLeave)
+      el.removeEventListener('dragover', this.onDragOver)
+      el.removeEventListener('drop', this.onDrop)
+    }
+    document.removeEventListener("dragenter", this.ondDrag)
+    document.removeEventListener("dragleave", this.onDocumentDragEnd)
+  }
   
   render () {
-    var classes = ["InfernoFormlib-DragNDroppable"];
-    if (this.state.inDragCount > 0) {
-      classes.push("InfernoFormlib-DragNDroppable--Dragging")
-    }
+    const cls = classNames('DragNDroppable', {
+      'DragNDroppable--drag-hover' : this.state.inDragCount > 0,
+      'DragNDroppable--drag': this.state.isDragging
+    })
+
     return (
-      <div className={classes.join(' ')} ref={(el) => { this.dropArea = el }}>
+      <div className={cls} ref={(el) => { this.dropArea = el }}>
         {this.props.children}
-        {this.state.inDragCount > 0 && <DragNDropOverlay/>}
       </div>
     )
   }

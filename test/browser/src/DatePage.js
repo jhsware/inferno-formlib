@@ -33,7 +33,7 @@ export default class Page extends Component {
             <div className="TestContainer">
                 <h1>Date Widget</h1>
                 <FormGroup>
-                    <Label text={dateField.label} id="dateField" />
+                    <Label id="dateField">{dateField.label}</Label>
                     <div className="InfernoFormlib-RowFieldContainer">
                         <DateFieldWidget
                             namespace={['value']}

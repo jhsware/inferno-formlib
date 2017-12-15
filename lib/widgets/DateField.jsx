@@ -166,7 +166,7 @@ class InputWidget extends Component {
     }
 
     componentDidMount () {
-      document.addEventListener('click', this.didClickBody )
+      document.addEventListener('click', this.didClickBody)
     }
 
     didClickBody (e) {
@@ -189,7 +189,7 @@ class InputWidget extends Component {
     }
 
     componentWillUnmount () {
-      document.removeEventListener('click', didClickBody)
+      document.removeEventListener('click', this.didClickBody)
     }
 
     componentWillReceiveProps (nextProps) {
