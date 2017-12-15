@@ -158,7 +158,7 @@ class CheckboxRow extends Component {
 
         return <FormGroup color={color} check>
             <div className="InfernoFormlib-RowFieldContainer">
-                <CheckboxLabel id={this.props.id}>{field.label}</Label>
+                <CheckboxLabel id={this.props.id}>{field.label}</CheckboxLabel>
                 {this.props.children}
             </div>
             {this.props.validationError ? <ErrorMsg validationError={this.props.validationError} submitted={this.props.submitted} /> : null}
