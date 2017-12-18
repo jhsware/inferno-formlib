@@ -82,7 +82,9 @@ body {
 
 .InfernoFormlib-DateFieldCalendar .nav-item {
     flex: 0 1;
-} .InfernoFormlib-DateFieldCalendar .nav-link:hover {
+}
+
+.InfernoFormlib-DateFieldCalendar .nav-link:hover {
     border-radius: 0.2em;
     color: white;
     background-color: #007bff;
