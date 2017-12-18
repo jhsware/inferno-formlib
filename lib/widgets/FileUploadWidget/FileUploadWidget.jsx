@@ -82,10 +82,10 @@ class InputWidget extends Component {
               className="form-control-file"
               type="file"
             
-            onChange={(e) => {
-              e.preventDefault()
-              this.props.onChange(e.target.files[0])
-            }} />}
+              onChange={(e) => {
+                e.preventDefault()
+                this.didDrop(e.target.files[0])
+              }} />}
         </DragNDrop>}
         {this.props.value && this.props.children}
       </div>
