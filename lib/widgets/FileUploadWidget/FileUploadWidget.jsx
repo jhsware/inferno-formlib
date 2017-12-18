@@ -19,18 +19,53 @@ class InputWidget extends Component {
   constructor (props) {
     super(props)
 
+    this.state = {
+      progress: undefined
+    }
+
     this.didDrop = this.didDrop.bind(this)
+    this.onProgress = this.onProgress.bind(this)
+  }
+
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.value !== undefined && this.state.progress !== undefined) {
+      this.setState({
+        progress: undefined
+      })
+    }
+  }
+
+  onProgress (perc) {
+    this.setState({
+      progress: perc
+    })
   }
 
   didDrop (file) {
-    this.props.onChange()
-    /*
-    var mediaApi = registry.getUtility(IFileUploadUtil, this.props.field.utilName || 'Image')
-    mediaApi.upload(file, this.onProgress, (err, data) => {
-        // TODO: Handle error
-        this.props.onChange(this.props.name, data)
+    this.setState({
+      progress: 0
     })
-    */
+    var fileUploadUtil = registry.getUtility(IFileUploadUtil, this.props.field.utilName || 'Image')
+    fileUploadUtil.upload(file, this.onProgress)
+      .then((data) => {
+        this.setState({
+          progress: 100
+        })
+        this.props.onChange(this.props.name, data)
+      })
+      // TODO: Handle error
+  }
+
+  renderProgress () {
+    return (
+      <div className="InfernoFormlib-FileUploadWidget">
+        <div className="Uploading">
+          <div className="ProgressContainer">
+            <div className="ProgressBar" style={{ width: this.state.progress + '%'}} />
+          </div>
+        </div>
+      </div>
+    )
   }
 
   renderEmpty () {
@@ -42,10 +77,10 @@ class InputWidget extends Component {
           {!this.props.hide && <span className="placeholder">{field.placeholder}</span>}
           {!this.props.hide &&
             <input
-            id={this.props.namespace.join(".") + "__Field"}
-            name={this.props.inputName}
-            className="form-control-file"
-            type="file"
+              id={this.props.namespace.join(".") + "__Field"}
+              name={this.props.inputName}
+              className="form-control-file"
+              type="file"
             
             onChange={(e) => {
               e.preventDefault()
@@ -57,15 +92,13 @@ class InputWidget extends Component {
     )
   }
 
-  renderImage () {
-
-  }
-
   render () {
-    if (this.props.value === undefined) {
-      return this.renderEmpty()
-    } else {
+    if (this.props.value !== undefined) {
       return this.props.children
+    } else if (this.state.progress !== undefined) {
+      return this.renderProgress()
+    } else  {
+      return this.renderEmpty()
     }
   }
 }

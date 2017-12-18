@@ -102,6 +102,22 @@ body {
     height: 5rem;
 }
 
+.InfernoFormlib-FileUploadWidget  .ProgressContainer {
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    right: 10%;
+    height: 1rem;
+    transform: translateY(-50%);
+    background-color: black;
+}
+.InfernoFormlib-FileUploadWidget .ProgressBar {
+    height: 100%;
+    background-color: white;
+    transition: width 0.3s ease-in-out;
+}
+
+.InfernoFormlib-FileUploadWidget .Uploading,
 .InfernoFormlib-FileUploadWidget .DragNDroppable {
     position: relative;
     width: 100%;
@@ -119,6 +135,7 @@ body {
     color: white;
 }
 
+.InfernoFormlib-FileUploadWidget .Uploading,
 .InfernoFormlib-FileUploadWidget .DragNDroppable--drag-hover {
     background-color: rgba(0,0,0,0.8);
     border-color: rgba(0,0,0,0);

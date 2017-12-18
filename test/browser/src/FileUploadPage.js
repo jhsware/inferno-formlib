@@ -1,5 +1,9 @@
 import Component from 'inferno-component'
+import { globalRegistry, createUtility } from 'component-registry'
+import axios from 'axios'
+
 import { FileUploadWidget } from '../../../lib/widgets/FileUploadWidget'
+import { IFileUploadUtil } from '../../../lib/interfaces'
 import TextField from 'isomorphic-schema/lib/field_validators/TextField'
 import FormText from 'inferno-bootstrap/lib/Form/FormText'
 import FormGroup from 'inferno-bootstrap/lib/Form/FormGroup'
@@ -25,6 +29,39 @@ const imageValue = {
     title: '4 Companies With Vacation Incentives That\'ll Make You Reconsider'
 }
 
+const FileUploadUtil = createUtility({
+    implements: IFileUploadUtil,
+    name: 'Image',
+
+    upload: function (file, onProgress) {
+        var config = {
+            onUploadProgress: function(progressEvent) {
+                var percentCompleted = Math.round( (progressEvent.loaded * 100) / progressEvent.total )
+                onProgress(percentCompleted)
+            }
+        };
+
+        var data = new FormData();
+        data.append('file', file);
+
+        return axios.post('/images', data, config)
+            .then((res) => {
+                const outp = {}
+                Object.assign(outp, imageValue)
+                outp.thumbnailUrl = res.data.publicPath
+                return Promise.resolve(outp)
+            })
+    }
+}).registerWith(globalRegistry)
+
+    /*
+    var mediaApi = registry.getUtility(IFileUploadUtil, this.props.field.utilName || 'Image')
+    mediaApi.upload(file, this.onProgress, (err, data) => {
+        // TODO: Handle error
+        this.props.onChange(this.props.name, data)
+    })
+    */
+
 export default class Page extends Component {
 
     constructor (props) {
@@ -49,9 +86,9 @@ export default class Page extends Component {
         // TODO: Call onChange
     }
 
-    didChange (value) {
+    didChange (propName, value) {
         this.setState({
-            value: imageValue
+            value: value
         })
 
         // TODO: Call onChange
