@@ -51,6 +51,7 @@ const FileUploadUtil = createUtility({
                 outp.thumbnailUrl = res.data.publicPath
                 return Promise.resolve(outp)
             })
+            .catch((e) => { throw e })
     }
 }).registerWith(globalRegistry)
 

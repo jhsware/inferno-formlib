@@ -118,7 +118,7 @@ body {
     background-color: white;
     transition: width 0.3s ease-in-out;
 }
-
+.InfernoFormlib-FileUploadWidget .Error,
 .InfernoFormlib-FileUploadWidget .Uploading,
 .InfernoFormlib-FileUploadWidget .DragNDroppable {
     position: relative;
@@ -137,12 +137,28 @@ body {
     color: white;
 }
 
+.InfernoFormlib-FileUploadWidget .Error,
 .InfernoFormlib-FileUploadWidget .Uploading,
 .InfernoFormlib-FileUploadWidget .DragNDroppable--drag-hover {
     background-color: rgba(0,0,0,0.8);
     border-color: rgba(0,0,0,0);
 } .InfernoFormlib-FileUploadWidget .DragNDroppable--drag-hover .placeholder {
     color: white;
+}
+
+.InfernoFormlib-FileUploadWidget .ErrorContainer {
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    right: 10%;
+    transform: translateY(-50%);
+}
+
+.InfernoFormlib-FileUploadWidget .Error p {
+    font-size: 0.85em;
+    color: white;
+    margin-bottom: 0.6em;
 }
 
 .InfernoFormlib-FileUploadWidget .form-control-file {    

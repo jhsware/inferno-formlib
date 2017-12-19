@@ -12,6 +12,7 @@ import classNames from 'classnames'
 import { DragNDrop } from './DragNDrop.jsx'
 
 import { IFileUploadUtil } from '../../interfaces'
+import Button from 'inferno-bootstrap/lib/Button'
 
 // Placeholder
 
@@ -20,38 +21,55 @@ class InputWidget extends Component {
     super(props)
 
     this.state = {
-      progress: undefined
+      progress: undefined,
+      errMsg: undefined
     }
 
-    this.didDrop = this.didDrop.bind(this)
-    this.onProgress = this.onProgress.bind(this)
+    this.doUpload = this.doUpload.bind(this)
+    this.didGetProgress = this.didGetProgress.bind(this)
+    this.doClearError = this.doClearError.bind(this)
   }
 
   componentWillReceiveProps (nextProps) {
     if (nextProps.value !== undefined && this.state.progress !== undefined) {
       this.setState({
-        progress: undefined
+        progress: undefined,
+        errMsg: undefined
       })
     }
   }
 
-  onProgress (perc) {
+  doClearError (e) {
+    e.preventDefault()
     this.setState({
-      progress: perc
+      progress: undefined,
+      errMsg: undefined
     })
   }
 
-  didDrop (file) {
+  didGetProgress (perc) {
+    this.setState({
+      progress: perc,
+      errMsg: undefined
+    })
+  }
+
+  doUpload (file) {
     this.setState({
       progress: 0
     })
     var fileUploadUtil = registry.getUtility(IFileUploadUtil, this.props.field.utilName || 'Image')
-    fileUploadUtil.upload(file, this.onProgress)
+    fileUploadUtil.upload(file, this.didGetProgress)
       .then((data) => {
         this.setState({
           progress: 100
         })
         this.props.onChange(this.props.name, data)
+      })
+      .catch((e) => {
+        this.setState({
+          errMsg: e.message
+        })
       })
       // TODO: Handle error
   }
@@ -68,12 +86,25 @@ class InputWidget extends Component {
     )
   }
 
+  renderError () {
+    return (
+      <div className="InfernoFormlib-FileUploadWidget">
+        <div className="Error">
+          <div className="ErrorContainer">
+            <p>{this.state.errMsg}</p>
+            <Button onClick={this.doClearError} size="sm">Try again!</Button>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   renderEmpty () {
     const field = this.props.field
 
     return (
       <div className="InfernoFormlib-FileUploadWidget">
-        {this.props.value === undefined && <DragNDrop onDrop={this.didDrop}>
+        {this.props.value === undefined && <DragNDrop onDrop={this.doUpload}>
           {!this.props.hide && <span className="placeholder">{field.placeholder}</span>}
           {!this.props.hide &&
             <input
@@ -84,7 +115,7 @@ class InputWidget extends Component {
             
               onChange={(e) => {
                 e.preventDefault()
-                this.didDrop(e.target.files[0])
+                this.doUpload(e.target.files[0])
               }} />}
         </DragNDrop>}
         {this.props.value && this.props.children}
@@ -95,6 +126,8 @@ class InputWidget extends Component {
   render () {
     if (this.props.value !== undefined) {
       return this.props.children
+    } else if (this.state.errMsg) {
+      return this.renderError()
     } else if (this.state.progress !== undefined) {
       return this.renderProgress()
     } else  {
