@@ -5,6 +5,7 @@ const app = express()
 
 // Uploaded files
 app.post('/images', require('./serverUpload'))
+app.post('/imagesAzure', ...require('./serverUploadAzure'))
 app.use('/images', (req, res, next) => {
   express.static(__dirname + '/upload')(req, res, next)
 })
