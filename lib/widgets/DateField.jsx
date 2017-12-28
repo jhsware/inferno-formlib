@@ -175,7 +175,8 @@ class InputWidget extends Component {
         let doesContainTarget = false
         
         while (tmpNode) {
-          if (this._el._vNode.dom === tmpNode) {
+          // NOTE: Using className to check if we clicked in the calendar. Should use better test.
+          if (this._elInput._vNode.dom === tmpNode || (tmpNode.className && tmpNode.className.indexOf('InfernoFormlib-DateFieldCalendar') >= 0)) {
             doesContainTarget = true
             break
           }
@@ -261,7 +262,7 @@ class InputWidget extends Component {
         return (
           <Manager ref={(el) => this._el = el}>
             <Target>
-              <Input
+              <Input ref={(el) => this._elInput = el}
                 id={inputId}
                 name={this.props.inputName}
                 valid={isValid}
@@ -270,11 +271,12 @@ class InputWidget extends Component {
                 value={field.toFormattedString(this.state.value)}
 
                 onFocus={this.doShowPopover}
+                onBlur={this.didClickBody}
                 
                 onChange={this.didGetChange}
                 onInput={this.didGetInput} />
             </Target>
-            <Calendar 
+            <Calendar
               className="InfernoFormlib-DateFieldCalendar"
               showMonth={this.state.showMonth}
               value={this.state.value}
