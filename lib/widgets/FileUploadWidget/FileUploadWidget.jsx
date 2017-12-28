@@ -16,7 +16,7 @@ import Button from 'inferno-bootstrap/lib/Button'
 
 // Placeholder
 
-class InputWidget extends Component {
+class FileUploadWidget extends Component {
   constructor (props) {
     super(props)
 
@@ -58,7 +58,7 @@ class InputWidget extends Component {
     this.setState({
       progress: 0
     })
-    var fileUploadUtil = registry.getUtility(IFileUploadUtil, this.props.field.utilName || 'Image')
+    var fileUploadUtil = registry.getUtility(IFileUploadUtil, this.props.uploadUtilName || 'Image')
     fileUploadUtil.upload(file, this.didGetProgress)
       .then((data) => {
         this.setState({
@@ -100,16 +100,15 @@ class InputWidget extends Component {
   }
 
   renderEmpty () {
-    const field = this.props.field
-
+    
     return (
       <div className="InfernoFormlib-FileUploadWidget">
         {this.props.value === undefined && <DragNDrop onDrop={this.doUpload}>
-          {!this.props.hide && <span className="placeholder">{field.placeholder}</span>}
+          {!this.props.hide && <span className="placeholder">{this.props.placeholder}</span>}
           {!this.props.hide &&
             <input
-              id={this.props.namespace.join(".") + "__Field"}
-              name={this.props.inputName}
+              id={this.props.id}
+              name={this.props.name}
               className="form-control-file"
               type="file"
             
@@ -136,4 +135,4 @@ class InputWidget extends Component {
   }
 }
 
-export default InputWidget
+export default FileUploadWidget

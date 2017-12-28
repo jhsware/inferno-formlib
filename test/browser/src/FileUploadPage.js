@@ -21,6 +21,7 @@ const imageField = new TextField({
     label: 'Image file',
     placeholder: 'Klicka eller dra bild för att ladda upp…',
     help: 'A nice image',
+    uploadUtilName: 'Image',
     required: true
 })
 
@@ -89,7 +90,7 @@ export default class Page extends Component {
 
     didChange (propName, value) {
         this.setState({
-            value: value
+            value: imageField.fromString(value)
         })
 
         // TODO: Call onChange
@@ -114,9 +115,7 @@ export default class Page extends Component {
     }
 
     render () {
-        const dummyAdapter = {
-            context: imageField
-        }
+        const isValid = this.state.validationError ? false : undefined
 
         return (
             <div className="TestContainer">
@@ -125,11 +124,14 @@ export default class Page extends Component {
                     <Label id="imageField">{imageField.label}</Label>
                     <div className="InfernoFormlib-RowFieldContainer">
                         <FileUploadWidget
-                            field={imageField}
-                            namespace={['value']}
-                            adapter={dummyAdapter}
-                            value={this.state.value}
-
+                            id="value__Field"
+                            name="value"
+                            valid={isValid}
+                            placeholder={imageField.placeholder}
+                            readOnly={imageField.readOnly}
+                            value={imageField.toFormattedString(this.state.value)}
+                            uploadUtilName={imageField.uploadUtilName}
+                  
                             onChange={this.didChange}>
                             {this.state.value && this.renderImage()}
                         </FileUploadWidget>
