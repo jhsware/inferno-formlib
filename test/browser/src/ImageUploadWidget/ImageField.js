@@ -1,6 +1,5 @@
-import { createInterface, createObjectPrototype, createAdapter, globalRegistry } from 'component-registry'
-import TextField from 'isomorphic-schema/lib/field_validators/TextField'
-import { IInputFieldWidget } from '../../../../lib/interfaces'
+import { createInterface, createObjectPrototype } from 'component-registry'
+import BaseField from 'isomorphic-schema/lib/field_validators/BaseField'
 import ImageFieldWidget from './ImageFieldWidget.jsx'
 
 var IImageField = createInterface({
@@ -9,13 +8,11 @@ var IImageField = createInterface({
 
 var ImageField = createObjectPrototype({
   implements: [IImageField],
-  extends: [TextField]
-})
+  extends: [BaseField],
 
-createAdapter({
-  implements: IInputFieldWidget,
-  adapts: IImageField,
-  Component: ImageFieldWidget
-}).registerWith(globalRegistry)
+  constructor: function (options) {
+    this._IBaseField.constructor.call(this, options);
+  }
+})
 
 export { IImageField, ImageField }

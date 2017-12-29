@@ -14,6 +14,7 @@ import { FormRows } from '../../../lib/FormRows.jsx'
 import Form from 'inferno-bootstrap/lib/Form/Form'
 import Row from 'inferno-bootstrap/lib/Row'
 import Col from 'inferno-bootstrap/lib/Col'
+import Button from 'inferno-bootstrap/lib/Button'
 
 const formSchema = new Schema('Form Schema', {
   title: new TextField({
@@ -24,7 +25,8 @@ const formSchema = new Schema('Form Schema', {
   image: new ImageField({
     label: 'Image',
     placeholder: 'Click or drag to upload...',
-    uploadUtilName: 'Image.Simple'
+    uploadUtilName: 'Image.Simple',
+    required: true
   })
 })
 
@@ -40,6 +42,16 @@ export default class Page extends Component {
         }
 
         this.didChange = this.didChange.bind(this)
+        this.doSubmit = this.doSubmit.bind(this)
+    }
+
+    doSubmit (e) {
+      e.preventDefault()
+      const errors = formSchema.validate(this.state.value)
+      this.setState({
+        validationError: errors,
+        submitted: true
+      })
     }
 
     didChange (propName, value) {
@@ -63,8 +75,12 @@ export default class Page extends Component {
                       <FormRows className="col" schema={formSchema} validationErrors={this.state.validationError} value={this.state.value} onChange={this.didChange} />
                     </Col>
                   </Row>
+                  <Row className="InfernoFormlib-ActionBar">
+                    <Col>
+                      <Button type="submit">Save</Button>
+                    </Col>
+                  </Row>
                 </Form>
-      
             </div>
         )
     }
