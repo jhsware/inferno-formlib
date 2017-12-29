@@ -39,16 +39,7 @@ export default class Page extends Component {
             submitted: false
         }
 
-        this.doClearImage = this.doClearImage.bind(this)
         this.didChange = this.didChange.bind(this)
-    }
-
-    doClearImage (e) {
-      e.preventDefault()
-      this.setState({
-          value: undefined
-      })
-      // This is where you would call this.props.onChange
     }
 
     didChange (propName, value) {
