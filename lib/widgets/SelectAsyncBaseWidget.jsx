@@ -66,14 +66,14 @@ export default class SelectAsyncBaseWidget extends Component {
     render () {
         const field = this.props.adapter.context
 
-        const state = this.props.validationError ? 'danger' : undefined
+        const isValid = this.props.validationError ? false : undefined
 
         return <Input type="select"
             id={this.props.namespace.join(".") + "__Field"}
             name={this.props.inputName}
             readOnly={field.readOnly}
             value={this.props.value || ''}
-            state={state}
+            valid={isValid}
             onChange={this.didGetChange}>
             {field.placeholder && <option value="">{renderString(field.placeholder, this.props.options && this.props.options.lang)}</option>}
             {this.state.options.map((item) => <option value={item.name}>{renderString(item.title, this.props.options && this.props.options.lang)}</option>)}

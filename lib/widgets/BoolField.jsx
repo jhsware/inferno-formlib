@@ -38,12 +38,12 @@ class CheckboxWidget extends Component {
     render () {
         const field = this.props.adapter.context
 
-        const state = this.props.validationError ? 'danger' : undefined
+        const isValid = this.props.validationError ? false : undefined
 
         return <Input type="checkbox"
             id={this.props.namespace.join(".") + "__Field"}
             name={this.props.inputName}
-            state={state}
+            valid={isValid}
             placeholder={renderString(field.placeholder)}
             readOnly={field.readOnly}
             value={field.toFormattedString(this.state.value)}

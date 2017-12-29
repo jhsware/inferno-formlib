@@ -44,12 +44,12 @@ class DynamicSelectFieldWidget extends Component {
 
         const options = field.getOptions(this.props.value, this.props.options)
 
-        const state = this.props.validationError ? 'danger' : undefined
+        const isValid = this.props.validationError ? false : undefined
 
         return <Input type="select"
             id={this.props.namespace.join(".") + "__Field"}
             name={this.props.inputName}
-            state={state}
+            valid={isValid}
             readOnly={field.readOnly}
             value={this.props.value}
             onChange={this.didGetChange}>

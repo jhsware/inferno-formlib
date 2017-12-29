@@ -49,7 +49,7 @@ class PassworWidget extends Component {
     render () {
         const field = this.props.adapter.context
 
-        const state = this.props.validationError ? 'danger' : undefined
+        const isValid = this.props.validationError ? false : undefined
 
         return <Input type="password"
             id={this.props.namespace.join(".") + "__Field"}
@@ -57,7 +57,7 @@ class PassworWidget extends Component {
             placeholder={renderString(field.placeholder)}
             readOnly={field.readOnly}
             value={this.state.value}
-            state={state}
+            valid={isValid}
             onChange={this.didGetChange}
             onInput={this.didGetInput} />
     }
