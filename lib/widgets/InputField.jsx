@@ -51,8 +51,6 @@ class InputWidget extends Component {
     render () {
         const field = this.props.adapter.context
 
-        const state = this.props.validationError ? 'danger' : undefined
-
         const isValid = this.props.validationError ? false : undefined
 
         return <Input
