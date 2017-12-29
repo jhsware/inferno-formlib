@@ -1,6 +1,6 @@
 import { globalRegistry, createUtility } from 'component-registry'
 import axios from 'axios'
-import { IFileUploadUtil } from '../../../lib/interfaces'
+import { IFileUploadUtil } from '../../../../lib/interfaces'
 
 const FileUploadUtil = createUtility({
   implements: IFileUploadUtil,

@@ -1,8 +1,8 @@
 import Component from 'inferno-component'
 import { globalRegistry } from 'component-registry'
-import { FileUploadWidget } from 'inferno-formlib/lib/widgets/FileUploadWidget'
-import { IFileUploadUtil } from 'inferno-formlib/lib/interfaces'
-import { renderString } from 'inferno-formlib/lib/widgets/common'
+import { FileUploadWidget } from '../../../../lib/widgets/FileUploadWidget'
+import { IFileUploadUtil } from '../../../../lib/interfaces'
+import { renderString } from '../../../../lib/widgets/common'
 
 import Card from 'inferno-bootstrap/lib/Card/Card'
 import CardBody from 'inferno-bootstrap/lib/Card/CardBody'
@@ -45,12 +45,9 @@ export default class ImageFieldWidget extends Component {
   }
 
   renderImage () {
-    const imagePath = this.props.value
-    const util = globalRegistry.getUtility(IFileUploadUtil, 'Image')
-    const imageUrl = util.getUrl(imagePath)
     return (
         <Card className="ImageField">
-            <CardImg width='100%' src={imageUrl} />
+            <CardImg width='100%' src={this.props.value} />
             <CardBody>
                 <CardFooter>
                     <a className="ImageField-Action text-danger" href="#clear" onClick={this.doClearImage} >Clear</a>

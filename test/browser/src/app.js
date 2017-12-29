@@ -10,6 +10,7 @@ import NavItem from 'inferno-bootstrap/lib/Navigation/NavItem'
 
 import DatePage from './DatePage'
 import FileUploadPage from './FileUploadPage'
+import ImageUploadFormPage from './ImageUploadFormPage'
 
 function NavLink (props) {
   return (
@@ -28,6 +29,9 @@ class AppLayout extends Component {
           <NavItem>
             <NavLink to="/widgets/fileUpload">File Upload</NavLink>
           </NavItem>
+          <NavItem>
+            <NavLink to="/widgets/fileUploadForm">Image Upload Form</NavLink>
+          </NavItem>
         </Nav>
         {this.props.children}
       </div>
@@ -44,6 +48,7 @@ if (typeof window !== 'undefined') {
       <Route path="/widgets" component={ AppLayout }>
         <Route path="/date" component={ DatePage } />
         <Route path="/fileUpload" component={ FileUploadPage } />
+        <Route path="/fileUploadForm" component={ ImageUploadFormPage } />
       </Route>
       <Redirect from="/*" to="/widgets/date" />
     </Router>

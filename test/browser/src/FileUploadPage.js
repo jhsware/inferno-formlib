@@ -119,7 +119,7 @@ export default class Page extends Component {
 
         return (
             <div className="TestContainer">
-                <h1>Date Widget</h1>
+                <h1>Image Upload</h1>
                 <FormGroup>
                     <Label id="imageField">{imageField.label}</Label>
                     <div className="InfernoFormlib-RowFieldContainer">
