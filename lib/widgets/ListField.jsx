@@ -19,7 +19,7 @@ import getWidgetAdapters from '../getWidgetAdapters'
 
 import Button from 'inferno-bootstrap/lib/Button'
 
-import { handleDragStart, handleDragOver, handleDragEnter, handleDragLeave, handleDragEnd, handleDrop } from '../draggable'
+import { handleDragStart, handleDragOver, handleDragEnter, handleDragLeave, handleDragEnd, handleDrop } from '../draggable.jsx'
 
 class ListFieldRow extends Component {
     componentDidMount () {

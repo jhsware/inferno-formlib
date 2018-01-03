@@ -12,6 +12,7 @@ import FormPage from './FormPage'
 import DatePage from './DatePage'
 import FileUploadPage from './FileUploadPage'
 import ImageUploadFormPage from './ImageUploadFormPage'
+import ListFormPage from './ListFormPage'
 
 function NavLink (props) {
   return (
@@ -36,6 +37,9 @@ class AppLayout extends Component {
           <NavItem>
             <NavLink to="/widgets/fileUploadForm">Image Upload Form</NavLink>
           </NavItem>
+          <NavItem>
+            <NavLink to="/widgets/listForm">List Form</NavLink>
+          </NavItem>
         </Nav>
         {this.props.children}
       </div>
@@ -54,6 +58,7 @@ if (typeof window !== 'undefined') {
         <Route path="/date" component={ DatePage } />
         <Route path="/fileUpload" component={ FileUploadPage } />
         <Route path="/fileUploadForm" component={ ImageUploadFormPage } />
+        <Route path="/listForm" component={ ListFormPage } />
       </Route>
       <Redirect from="/*" to="/widgets/form" />
     </Router>
