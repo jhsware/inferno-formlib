@@ -22,6 +22,17 @@ import Button from 'inferno-bootstrap/lib/Button'
 import { handleDragStart, handleDragOver, handleDragEnter, handleDragLeave, handleDragEnd, handleDrop } from '../draggable.jsx'
 
 class ListFieldRow extends Component {
+    constructor (props) {
+        super(props)
+
+        this.handleDragStart = handleDragStart.bind(this)
+        this.handleDragOver = handleDragOver.bind(this)
+        this.handleDragEnter = handleDragEnter.bind(this)
+        this.handleDragLeave = handleDragLeave.bind(this)
+        this.handleDragEnd = handleDragEnd.bind(this)
+        this.handleDrop = handleDrop.bind(this)
+    }
+
     componentDidMount () {
         if (!this.props.isFirstMount) {
             animateOnAdd(this, 'InfernoFormlib-ListFieldRow--Animation')
@@ -29,12 +40,12 @@ class ListFieldRow extends Component {
 
         if (!this.listenersAdded) {
             let domEl = this._vNode.dom
-            domEl.addEventListener('dragstart', handleDragStart.bind(this), false)
-            domEl.addEventListener('dragover', handleDragOver.bind(this), false)
-            domEl.addEventListener('dragenter', handleDragEnter.bind(this), false)
-            domEl.addEventListener('dragleave', handleDragLeave.bind(this), false)
-            domEl.addEventListener('dragend', handleDragEnd.bind(this), false)
-            domEl.addEventListener('drop', handleDrop.bind(this), false)
+            domEl.addEventListener('dragstart', this.handleDragStart, false)
+            domEl.addEventListener('dragover', this.handleDragOver, false)
+            domEl.addEventListener('dragenter', this.handleDragEnter, false)
+            domEl.addEventListener('dragleave', this.handleDragLeave, false)
+            domEl.addEventListener('dragend', this.handleDragEnd, false)
+            domEl.addEventListener('drop', this.handleDrop, false)
             this.listenersAdded = true
         }
     }
@@ -42,16 +53,13 @@ class ListFieldRow extends Component {
     componentWillUnmount () {
         animateOnRemove(this, 'InfernoFormlib-ListFieldRow--Animation')
 
-        // TODO: Cleanup
-        /*
         let domEl = this._vNode.dom
-        domEl.removeEventListener('dragstart', handleDragStart.bind(this), false)
-        domEl.removeEventListener('dragover', handleDragOver.bind(this), false)
-        domEl.removeEventListener('dragenter', handleDragEnter.bind(this), false)
-        domEl.removeEventListener('dragleave', handleDragLeave.bind(this), false)
-        domEl.removeEventListener('dragend', handleDragEnd.bind(this), false)
-        domEl.removeEventListener('drop', handleDrop.bind(this), false)
-        */
+        domEl.removeEventListener('dragstart', this.handleDragStart, false)
+        domEl.removeEventListener('dragover', this.handleDragOver, false)
+        domEl.removeEventListener('dragenter', this.handleDragEnter, false)
+        domEl.removeEventListener('dragleave', this.handleDragLeave, false)
+        domEl.removeEventListener('dragend', this.handleDragEnd, false)
+        domEl.removeEventListener('drop', this.handleDrop, false)
     }
 
     render () {
