@@ -21,9 +21,7 @@
   "license": "MIT",
   "peerDependencies": {
     "component-registry": "^0.2.7",
-    "isomorphic-schema": "^0.7.1",
-    "inferno-bootstrap": "^0.3.1",
-    "inferno-popper": "^0.1.10"
+    "isomorphic-schema": "^0.7.1"
   },
   "devDependencies": {
     "axios": "^0.17.1",
@@ -44,9 +42,9 @@
     "formidable": "^1.1.1",
     "history": "^4.7.2",
     "inferno-devtools": "^3.10.1",
-    "inferno-popper": "^0.1.9",
     "inferno-router": "^3.10.1",
     "isomorphic-schema": "^0.7.1",
+    "moment": "^2.20.1",
     "webpack": "^2.7.0"
   },
   "dependencies": {
@@ -56,6 +54,7 @@
     "inferno-animation": "^0.4.11",
     "inferno-bootstrap": "^0.3.2",
     "inferno-component": "^3.10.1",
+    "inferno-popper": "^0.1.10",
     "lodash.tonumber": "^4.0.3",
     "safe-utils": "^0.1.2"
   }
