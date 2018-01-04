@@ -10,7 +10,7 @@ $ git clone git@github.com:jhsware/inferno-formlib.git
 
 $ cd inferno-formlib
 
-$ npm i && npm build && npm build-test
+$ npm i && npm run build-test
 
 $ node test/browser/server.js
 ``` 

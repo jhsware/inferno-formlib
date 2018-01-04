@@ -45,6 +45,7 @@
     "inferno-devtools": "^3.10.1",
     "inferno-popper": "^0.1.9",
     "inferno-router": "^3.10.1",
+    "isomorphic-schema": "^0.7.1",
     "webpack": "^2.7.0"
   },
   "dependencies": {
