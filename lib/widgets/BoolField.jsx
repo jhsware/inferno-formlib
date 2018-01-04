@@ -41,7 +41,7 @@ class CheckboxWidget extends Component {
             valid={isValid}
             placeholder={renderString(field.placeholder)}
             readOnly={field.readOnly}
-            value={field.toFormattedString(this.props.value)}
+            checked={this.props.value} // This is a checkbox and it should pass value as checked
             onChange={this.didGetChange}
             onInput={this.didGetInput} />
     }
