@@ -22,7 +22,7 @@ The package generates your form rows and calls an onChange handler whenever the 
 ## Installation
 
 ```sh
-$ npm i -S inferno-formlib inferno-bootstrap isomorphic-schema
+$ npm i -S inferno-formlib isomorphic-schema component-registry
 ```
 
 ## Form Generation Example

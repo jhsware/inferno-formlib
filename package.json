@@ -23,7 +23,7 @@
     "component-registry": "^0.2.7",
     "isomorphic-schema": "^0.7.1",
     "inferno-bootstrap": "^0.3.1",
-    "inferno-popper": "^0.1.9"
+    "inferno-popper": "^0.1.10"
   },
   "devDependencies": {
     "axios": "^0.17.1",
@@ -39,6 +39,7 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "bootstrap": "^4.0.0-beta.2",
+    "component-registry": "^0.2.7",
     "express": "^4.16.2",
     "formidable": "^1.1.1",
     "history": "^4.7.2",
