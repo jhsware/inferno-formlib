@@ -23,11 +23,23 @@ class CheckboxWidget extends Component {
     constructor (props) {
         super(props)
 
+        this.state = {
+            isChecked: props.value
+        }
+
         this.didGetChange = this.didGetChange.bind(this)
     }
 
+    componentWillReceiveProps (nextProps) {
+        if (props.value !== this.state.isChecked) {
+            this.setState({
+                isChecked: props.value
+            })
+        }
+    }
+
     didGetChange (e) {
-        this.props.onChange(this.props.propName, e.target.checked)
+        this.props.onChange(this.props.propName, this.state.isChecked ? false : true)
     }
 
     render () {
@@ -41,9 +53,8 @@ class CheckboxWidget extends Component {
             valid={isValid}
             placeholder={renderString(field.placeholder)}
             readOnly={field.readOnly}
-            checked={this.props.value} // This is a checkbox and it should pass value as checked
-            onChange={this.didGetChange}
-            onInput={this.didGetInput} />
+            checked={this.state.isChecked} // This is a checkbox and it should pass value as checked
+            onChange={this.didGetChange} />
     }
 }
 
