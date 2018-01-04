@@ -142,7 +142,7 @@ if you want a different behaviour for a field in one specific form.
 
 TODO: Explain how to use a custom widget in a form
 
-## Manually Creted Forms
+## Manually Created Forms
 You can see an example of a manually created form at https://github.com/jhsware/inferno-formlib/blob/master/test/browser/src/DatePage.js
 
 TODO: Explain how to use widgets for manual creation of forms
