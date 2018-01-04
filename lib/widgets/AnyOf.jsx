@@ -15,6 +15,7 @@ import { IInputFieldWidget }  from '../interfaces'
 import classNames from 'classnames'
 
 import Input from 'inferno-bootstrap/lib/Form/Input'
+import { renderString } from './common'
 
 // Placeholder
 

@@ -3,8 +3,6 @@ import Inferno from 'inferno'
 import Component from 'inferno-component'
 import classNames from 'classnames'
 
-import { renderString } from '../common'
-
 export class DragNDrop extends Component {
   constructor (props) {
     super(props)
