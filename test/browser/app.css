@@ -36,6 +36,35 @@ body {
     opacity: 1;
 }
 
+/**
+ * Animate list rows
+ */
+ .InfernoFormlib-ListFieldRow--Animation-leave {
+    opacity: 1;
+}
+
+.InfernoFormlib-ListFieldRow--Animation-leave-active {
+    overflow: hidden;
+    transition: height 0.3s ease-out, opacity 0.2s ease-in;
+}
+
+.InfernoFormlib-ListFieldRow--Animation-leave-end {
+    height: 0;
+    opacity: 0;
+}
+
+.InfernoFormlib-ListFieldRow--Animation-enter {
+    height: 0;
+    opacity: 0;
+}
+
+.InfernoFormlib-ListFieldRow--Animation-enter-active {
+    transition: height 0.2s ease-out, opacity 0.5s ease-in;
+}
+
+.InfernoFormlib-ListFieldRow--Animation-enter-end {
+    opacity: 1;
+}
 
 /* Bootstrap overrides */
 .invalid-feedback {
