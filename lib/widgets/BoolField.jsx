@@ -31,9 +31,9 @@ class CheckboxWidget extends Component {
     }
 
     componentWillReceiveProps (nextProps) {
-        if (props.value !== this.state.isChecked) {
+        if (nextProps.value !== this.state.isChecked) {
             this.setState({
-                isChecked: props.value
+                isChecked: nextProps.value
             })
         }
     }
