@@ -26,12 +26,6 @@ class CheckboxWidget extends Component {
         this.didGetChange = this.didGetChange.bind(this)
     }
 
-    componentWillReceiveProps (nextProps) {
-        this.setState({
-            value: nextProps.value
-        })
-    }
-
     didGetChange (e) {
         this.props.onChange(this.props.propName, e.target.checked)
     }
@@ -47,7 +41,7 @@ class CheckboxWidget extends Component {
             valid={isValid}
             placeholder={renderString(field.placeholder)}
             readOnly={field.readOnly}
-            value={field.toFormattedString(this.state.value)}
+            value={field.toFormattedString(this.props.value)}
             onChange={this.didGetChange}
             onInput={this.didGetInput} />
     }
