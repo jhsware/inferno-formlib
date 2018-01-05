@@ -5,10 +5,19 @@ import axios from 'axios'
 import { Schema } from 'isomorphic-schema'
 import TextField from 'isomorphic-schema/lib/field_validators/TextField'
 import EmailField from 'isomorphic-schema/lib/field_validators/EmailField'
+import BoolField from 'isomorphic-schema/lib/field_validators/BoolField'
+import SelectField from 'isomorphic-schema/lib/field_validators/SelectField'
 import IntegerField from 'isomorphic-schema/lib/field_validators/IntegerField'
+import DecimalField from 'isomorphic-schema/lib/field_validators/DecimalField'
 import TextAreaField from 'isomorphic-schema/lib/field_validators/TextAreaField'
+import ListField from 'isomorphic-schema/lib/field_validators/ListField'
+import ObjectField from 'isomorphic-schema/lib/field_validators/ObjectField'
 import '../../../lib/widgets/InputField.jsx'
+import '../../../lib/widgets/BoolField.jsx'
+import '../../../lib/widgets/SelectField.jsx'
 import '../../../lib/widgets/TextAreaField.jsx'
+import '../../../lib/widgets/ListField.jsx'
+import '../../../lib/widgets/ObjectField.jsx'
 import '../../../lib/widgets/FormRow.jsx'
 
 import { FormRows } from '../../../lib/FormRows.jsx'
@@ -17,7 +26,32 @@ import Col from 'inferno-bootstrap/lib/Col'
 import Form from 'inferno-bootstrap/lib/Form/Form'
 import Row from 'inferno-bootstrap/lib/Row'
 
+const listItemSchema = new Schema('ListItem Schema', {
+  score: new IntegerField({
+    label: 'Score',
+    required: true
+  })
+})
+
+const subFormSchema = new Schema('SubForm Schema', {
+  height: new DecimalField({
+    label: 'Height',
+    placeholder: 'i.e. 1.93',
+    help: 'Height is in meters',
+    required: true
+  }),
+  weight: new IntegerField({
+    label: 'Weight',
+    placeholder: 'i.e. 75',
+    help: 'Weight is in kg without decimal',
+    required: true
+  })
+})
+
 const formSchema = new Schema('Form Schema', {
+  active: new BoolField({
+    label: 'Active'
+  }),
   title: new TextField({
     label: 'Title',
     placeholder: 'Type here...',
@@ -33,10 +67,30 @@ const formSchema = new Schema('Form Schema', {
     placeholder: 'i.e. 16',
     required: true
   }),
+  type: new SelectField({
+    label: 'Type',
+    options: [
+      { name: 'human', title: 'Human'},
+      { name: 'bird', title: 'Bird'},
+      { name: 'mamal', title: 'Mamal'},
+      { name: 'fish', title: 'Fish'},
+    ]
+  }),
   bio: new TextAreaField({
     label: 'Bio',
     placeholder: 'Type here...',
     required: true
+  }),
+  stats: new ObjectField({
+    label: 'Stats',
+    schema: subFormSchema,
+    required: true
+  }),
+  scores: new ListField({
+    label: 'Scores',
+    valueType: new ObjectField({
+      schema: listItemSchema
+    })
   })
 })
 

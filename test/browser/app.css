@@ -255,3 +255,53 @@ body {
     line-height: 0.8em;
     vertical-align: bottom;
 }
+
+/**
+ * Some general form overrides
+ */
+.form-check-input {
+    display: inline-block;
+    margin-left: 0.8em;
+}
+
+.invalid-feedback {
+    margin-top: 0;
+    padding: 0.25rem 0 0;
+}
+
+.InfernoFormlib-ListRow,
+.InfernoFormlib-ObjectRow {
+    border-left: 4px solid #ccc;
+    padding-left: 1em;
+}
+
+.InfernoFormlib-ListRow > .form-control-label,
+.InfernoFormlib-ObjectRow > .form-control-label  {
+    border-bottom: 1px solid #ccc;
+    width: 100%;
+    text-align: center;
+}
+
+.InfernoFormlib-ObjectRow > .form-control-label,
+.InfernoFormlib-ObjectRow > .invalid-feedback {
+    padding: 0 0 1em 0;
+}
+
+.InfernoFormlib-ListFieldRow > .InfernoFormlib-ObjectRow {
+    border: none;
+    padding: 0;
+}
+
+.InfernoFormlib-ListFieldRow .InfernoFormlib-ObjectField .InfernoFormlib-RowFieldContainer {
+    display: inline-block;
+    margin-left: 1em;
+}
+
+.InfernoFormlib-ListFieldRow {
+    position: relative;
+}
+.InfernoFormlib-ListFieldRowDeleteBtn {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
