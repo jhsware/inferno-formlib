@@ -119,7 +119,7 @@ class ObjectRow extends Component {
         const color = this.props.validationError ? 'danger' : undefined
 
         return <FormGroup className="InfernoFormlib-ObjectRow" color={color}>
-            <Label id={this.props.id}>{field.label}</Label>
+            {field.label && <Label id={this.props.id}>{field.label}</Label>}
             {(this.props.validationError ? <ErrorMsg validationError={this.props.validationError} submitted={this.props.submitted} /> : null)}
             {(field.helpMsg ? <HelpMsg text={field.helpMsg} required={field._isRequired} /> : null)}
             <div className="InfernoFormlib-RowFieldContainer">
@@ -134,6 +134,43 @@ createAdapter({
     adapts: interfaces.IObjectField,
     
     Component: ObjectRow
+}).registerWith(globalRegistry)
+
+class ListRow extends Component {
+    // TODO: Add animation support
+
+    // support required
+    componentDidMount () {
+        if (this.props.formIsMounted) {
+            animateOnAdd(this, 'InfernoFormlib-Row--Animation')
+        }
+    }
+
+    componentWillUnmount () {
+        animateOnRemove(this, 'InfernoFormlib-Row--Animation')
+    }
+
+    render () {
+        const field = this.props.adapter.context
+
+        const color = this.props.validationError ? 'danger' : undefined
+
+        return <FormGroup className="InfernoFormlib-ListRow" color={color}>
+            {field.label && <Label id={this.props.id}>{field.label}</Label>}
+            {(this.props.validationError ? <ErrorMsg validationError={this.props.validationError} submitted={this.props.submitted} /> : null)}
+            {(field.helpMsg ? <HelpMsg text={field.helpMsg} required={field._isRequired} /> : null)}
+            <div className="InfernoFormlib-RowFieldContainer">
+                {this.props.children}
+            </div>
+        </FormGroup>
+    }
+}
+
+createAdapter({
+    implements: IFormRowWidget,
+    adapts: interfaces.IListField,
+    
+    Component: ListRow
 }).registerWith(globalRegistry)
 
 
