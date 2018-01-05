@@ -292,9 +292,14 @@ body {
     padding: 0;
 }
 
-.InfernoFormlib-ListFieldRow .InfernoFormlib-ObjectField .InfernoFormlib-RowFieldContainer {
+.InfernoFormlib-ListFieldRow .InfernoFormlib-RowFieldContainer {
     display: inline-block;
     margin-left: 1em;
+}
+
+.InfernoFormlib-ListFieldRow .InfernoFormlib-ObjectRow > .InfernoFormlib-RowFieldContainer {
+    display: block;
+    margin-left: 0;
 }
 
 .InfernoFormlib-ListFieldRow {
