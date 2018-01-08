@@ -2,6 +2,8 @@
 
 .git/
 
+.env
+
 # VS Code specific
 .vscode
 jsconfig.json

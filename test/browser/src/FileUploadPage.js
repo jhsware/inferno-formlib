@@ -45,7 +45,7 @@ const FileUploadUtil = createUtility({
         var data = new FormData();
         data.append('file', file);
 
-        return axios.post('/images', data, config)
+        return axios.post('/imagesAzure', data, config)
             .then((res) => {
                 const outp = {}
                 Object.assign(outp, imageValue)
