@@ -55,6 +55,9 @@ class FileUploadWidget extends Component {
   }
 
   doUpload (file) {
+    // Fire change event on currently active element to trigger update of value
+    this._inputEl.focus()
+
     this.setState({
       progress: 0
     })
@@ -106,7 +109,7 @@ class FileUploadWidget extends Component {
         {this.props.value === undefined && <DragNDrop onDrop={this.doUpload}>
           {!this.props.hide && <span className="placeholder">{this.props.placeholder}</span>}
           {!this.props.hide &&
-            <input
+            <input ref={el => this._inputEl = el}
               id={this.props.id}
               name={this.props.name}
               className="form-control-file"
