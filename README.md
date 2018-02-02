@@ -25,6 +25,21 @@ The package generates your form rows and calls an onChange handler whenever the 
 $ npm i -S inferno-formlib isomorphic-schema component-registry
 ```
 
+To use the components without requiring transpilation you import from the `/dist` directory:
+
+```JavaScript
+import { FormRows } from 'inferno-formlib/dist/FormRows'
+```
+ 
+You can get a nicer debugging experience by importing your components from the original source code in the `/lib` directory. However this requires that you transpile `node_module/inferno-formlib` imports and add the contents of the .babelrc config file from this repos to your project:
+
+```JavaScript
+import { FormRows } from 'inferno-formlib/lib/FormRows'
+```
+
+You will find a working webpack.config file in the folder `test/browser`. Don't forget to add your .babelrc
+file and babel package devDepencies.
+
 ## Form Generation Example
 More examples can be found at https://github.com/jhsware/inferno-formlib/tree/master/test/browser/src
 
@@ -44,16 +59,16 @@ import TextAreaField from 'isomorphic-schema/lib/field_validators/TextAreaField'
 
 // Widgets need to be imported so they can be found by inferno-formlib
 // we import them one-by-one to reduce bundle size.
-import 'inferno-formlib/lib/widgets/InputField.jsx'
-import 'inferno-formlib/lib/widgets/TextAreaField.jsx'
-import 'inferno-formlib/lib/widgets/FormRow.jsx'
-import { FormRows } from 'inferno-formlib/lib/FormRows.jsx'
+import 'inferno-formlib/dist/widgets/InputField'
+import 'inferno-formlib/dist/widgets/TextAreaField'
+import 'inferno-formlib/dist/widgets/FormRow'
+import { FormRows } from 'inferno-formlib/dist/FormRows'
 
 // Some bootstrap stuff...
-import Button from 'inferno-bootstrap/lib/Button'
-import Col from 'inferno-bootstrap/lib/Col'
-import Form from 'inferno-bootstrap/lib/Form/Form'
-import Row from 'inferno-bootstrap/lib/Row'
+import Button from 'inferno-bootstrap/dist/Button'
+import Col from 'inferno-bootstrap/dist/Col'
+import Form from 'inferno-bootstrap/dist/Form/Form'
+import Row from 'inferno-bootstrap/dist/Row'
 
 const formSchema = new Schema('Form Schema', {
   title: new TextField({

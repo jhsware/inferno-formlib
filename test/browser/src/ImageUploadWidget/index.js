@@ -1,6 +1,6 @@
 import { createAdapter, globalRegistry } from 'component-registry'
 import { IImageField, ImageField } from './ImageField'
-import ImageFieldWidget from './ImageFieldWidget.jsx'
+import ImageFieldWidget from './ImageFieldWidget'
 import { IInputFieldWidget } from '../../../../lib/interfaces'
 import './FileUploadUtil'
 

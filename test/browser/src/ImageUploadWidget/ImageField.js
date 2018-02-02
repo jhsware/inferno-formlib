@@ -1,6 +1,6 @@
 import { createInterface, createObjectPrototype } from 'component-registry'
 import BaseField from 'isomorphic-schema/lib/field_validators/BaseField'
-import ImageFieldWidget from './ImageFieldWidget.jsx'
+import ImageFieldWidget from './ImageFieldWidget'
 
 var IImageField = createInterface({
   name: 'IImageField'
