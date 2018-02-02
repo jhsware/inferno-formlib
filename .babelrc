@@ -4,6 +4,11 @@
     ["babel-plugin-inferno", {
         "imports": true
       }
-    ]
+    ],
+    ["module-resolver", {
+      "alias": {
+        "inferno-bootstrap/lib": "inferno-bootstrap/dist"
+      }
+    }]
   ]
 }
