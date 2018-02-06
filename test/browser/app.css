@@ -310,3 +310,27 @@ body {
     top: 0;
     right: 0;
 }
+
+/*
+    ActionBar
+*/
+.InfernoFormlib-ActionBar {
+    background-color: rgba(255,255,255,0.8);
+    z-index: 1;
+    padding: 0.5rem 1rem;
+    width: 100%;
+    border-top: 1px solid #777;
+}
+.InfernoFormlib-StickyActionBar {
+    position: fixed;
+}
+.InfernoFormlib-StickyActionBar--hidden {
+    display: none;
+}
+
+.DebugMarker {
+    height: 1px;
+    background-color: red;
+    width: 100%;
+    z-index: 9999999999;
+}
