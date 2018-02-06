@@ -19,6 +19,8 @@ import '../../../lib/widgets/TextAreaField'
 import '../../../lib/widgets/ListField'
 import '../../../lib/widgets/ObjectField'
 import '../../../lib/widgets/FormRow'
+import { ActionBar } from '../../../lib/widgets/ActionBar'
+import { getElOffset } from '../../../lib/widgets/utils'
 
 import { FormRows } from '../../../lib/FormRows'
 import Button from 'inferno-bootstrap/lib/Button'
@@ -102,11 +104,28 @@ export default class Page extends Component {
         this.state = {
             value: {},
             validationError: undefined,
-            submitted: false
+            submitted: false,
+            actionbarBoundary: {top: 0, bottom: 0}
         }
 
         this.didChange = this.didChange.bind(this)
         this.doSubmit = this.doSubmit.bind(this)
+    }
+
+    _calculateToolbarBoundary () {
+      var bottomBoundary = window.visualViewport.height // getElOffset(formEl).top + formEl.clientHeight
+      var topBoundary = 0 // getElOffset(formEl).top
+      
+      this.setState({
+          actionbarBoundary: { 
+              top: topBoundary, 
+              bottom: bottomBoundary
+          }
+      })
+    }
+
+    componentDidMount () {
+      this._calculateToolbarBoundary.call(this)
     }
 
     doSubmit (e) {
@@ -132,6 +151,8 @@ export default class Page extends Component {
 
         return (
             <div className="TestContainer">
+                <div className="DebugMarker" style={{top: this.state.actionbarBoundary.top, position: 'fixed'}} />
+                <div className="DebugMarker" style={{top: this.state.actionbarBoundary.bottom, position: 'fixed'}} />
                 <h1>Sample Form With Submit</h1>
                 <Form onSubmit={this.doSubmit} className='IEditItem'>
                   <Row>
@@ -139,13 +160,15 @@ export default class Page extends Component {
                       <FormRows className="col" schema={formSchema} validationErrors={this.state.validationError} value={this.state.value} onChange={this.didChange} />
                     </Col>
                   </Row>
-                  <Row className="InfernoFormlib-ActionBar">
-                    <Col>
-                      <Button type="submit">Save</Button>
-                    </Col>
-                  </Row>
+                  <ActionBar boundary={this.state.actionbarBoundary}>
+                    <Row>
+                      <Col>
+                        <Button type="submit">Save</Button>
+                      </Col>
+                    </Row>
+                  </ActionBar>
                 </Form>
-      
+                <div style={{height: "30rem"}} />
             </div>
         )
     }
