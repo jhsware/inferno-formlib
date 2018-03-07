@@ -1,4 +1,4 @@
-import Component from 'inferno-component'
+import { Component } from 'inferno'
 import { globalRegistry, createUtility } from 'component-registry'
 import axios from 'axios'
 

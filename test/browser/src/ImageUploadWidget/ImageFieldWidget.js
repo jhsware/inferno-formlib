@@ -1,4 +1,4 @@
-import Component from 'inferno-component'
+import { Component } from 'inferno'
 import { globalRegistry } from 'component-registry'
 import { FileUploadWidget } from '../../../../lib/widgets/FileUploadWidget'
 import { IFileUploadUtil } from '../../../../lib/interfaces'

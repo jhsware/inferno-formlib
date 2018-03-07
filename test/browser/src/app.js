@@ -1,7 +1,5 @@
-import Inferno from 'inferno'
-import Component from 'inferno-component'
-import { Router, Route, Redirect, IndexRoute, Link } from 'inferno-router'
-import createBrowserHistory from 'history/createBrowserHistory'
+import { Component, render } from 'inferno'
+import { BrowserRouter, Switch, Route, Redirect, Link } from 'inferno-router'
 
 import Button from 'inferno-bootstrap/lib/Button'
 
@@ -20,7 +18,22 @@ function NavLink (props) {
   )
 }
 
-class AppLayout extends Component {
+function Content ({ match }) {
+  return (
+    <div>
+      <Switch>
+        <Route path={`${match.path}/form`} component={ FormPage } />
+        <Route path={`${match.path}/date`} component={ DatePage } />
+        <Route path={`${match.path}/fileUpload`} component={ FileUploadPage } />
+        <Route path={`${match.path}/fileUploadForm`} component={ ImageUploadFormPage } />
+        <Route path={`${match.path}/listForm`} component={ ListFormPage } />
+        <Redirect to="/widgets/form" />
+      </Switch>
+    </div>
+  )
+}
+
+class App extends Component {
   render () {
     return (
       <div className="Content">
@@ -41,27 +54,15 @@ class AppLayout extends Component {
             <NavLink to="/widgets/listForm">List Form</NavLink>
           </NavItem>
         </Nav>
-        {this.props.children}
+        <Switch>
+          <Route path="/widgets" component={ Content } />
+          <Redirect to="/widgets/form" />
+        </Switch>
       </div>
     )
   }
 }
 
 if (typeof window !== 'undefined') {
-  // require('inferno-devtools')
-  const browserHistory = createBrowserHistory()
-
-  const appRoutes = (
-    <Router history={ browserHistory }>
-      <Route path="/widgets" component={ AppLayout }>
-        <Route path="/form" component={ FormPage } />
-        <Route path="/date" component={ DatePage } />
-        <Route path="/fileUpload" component={ FileUploadPage } />
-        <Route path="/fileUploadForm" component={ ImageUploadFormPage } />
-        <Route path="/listForm" component={ ListFormPage } />
-      </Route>
-      <Redirect from="/*" to="/widgets/form" />
-    </Router>
-  )
-  Inferno.render(appRoutes, document.getElementById('app'))
+  render(<BrowserRouter><App /></BrowserRouter>, document.getElementById('app'))
 }

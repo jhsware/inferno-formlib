@@ -3,6 +3,13 @@
 
 The goal of this project is to create a bootstrap 4 compatible form generation library for Inferno.js using isomorphic-schema definitions.
 
+## Compatibility
+inferno-formlib 4.x supports Inferno v4
+
+inferno-formlib 3.x supports Inferno v3
+
+## Form Demos
+
 To see form demos:
 
 ```sh
@@ -48,7 +55,7 @@ You will find some standard form css if you look at https://github.com/jhsware/i
 Animations are done with https://github.com/jhsware/inferno-animation
 
 ```jsx
-import Component from 'inferno-component'
+import { Component } from 'inferno'
 
 // Form schema definition
 import { Schema } from 'isomorphic-schema'

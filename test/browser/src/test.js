@@ -5,8 +5,7 @@
     adapter registry.
 
 */
-import Inferno from 'inferno'
-import Component from 'inferno-component'
+import { Component } from 'inferno'
 
 import classNames from 'classnames'
 
