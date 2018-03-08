@@ -51,9 +51,9 @@
   "dependencies": {
     "classnames": "^2.2.5",
     "inferno": "^4.0.8",
-    "inferno-animation": "^0.6.0",
-    "inferno-bootstrap": "^4.0.0",
-    "inferno-popper": "^0.2.0",
+    "inferno-animation": "^4.0.0",
+    "inferno-bootstrap": "^4.0.1",
+    "inferno-popper": "^4.0.0",
     "lodash.tonumber": "^4.0.3",
     "safe-utils": "^0.1.2"
   }
