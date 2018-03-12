@@ -19,6 +19,10 @@
   ],
   "author": "Sebastian Ware <sebastian@urbantalk.se> (https://github.com/jhsware)",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/jhsware/inferno-formlib.git"
+  },
   "peerDependencies": {
     "component-registry": "^0.2.8",
     "isomorphic-schema": "^0.7.1"
