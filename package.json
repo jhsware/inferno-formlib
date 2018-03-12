@@ -1,6 +1,6 @@
 {
   "name": "inferno-formlib",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "description": "Form library for inferno",
   "main": "index.js",
   "scripts": {
