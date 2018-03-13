@@ -18,6 +18,10 @@ app.use('/test', (req, res) => {
   res.sendFile(path.resolve(__dirname, './testIndex.html'))
 })
 
+app.use('/compat', (req, res) => {
+  res.sendFile(path.resolve(__dirname, './indexCompat.html'))
+})
+
 app.use((req, res) => {
   res.sendFile(path.resolve(__dirname, './index.html'))
 })
@@ -44,4 +48,4 @@ module.exports = function (PORT, done) {
   return app.listen(PORT, done)
 }
 
-module.exports(8080)
+module.exports(9090)

@@ -76,7 +76,8 @@ const formSchema = new Schema('Form Schema', {
       { name: 'bird', title: 'Bird'},
       { name: 'mamal', title: 'Mamal'},
       { name: 'fish', title: 'Fish'},
-    ]
+    ],
+    valueType: new TextField()
   }),
   bio: new TextAreaField({
     label: 'Bio',
