@@ -4,6 +4,8 @@
 The goal of this project is to create a bootstrap 4 compatible form generation library for Inferno.js using isomorphic-schema definitions.
 
 ## Compatibility
+inferno-formlib 5.x supports Inferno v5
+
 inferno-formlib 4.x supports Inferno v4
 
 inferno-formlib 3.x supports Inferno v3
