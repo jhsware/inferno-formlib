@@ -259,10 +259,6 @@ body {
 /**
  * Some general form overrides
  */
-.form-check-input {
-    display: inline-block;
-    margin-left: 0.8em;
-}
 
 .invalid-feedback {
     margin-top: 0;
