@@ -3,6 +3,7 @@ import { globalRegistry } from 'component-registry'
 import { FileUploadWidget } from '../../../../lib/widgets/FileUploadWidget'
 import { IFileUploadUtil } from '../../../../lib/interfaces'
 import { renderString } from '../../../../lib/widgets/common'
+import { generateId } from '../../../../lib/widgets/utils'
 
 import Card from 'inferno-bootstrap/lib/Card/Card'
 import CardBody from 'inferno-bootstrap/lib/Card/CardBody'
@@ -62,7 +63,7 @@ export default class ImageFieldWidget extends Component {
       const isValid = this.props.validationError ? false : undefined
 
       return <FileUploadWidget
-          id={this.props.namespace.join(".") + "__Field"}
+          id={generateId(this.props.namespace, '__Field')}
           name={this.props.inputName}
           valid={isValid}
           placeholder={renderString(field.placeholder)}

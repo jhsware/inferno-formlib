@@ -8,6 +8,7 @@ import TextField from 'isomorphic-schema/lib/field_validators/TextField'
 import FormText from 'inferno-bootstrap/lib/Form/FormText'
 import FormGroup from 'inferno-bootstrap/lib/Form/FormGroup'
 import Label from 'inferno-bootstrap/lib/Form/Label'
+import { renderString } from '../../../lib/widgets/common'
 
 import Card from 'inferno-bootstrap/lib/Card/Card'
 import CardBody from 'inferno-bootstrap/lib/Card/CardBody'
@@ -127,7 +128,7 @@ export default class Page extends Component {
                             id="value__Field"
                             name="value"
                             valid={isValid}
-                            placeholder={imageField.placeholder}
+                            placeholder={renderString(imageField.placeholder)}
                             readOnly={imageField.readOnly}
                             value={imageField.toFormattedString(this.state.value)}
                             uploadUtilName={imageField.uploadUtilName}
