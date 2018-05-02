@@ -13,5 +13,7 @@ node_modules
 
 # Built at startup
 dist
+
 package-lock.json
 test/browser/upload
+test/browser/dist

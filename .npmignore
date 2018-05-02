@@ -11,4 +11,7 @@ typings.json
 # Dependency directory for NPM
 node_modules
 
+# We don't want to push test to npm
+test/
+
 # We want to push dist to NPM
