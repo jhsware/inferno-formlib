@@ -320,6 +320,9 @@ body {
 .InfernoFormlib-StickyActionBar {
     position: fixed;
 }
+.InfernoFormlib-ActionBar--hidden {
+    visibility: hidden;
+}
 .InfernoFormlib-StickyActionBar--hidden {
     display: none;
 }
