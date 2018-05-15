@@ -10,7 +10,7 @@ inferno-formlib 4.x supports Inferno v4
 
 inferno-formlib 3.x supports Inferno v3
 
-## Sample Code
+## Exampe With Sticky Action Bar
 This is the basic anatomy of a form generated with inferno-formlib. It can generate nested forms from isomorphic-schema form definitions and list fields support drag'n'drop reordering.
 
 Currently the DateTimeField widget hasn't been implemented, but it is in the pipeline.
@@ -119,6 +119,26 @@ class FormEdit extends Component {
 }
 ```
 
+```CSS
+.InfernoFormlib-ActionBar {
+    background-color: rgba(255,255,255,0.8);
+    z-index: 1;
+    padding: 0.5rem 1rem;
+    width: 100%;
+    border-top: 1px solid #777;
+}
+.InfernoFormlib-StickyActionBar {
+    position: fixed;
+}
+.InfernoFormlib-ActionBar--hidden {
+    visibility: hidden;
+}
+.InfernoFormlib-StickyActionBar--hidden {
+    display: none;
+}
+
+```
+
 ## Form Demos
 
 To see form demos:
@@ -158,7 +178,7 @@ import { FormRows } from 'inferno-formlib/lib/FormRows'
 You will find a working webpack.config file in the folder `test/browser`. Don't forget to add your .babelrc
 file and babel package devDepencies.
 
-## Form Generation Example
+## Another Example
 More examples can be found at https://github.com/jhsware/inferno-formlib/tree/master/test/browser/src
 
 You will find some standard form css if you look at https://github.com/jhsware/inferno-formlib/blob/master/test/browser/app.css
@@ -259,6 +279,89 @@ export default class FormSection extends Component {
     )
   }
 }
+```
+
+## Customising How Rows are Rendered
+This example shows how you create a character limit counter for text fields. You do this by customising how the row is rendered by means of a row widget adapter. The row widget adapter is registered in the globalRegistry and will override the existing generic row widget used to render text input fields.
+
+Note that this approach will override the look and feel of all TextField rows.
+
+```JavaScript
+import { Component } from 'inferno'
+
+import { createAdapter, globalRegistry } from 'component-registry'
+
+import { interfaces, i18n } from 'isomorphic-schema'
+import { IFormRowWidget }  from 'inferno-formlib/dist/interfaces'
+
+import { ErrorMsg, HelpMsg, Label } from 'inferno-formlib/dist/widgets/FormRow'
+import { animateOnAdd, animateOnRemove } from 'inferno-animation'
+import FormText from 'inferno-bootstrap/dist/Form/FormText'
+import FormGroup from 'inferno-bootstrap/dist/Form/FormGroup'
+
+import { renderString } from 'inferno-formlib/dist/widgets/common'
+
+function CharsLeft (props) {
+  const outp = renderString(i18n('isomorphic-schema--field_charactersLeft'), props.options && props.options.lang, `Tecken kvar: ${props.charsLeft}`)
+  const color = (props.charsLeft < 0 ? 'danger' : undefined)
+
+  return <FormText muted color={color} className="CharsLeft" for={props.id}>{outp}</FormText>
+}
+
+/*
+    PROPS:
+    - animation: animation css class prefix
+    - submitted: bool, has been submitted
+    - field:  isomorphic-schema field validator object
+    - errors: isomorphic-schema field and server error object { fieldErrors, serverErrors } or undefined if no errors
+    - id:     unique id of field
+*/
+class Row extends Component {
+  // TODO: Add animation support
+
+  // support required
+  componentDidMount () {
+      if (this.props.formIsMounted) {
+          animateOnAdd(this.$V.dom, 'InfernoFormlib-Row--Animation')
+      }
+  }
+
+  componentWillUnmount () {
+      animateOnRemove(this.$V.dom, 'InfernoFormlib-Row--Animation')
+  }
+
+  render () {
+    const field = this.props.adapter.context
+    const value = this.props.value
+
+    const color = (this.props.validationError ? 'danger' : undefined)
+
+    let charsLeft
+    if (field._maxLength) {
+      charsLeft = (typeof value === 'string' ? field._maxLength - value.length : field._maxLength)
+    }
+
+    return (
+      <FormGroup id={this.props.namespace.join('.') + '__Row'} color={color}>
+        {field.label && <Label id={this.props.id}>{field.label}</Label>}
+        <div className="InfernoFormlib-RowFieldContainer">
+            {this.props.children}
+        </div>
+        {this.props.validationError ? <ErrorMsg validationError={this.props.validationError} submitted={this.props.submitted} /> : null}
+        {(charsLeft !== undefined) && <CharsLeft charsLeft={charsLeft} />}
+        {field.help && <HelpMsg text={field.help} required={field._isRequired} />}
+      </FormGroup>
+    )
+  }
+}
+
+createAdapter({
+  implements: IFormRowWidget,
+  adapts: interfaces.ITextField,
+  
+  Component: Row
+}).registerWith(globalRegistry)
+
 ```
 
 ## i18n Support
