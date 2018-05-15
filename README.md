@@ -10,6 +10,115 @@ inferno-formlib 4.x supports Inferno v4
 
 inferno-formlib 3.x supports Inferno v3
 
+## Sample Code
+This is the basic anatomy of a form generated with inferno-formlib. It can generate nested forms from isomorphic-schema form definitions and list fields support drag'n'drop reordering.
+
+Currently the DateTimeField widget hasn't been implemented, but it is in the pipeline.
+
+```JavaScript
+import { Component } from 'inferno'
+
+// Imports to define form schema
+import { Schema } from 'isomorphic-schema'
+import TextField from 'isomorphic-schema/lib/field_validators/TextField'
+import DateField from 'isomorphic-schema/lib/field_validators/DateField'
+
+// Register widgets
+import 'inferno-formlib/dist/widgets/InputField'
+import 'inferno-formlib/dist/widgets/DateField'
+
+// Form generation
+import { FormRows } from 'inferno-formlib'
+import { ActionBar } from 'inferno-formlib/dist/widgets/ActionBar'
+
+// Some useful Bootstrap components
+import Form from 'inferno-bootstrap/dist/Form/Form'
+import Button from 'inferno-bootstrap/dist/Button'
+import Row from 'inferno-bootstrap/dist/Row'
+import Col from 'inferno-bootstrap/dist/Col'
+
+const formSchema = new Schema('Form Schema', {
+    title: new TextField({
+      label: 'Race Name' 
+    }),
+    startDate: new DateField({
+      label: 'Start Date'
+    })
+  })
+})
+
+class FormEdit extends Component {
+  constructor (props) {
+    super(props)
+
+    this.didChange = this.didChange.bind(this)
+    this.doSubmit = this.doSubmit.bind(this)
+
+    this.state = {
+      validationErrors: undefined,
+      isMounted: false, // Prevents animations on mounting of form
+      value: {}
+    }
+  }
+
+  componentDidMount () {
+    this.setState({
+      isMounted: true
+    })
+  }
+
+  didChange (propName, value) {
+    const newValue = this.state.value
+    newValue[propName] = value
+    this.setState({
+      value: newValue
+    })
+  }
+
+  doSubmit (e) {
+    e.preventDefault()
+    const validationErrors = formSchema.validate(this.state.value)
+    this.setState({
+      validationErrors
+    })
+
+    if (validationErrors === undefined) {
+      // TODO: Submit form to API
+    } else {
+      // TODO: Show error message
+    }
+  }
+
+  render () {
+    return (
+      <Form onSubmit={this.doSubmit}>
+        <Row>
+          <Col>
+            <h2>My Form</h2>
+          </Col>
+        </Row>
+
+        <FormRows
+          schema={formSchema}
+          validationErrors={this.state.validationErrors}
+          value={this.state.value}
+          isMounted={this.state.isMounted}
+          onChange={this.didChange}
+         />
+
+        <ActionBar boundary={{top: 0, bottom: 0}}>
+          <Row>
+              <Col>
+                <Button type="submit" color="success">Save</Button>
+              </Col>
+          </Row>
+        </ActionBar>
+      </Form>
+    )
+  }
+}
+```
+
 ## Form Demos
 
 To see form demos:
