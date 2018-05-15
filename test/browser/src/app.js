@@ -8,6 +8,7 @@ import NavItem from 'inferno-bootstrap/lib/Navigation/NavItem'
 
 import FormPage from './FormPage'
 import DatePage from './DatePage'
+import DateTimePage from './DateTimePage'
 import FileUploadPage from './FileUploadPage'
 import ImageUploadFormPage from './ImageUploadFormPage'
 import ListFormPage from './ListFormPage'
@@ -24,6 +25,7 @@ function Content ({ match }) {
       <Switch>
         <Route path={`${match.path}/form`} component={ FormPage } />
         <Route path={`${match.path}/date`} component={ DatePage } />
+        <Route path={`${match.path}/dateTime`} component={ DateTimePage } />
         <Route path={`${match.path}/fileUpload`} component={ FileUploadPage } />
         <Route path={`${match.path}/fileUploadForm`} component={ ImageUploadFormPage } />
         <Route path={`${match.path}/listForm`} component={ ListFormPage } />
@@ -43,6 +45,9 @@ class App extends Component {
           </NavItem>
           <NavItem>
             <NavLink to="/widgets/date">Date Picker</NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink to="/widgets/dateTime">DateTime Picker</NavLink>
           </NavItem>
           <NavItem>
             <NavLink to="/widgets/fileUpload">File Upload</NavLink>
