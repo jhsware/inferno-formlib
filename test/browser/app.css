@@ -125,6 +125,33 @@ body {
 }
 
 /**
+ *  DateTimeWidget
+ */
+.InfernoFormlib-DateTimeGroup {
+    display: block;
+}
+
+.InfernoFormlib-DateTimeGroup > .InfernoFormlib-DateTime_date {
+    display: inline-block;
+    width: 7.5em;
+    transition: all 0.15s linear;
+} .InfernoFormlib-DateTimeGroup--noValue > .InfernoFormlib-DateTime_date {
+    width: 13.5em!important;
+    border-radius: 0.25rem!important;
+}
+
+.InfernoFormlib-DateTimeGroup > .InfernoFormlib-DateTime_time {
+    display: inline-block;
+    width: 6em;
+    transition: all 0.15s linear;
+} .InfernoFormlib-DateTimeGroup--noValue > .InfernoFormlib-DateTime_time {
+    width: 0!important;
+    padding-right: 0!important;
+    padding-left: 0!important;
+    border-width: 0!important;
+}
+
+/**
  * FileUploadWidget
  */
 .InfernoFormlib-FileUploadWidget {

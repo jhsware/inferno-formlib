@@ -7,6 +7,7 @@ import Label from 'inferno-bootstrap/lib/Form/Label'
 
 const dateTimeField = new DateTimeField({
     label: 'DateTime Field',
+    placeholder: 'Click to select date...',
     help: 'Enter a nice date and time',
     required: true
 })
@@ -30,7 +31,7 @@ export default class Page extends Component {
 
         return (
             <div className="TestContainer">
-                <h1>Date Widget</h1>
+                <h1>DateTime Widget</h1>
                 <FormGroup>
                     <Label id="dateField">{dateTimeField.label}</Label>
                     <div className="InfernoFormlib-RowFieldContainer">
