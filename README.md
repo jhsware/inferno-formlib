@@ -368,7 +368,134 @@ TODO: Explain how to add i18n support
 ## Creating a Widget
 For now, check the code at https://github.com/jhsware/inferno-formlib/tree/master/test/browser/src/ImageUploadWidget
 
-TODO: Explain how to create a widget.
+### Creating an AutoComplete Widget
+There is an AutoComplete wudget that you can use as a base for your own autocomplete. First 
+you need to create a new `isomorphic-schema`field. We are assuming that the underlying value
+is an object that has the form:
+
+```JavaScript
+const obj = {
+  id: 'asdfg',
+  theTitle: 'Yada Yada'
+}
+```
+
+The data flows through the widget and field like this:
+
+```
+Value passed to field widget:
+
+  props.value -> field.toFormattedString() -> state.text ...
+
+Value rendered in field widget input control:
+
+  state.text -> input.value
+
+Option selected from list:
+
+  getOptions -> options -> select an option -> field.fromString() -> props.onChange() -> props.value ...
+
+Text entered in input control:
+
+  onInput() ->  e.target.value -> state.text -> input
+  
+```
+
+```JavaScript
+import { globalRegistry, createObjectPrototype, createInterface } from 'component-registry'
+import axios from 'axios'
+
+import DynamicSelectAsyncBaseField from 'isomorphic-schema/lib/field_validators/DynamicSelectAsyncBaseField'
+import TextField from 'isomorphic-schema/lib/field_validators/TextField'
+import ObjectField from 'isomorphic-schema/lib/field_validators/ObjectField'
+import { Schema } from 'isomorphic-schema';
+
+import AutoComplete from 'inferno-formlib/dist/widgets/AutoComplete'
+import { IInputFieldWidget } from 'inferno-formlib/dist/interfaces'
+
+export const IMySelectAsyncField = createInterface({
+  name: 'IMySelectAsyncField'
+})
+
+const userSchema = new Schema('User Schema', {
+  id: new TextField({}),
+  theTitle: new TextField({})
+})
+
+export const MySelectAsyncField = createObjectPrototype({
+  implements: [IMySelectAsyncField],
+  extends: [DynamicSelectAsyncBaseField],
+
+  constructor (options) {
+    this._IDynamicSelectAsyncBaseField.constructor.call(this, options)
+    this.valueType = new ObjectField({
+      schema: userSchema,
+      required: true
+    })
+  },
+
+  validateAsync (inp, options, context) {
+    const promise = this._IDynamicSelectAsyncBaseField.validateAsync.call(this, inp)
+    return promise.then(function (error) {
+      if (error) {
+        return Promise.resolve(error)
+      } else {
+        // We could validate the data further here by this.valueType.validate(inp),
+        // but skipping because the value is selected and we don't have any fancy
+        // validation rules ATM. You could also go one step further and check that
+        // the value actually exists in your backend. Just make sure you don't kill your
+        // backend API...
+        return Promise.resolve(undefined)
+      }
+    })
+  },
+
+  getOptionsAsync (inp, options, context) {
+    // This should return a list of objects [{ name: 'maps to obj.id', 'title': 'maps to obj.theTitle'}]
+    return axios.get('https://some.url/endpoint/to/options', {q: options.search}).then((res) => return res.data)
+  },
+
+  getOptionTitleAsync (inp, options, context) {
+    return this.getOptionsAsync(inp, options, context)
+      .then(user => {
+        const find = user.find(x => user.name === inp)
+        return Promise.resolve(find.title)
+      }).catch(err => {
+        return Promise.reject(undefined)
+      })
+  },
+
+  toFormattedString (inp) {
+    // Convert data from data model to internal representation 
+    if (inp) {
+      return {
+        name: inp.id,
+        title: inp.theTitle
+      }
+    }
+  },
+
+  fromString (inp) {
+    // Convert data from selected value in dropdown list to
+    // object value in data model
+    if (inp) {
+      return {
+        id: inp.name,
+        theTitle: inp.title
+      }
+    }
+  }
+})
+
+createAdapter({
+  implements: IInputFieldWidget,
+  adapts: IMySelectAsyncField,
+  Component: AutoComplete
+}).registerWith(globalRegistry)
+```
+
+Now you can use your new field in form schemas or ObjectPrototype interfaces. NOTE: When rendering forms with async
+fields you need to call `mySchema.validateAsync` when validating.
 
 ## Custom Widgets
 Custom widgets override whatever standard widget would be rendered for a specific field in form. This is useful
