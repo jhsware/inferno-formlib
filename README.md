@@ -300,10 +300,10 @@ import FormGroup from 'inferno-bootstrap/dist/Form/FormGroup'
 import { renderString } from 'inferno-formlib/dist/widgets/common'
 
 function CharsLeft (props) {
-  const outp = renderString(i18n('isomorphic-schema--field_charactersLeft'), props.options && props.options.lang, `Tecken kvar: ${props.charsLeft}`)
+  const outp = renderString(i18n('isomorphic-schema--field_charactersLeft'), props.options && props.options.lang, 'Tecken kvar: ${charsLeft}')
   const color = (props.charsLeft < 0 ? 'danger' : undefined)
 
-  return <FormText muted color={color} className="CharsLeft" for={props.id}>{outp}</FormText>
+  return <FormText muted color={color} className="CharsLeft" for={props.id}>{outp.replace('${charsLeft}', props.charsLeft)}</FormText>
 }
 
 /*

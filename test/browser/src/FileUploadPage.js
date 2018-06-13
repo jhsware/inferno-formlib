@@ -115,20 +115,21 @@ export default class Page extends Component {
         )
     }
 
-    render () {
+    render ({inputName, namespace, options}) {
         const isValid = this.state.validationError ? false : undefined
 
         return (
             <div className="TestContainer">
                 <h1>Image Upload</h1>
                 <FormGroup>
-                    <Label id="imageField">{imageField.label}</Label>
+                    <Label id="imageField" options={options}>{imageField.label}</Label>
                     <div className="InfernoFormlib-RowFieldContainer">
                         <FileUploadWidget
                             id="value__Field"
                             name="value"
                             valid={isValid}
-                            placeholder={renderString(imageField.placeholder)}
+                            placeholder={renderString(imageField.placeholder, options && options.lang, undefined, options && options.disableI18n)}
+                            options={{parentValue: value, lang, disableI18n}}
                             readOnly={imageField.readOnly}
                             value={imageField.toFormattedString(this.state.value)}
                             uploadUtilName={imageField.uploadUtilName}
@@ -137,7 +138,7 @@ export default class Page extends Component {
                             {this.state.value && this.renderImage()}
                         </FileUploadWidget>
                     </div>
-                    {this.state.validationError ? <ErrorMsg validationError={this.state.validationError} submitted={this.state.submitted} /> : null}
+                    {this.state.validationError ? <ErrorMsg validationError={this.state.validationError} submitted={this.state.submitted} options={options} /> : null}
                     {imageField.help && <FormText className="text-muted" for="imageField">{imageField.help}</FormText>}
                 </FormGroup>
             </div>

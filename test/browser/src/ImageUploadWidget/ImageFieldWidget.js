@@ -58,15 +58,15 @@ export default class ImageFieldWidget extends Component {
     )
   }
 
-  render () {
+  render ({inputName, namespace, options}) {
       const field = this.props.adapter.context
       const isValid = this.props.validationError ? false : undefined
 
       return <FileUploadWidget
-          id={generateId(this.props.namespace, '__Field')}
-          name={this.props.inputName}
+          id={generateId(namespace, '__Field')}
+          name={inputName}
           valid={isValid}
-          placeholder={renderString(field.placeholder)}
+          placeholder={renderString(field.placeholder, options && options.lang, undefined, options && options.disableI18n)}
           readOnly={field.readOnly}
           value={field.toFormattedString(this.state.value)}
           uploadUtilName={field.uploadUtilName}
