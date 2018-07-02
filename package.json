@@ -25,7 +25,7 @@
   },
   "peerDependencies": {
     "component-registry": "^0.2.8",
-    "isomorphic-schema": "^0.7.1"
+    "isomorphic-schema": "^0.7.3"
   },
   "devDependencies": {
     "axios": "^0.17.1",
@@ -59,9 +59,9 @@
   "dependencies": {
     "classnames": "^2.2.5",
     "inferno": "^5.0.1",
-    "inferno-animation": "^5.0.0",
-    "inferno-bootstrap": "^5.0.0",
-    "inferno-popper": "^5.0.0",
+    "inferno-animation": "^5.1.0",
+    "inferno-bootstrap": "^5.1.1",
+    "inferno-popper": "^5.1.0",
     "lodash.tonumber": "^4.0.3",
     "safe-utils": "^0.1.2"
   }
