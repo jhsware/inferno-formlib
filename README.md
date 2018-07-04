@@ -320,12 +320,12 @@ class Row extends Component {
   // support required
   componentDidMount () {
       if (this.props.formIsMounted) {
-          animateOnAdd(this.$V.dom, 'InfernoFormlib-Row--Animation')
+          animateOnAdd(this.$LI.dom, 'InfernoFormlib-Row--Animation')
       }
   }
 
   componentWillUnmount () {
-      animateOnRemove(this.$V.dom, 'InfernoFormlib-Row--Animation')
+      animateOnRemove(this.$LI.dom, 'InfernoFormlib-Row--Animation')
   }
 
   render () {
