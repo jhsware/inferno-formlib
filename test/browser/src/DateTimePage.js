@@ -5,7 +5,7 @@ import FormText from 'inferno-bootstrap/lib/Form/FormText'
 import FormGroup from 'inferno-bootstrap/lib/Form/FormGroup'
 import Label from 'inferno-bootstrap/lib/Form/Label'
 
-import Row from 'inferno-bootstra/lib/Row'
+import Row from 'inferno-bootstrap/lib/Row'
 import Col from 'inferno-bootstrap/lib/Col'
 
 const dateTimeField = new DateTimeField({

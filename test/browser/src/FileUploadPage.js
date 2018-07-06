@@ -118,6 +118,10 @@ export default class Page extends Component {
     render ({inputName, namespace, options}) {
         const isValid = this.state.validationError ? false : undefined
 
+        const value = this.state.value
+        const lang = options && options.lang
+        const disableI18n = options && options.disableI18n
+
         return (
             <div className="TestContainer">
                 <h1>Image Upload</h1>
@@ -128,8 +132,8 @@ export default class Page extends Component {
                             id="value__Field"
                             name="value"
                             valid={isValid}
-                            placeholder={renderString(imageField.placeholder, options && options.lang, undefined, options && options.disableI18n)}
-                            options={{parentValue: value, lang, disableI18n}}
+                            placeholder={renderString(imageField.placeholder, lang, undefined, disableI18n)}
+                            options={{parentValue: this.state.value, lang, disableI18n}}
                             readOnly={imageField.readOnly}
                             value={imageField.toFormattedString(this.state.value)}
                             uploadUtilName={imageField.uploadUtilName}
