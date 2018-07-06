@@ -1,10 +1,8 @@
 {
-  "presets": ["es2015", "stage-0"],
-  "plugins": [
-    ["babel-plugin-inferno", {
-        "imports": true
-      }
-    ],
-    ["module-resolver", {}]
-  ]
+  "presets": [
+    ["env", { "modules": false }],
+    "stage-2",
+    "inferno-app"
+  ],
+  "plugins": []
 }
