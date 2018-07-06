@@ -37,10 +37,12 @@ const baseConfig = (outputFormat) => {
     ],
     external: [
       'classnames',
+      'component-registry',
       'inferno',
       'inferno-animation',
       'inferno-create-element',
       'inferno-popper',
+      'isomorphic-schema',
       'lodash.tonumber'
     ],
     output: {
@@ -50,10 +52,12 @@ const baseConfig = (outputFormat) => {
       sourcemap: true,
       globals: {
         classnames: 'classNames',
+        'component-registry': 'componentRegistry',
         inferno: 'Inferno',
         'inferno-animation': 'infernoAnimation',
         'inferno-create-element': 'infernoCreateElement',
         'inferno-popper': 'infernoPopper',
+        'isomorphic-schema': 'isomorphicSchema',
         'lodash.tonumber': 'toNumber'
       },
     },

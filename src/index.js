@@ -1,25 +1,25 @@
 'use strict'
-import { FormRows } from './dist/FormRows'
+import { FormRows } from './FormRows'
 
-import AutoCompleteWidget from './dist/widgets/AutoComplete'
-import AnyOfWidget from './dist/widgets/AnyOf'
-import CheckboxWidget from './dist/widgets/BoolField'
-import DynamicSelectWidget from './dist/widgets/DynamicSelectField'
-import InputWidget from './dist/widgets/InputField'
-import ListWidget from './dist/widgets/ListField'
-import MultiSelectWidget from './dist/widgets/MultiSelectField'
-import ObjectWidget from './dist/widgets/ObjectField'
-import PasswordWidget from './dist/widgets/PasswordField'
-import SelectWidget from './dist/widgets/SelectField'
-import TextAreaWidget from './dist/widgets/TextAreaField'
-import SelectAsyncBaseWidget from './dist/widgets/SelectAsyncBaseWidget'
-import { FileUploadWidget, ProgressOverlay } from './dist/widgets/FileUploadWidget'
+import AutoCompleteWidget from './widgets/AutoComplete'
+import AnyOfWidget from './widgets/AnyOf'
+import CheckboxWidget from './widgets/BoolField'
+import DynamicSelectWidget from './widgets/DynamicSelectField'
+import InputWidget from './widgets/InputField'
+import ListWidget from './widgets/ListField'
+import MultiSelectWidget from './widgets/MultiSelectField'
+import ObjectWidget from './widgets/ObjectField'
+import PasswordWidget from './widgets/PasswordField'
+import SelectWidget from './widgets/SelectField'
+import TextAreaWidget from './widgets/TextAreaField'
+import SelectAsyncBaseWidget from './widgets/SelectAsyncBaseWidget'
+import { FileUploadWidget, ProgressOverlay } from './widgets/FileUploadWidget'
 
-import CustomWidget from './dist/CustomWidget'
+import CustomWidget from './CustomWidget'
 
-import './dist/widgets/FormRow'
+import './widgets/FormRow'
 
-import interfaces from './dist/interfaces'
+import * as interfaces from './interfaces'
 
 module.exports = {
     CustomWidget,

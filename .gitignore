@@ -17,3 +17,4 @@ dist
 package-lock.json
 test/browser/upload
 test/browser/dist
+lib
