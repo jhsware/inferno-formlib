@@ -83,6 +83,14 @@ class FormRows extends Component {
     this.isMounted = true
   }
 
+  getChildContext () {
+    if (!this.context.hasOwnProperty('rootValue')) {
+      return {
+        rootValue: this.props.value
+      }
+    }
+  }
+
   render () {
     // TODO: This should be cached for performance
     const customWidgetDict = {}
