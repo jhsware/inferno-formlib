@@ -28,12 +28,23 @@ function renderRows ({ schema, value, lang, disableI18n, namespace, inputName, v
     }
     
     const field = schema._fields[propName]
-    const validationError = safeGet(() => validationErrors.fieldErrors[propName])
+    let validationError = safeGet(() => validationErrors.fieldErrors[propName])
     // Support readOnly
     // Support validation constraints
+    const myNamespace = namespace.concat([propName]) // .concat returns a new array
+    const dotName = myNamespace.join('.')
 
-    const myNamespace = namespace.slice()
-    myNamespace.push(propName)
+    // Unpack the invariant errors so they can be found by field key
+    const tmpInvariantErrors = safeGet(() => validationErrors && validationErrors.invariantErrors && validationErrors.invariantErrors.filter((invErr) => {
+      // Pattern match field name of error with current namespace to see if it is a match
+      return invErr.fields.reduce((prev, curr) => prev || (curr.indexOf(dotName) === 0), false)
+    }))
+
+    if (Array.isArray(tmpInvariantErrors) && tmpInvariantErrors.length > 0) {
+      if (!validationError) validationError = {}
+      validationError.invariantErrors = tmpInvariantErrors
+    }
+    
     const { InputFieldAdapter, RowAdapter } = getWidgetAdapters(field, myNamespace.join('.'), customWidgets)
 
     const Row = RowAdapter.Component
@@ -42,7 +53,14 @@ function renderRows ({ schema, value, lang, disableI18n, namespace, inputName, v
     const newInputName = (inputName && propName ? inputName + '[' + propName + ']' : inputName || propName)
 
     return (
-      <Row adapter={RowAdapter} namespace={myNamespace} value={value && value[propName]} validationError={validationError} formIsMounted={isMounted} options={{lang, disableI18n}}>
+      <Row
+        key={myNamespace.join('.')}
+        adapter={RowAdapter}
+        namespace={myNamespace}
+        value={value && value[propName]}
+        validationError={validationError}
+        formIsMounted={isMounted}
+        options={{lang, disableI18n}}>
         <InputField
           adapter={InputFieldAdapter}
           namespace={myNamespace}
@@ -50,6 +68,7 @@ function renderRows ({ schema, value, lang, disableI18n, namespace, inputName, v
           propName={propName}
           value={value && value[propName]}
           options={{parentValue: value, lang, disableI18n}}
+          validationError={validationError}
           formIsMounted={isMounted}
           customWidgets={customWidgets}
           

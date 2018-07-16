@@ -48,6 +48,30 @@ class ErrorMsg extends Component {
     }
 }
 
+function unpackInvariantErrors (validationError, namespace) {
+    if (validationError === undefined) return
+
+    let invariantError
+    if (Array.isArray(validationError.invariantErrors)){
+        
+        const dotName = namespace.join('.')
+        let tmpInvErrs = validationError.invariantErrors.filter((invErr) => {
+            // Pattern match field name of error with current namespace to see if it is a match
+            return invErr.fields.reduce((prev, curr) => prev || (curr === dotName), false)
+        })
+        
+        if (tmpInvErrs.length > 1) {
+            invariantError = {
+                message: 'There are several form value errors here',
+                i18nLabel: 'inferno-formlib--multiple_invariant_errors'
+            }
+        } else {
+            invariantError = tmpInvErrs[0]
+        }
+    }
+    return invariantError
+}
+
 /*
     PROPS:
     - animation: animation css class prefix
@@ -73,14 +97,15 @@ class Row extends Component {
     render ({validationError, submitted, options, children}) {
         const field = this.props.adapter.context
 
-        const color = this.props.validationError ? 'danger' : undefined
+        const invariantError = unpackInvariantErrors(this.props.validationError, this.props.namespace)
 
-        return <FormGroup id={this.props.namespace.join('.') + '__Row'} color={color}>
+        return <FormGroup id={this.props.namespace.join('.') + '__Row'}>
             {field.label && <Label id={this.props.id} options={options}>{field.label}</Label>}
             <div className="InfernoFormlib-RowFieldContainer">
                 {children}
             </div>
             {validationError ? <ErrorMsg validationError={validationError} submitted={submitted} options={options} /> : null}
+            {invariantError ? <ErrorMsg validationError={invariantError} submitted={submitted} options={options} /> : null}
             {field.help && <HelpMsg text={field.help} required={field._isRequired} options={options} />}
         </FormGroup>
     }
@@ -110,13 +135,14 @@ class ObjectRow extends Component {
 
     render ({validationError, submitted, options, children}) {
         const field = this.props.adapter.context
+        
+        const invariantError = unpackInvariantErrors(this.props.validationError, this.props.namespace)
 
-        const color = this.props.validationError ? 'danger' : undefined
-
-        return <FormGroup className="InfernoFormlib-ObjectRow" color={color}>
+        return <FormGroup className="InfernoFormlib-ObjectRow">
             {field.label && <Label id={this.props.id} options={options}>{field.label}</Label>}
-            {(validationError ? <ErrorMsg validationError={validationError} submitted={submitted} options={options} /> : null)}
-            {(field.help ? <HelpMsg text={field.help} required={field._isRequired} options={options} /> : null)}
+            {validationError ? <ErrorMsg validationError={validationError} submitted={submitted} options={options} /> : null}
+            {invariantError ? <ErrorMsg validationError={invariantError} submitted={submitted} options={options} /> : null}
+            {field.help ? <HelpMsg text={field.help} required={field._isRequired} options={options} /> : null}
             <div className="InfernoFormlib-RowFieldContainer">
                 {children}
             </div>
@@ -147,13 +173,14 @@ class ListRow extends Component {
 
     render ({validationError, submitted, options, children}) {
         const field = this.props.adapter.context
+        
+        const invariantError = unpackInvariantErrors(this.props.validationError, this.props.namespace)
 
-        const color = this.props.validationError ? 'danger' : undefined
-
-        return <FormGroup className="InfernoFormlib-ListRow" color={color}>
+        return <FormGroup className="InfernoFormlib-ListRow">
             {field.label && <Label id={this.props.id} options={options}>{field.label}</Label>}
-            {(validationError ? <ErrorMsg validationError={validationError} submitted={submitted} options={options} /> : null)}
-            {(field.help ? <HelpMsg text={field.help} required={field._isRequired} options={options} /> : null)}
+            {validationError ? <ErrorMsg validationError={validationError} submitted={submitted} options={options} /> : null}
+            {invariantError ? <ErrorMsg validationError={invariantError} submitted={submitted} options={options} /> : null}
+            {field.help ? <HelpMsg text={field.help} required={field._isRequired} options={options} /> : null}
             <div className="InfernoFormlib-RowFieldContainer">
                 {children}
             </div>
@@ -186,10 +213,10 @@ class CheckboxRow extends Component {
     render ({validationError, submitted, options, children}) {
         const field = this.props.adapter.context
 
-        const color = this.props.validationError ? 'danger' : undefined
+        const invariantError = unpackInvariantErrors(this.props.validationError, this.props.namespace)
 
         return (
-            <FormGroup id={this.props.namespace.join('.') + '__Row'} color={color} check>
+            <FormGroup id={this.props.namespace.join('.') + '__Row'} check>
                 <div className="InfernoFormlib-RowFieldContainer">
                     <_bs_Label id={this.props.id} check>
                         {children}
@@ -197,6 +224,7 @@ class CheckboxRow extends Component {
                     </_bs_Label>
                 </div>
                 {validationError ? <ErrorMsg validationError={validationError} submitted={submitted} options={options} /> : null}
+                {invariantError ? <ErrorMsg validationError={invariantError} submitted={submitted} options={options} /> : null}
                 {field.help && <HelpMsg text={field.help} required={field._isRequired} options={options} />}
             </FormGroup>
         )

@@ -50,7 +50,7 @@ class PasswordWidget extends Component {
     render ({inputName, namespace, options}) {
         const field = this.props.adapter.context
 
-        const isValid = this.props.validationError ? false : undefined
+        const isValid = this.props.validationError || this.props.invariantError ? false : undefined
 
         return <Input type="password"
             id={generateId(namespace, '__Field')}

@@ -82,12 +82,23 @@ function renderRows ({ field, value, lang, disableI18n, namespace, inputName, it
 
   return value.map((item, index) => {
     const valueType = field.valueType
-    const validationError = safeGet(() => validationErrors.errors[index])
+    let validationError = safeGet(() => validationErrors.errors[index])
 
     // Support readOnly
     // Support validation constraints    
-    const myNamespace = namespace.slice()
-    myNamespace.push(itemKeys[index].key)
+    const myNamespace = namespace.concat([itemKeys[index].key]) // .concat returns a new array
+    const dotName = myNamespace.join('.')
+
+    // Unpack the invariant errors so they can be found by field key
+    const tmpInvariantErrors = safeGet(() => validationErrors && validationErrors.invariantErrors && validationErrors.invariantErrors.filter((invErr) => {
+        // Pattern match field name of error with current namespace to see if it is a match
+        return invErr.fields.reduce((prev, curr) => prev || (curr.indexOf(dotName) === 0), false)
+    }))
+
+    if (Array.isArray(tmpInvariantErrors) && tmpInvariantErrors.length > 0) {
+        if (!validationError) validationError = {}
+        validationError.invariantErrors = tmpInvariantErrors
+    }
 
     const { InputFieldAdapter, RowAdapter } = getWidgetAdapters(valueType, myNamespace.join('.'), customWidgets)
 
@@ -103,7 +114,7 @@ function renderRows ({ field, value, lang, disableI18n, namespace, inputName, it
     const ListRowContainer = globalRegistry.getAdapter(field, IListRowContainerWidget).Component
 
     return (
-      <ListRowContainer className="InfernoFormlib-DragItem" key={myNamespace.join('.')} data-drag-index={index} isFirstMount={!isMounted} propName={index} value={value[index]} onChange={onChange} onDelete={() => onDelete(index)}>
+      <ListRowContainer className="InfernoFormlib-DragItem" key={myNamespace.join('.')} data-drag-index={index} isFirstMount={!isMounted} propName={index} value={value[index]} validationError={validationError} onChange={onChange} onDelete={() => onDelete(index)}>
         <Row adapter={RowAdapter} namespace={myNamespace} value={value[index]} validationError={validationError} formIsMounted={!justAdded} options={{lang, disableI18n}}>
             <InputField
                 adapter={InputFieldAdapter}

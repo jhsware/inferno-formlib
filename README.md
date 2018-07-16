@@ -332,15 +332,13 @@ class Row extends Component {
     const field = this.props.adapter.context
     const value = this.props.value
 
-    const color = (this.props.validationError ? 'danger' : undefined)
-
     let charsLeft
     if (field._maxLength) {
       charsLeft = (typeof value === 'string' ? field._maxLength - value.length : field._maxLength)
     }
 
     return (
-      <FormGroup id={this.props.namespace.join('.') + '__Row'} color={color}>
+      <FormGroup id={this.props.namespace.join('.') + '__Row'}>
         {field.label && <Label id={this.props.id}>{field.label}</Label>}
         <div className="InfernoFormlib-RowFieldContainer">
             {this.props.children}

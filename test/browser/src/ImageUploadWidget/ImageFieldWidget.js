@@ -60,7 +60,7 @@ export default class ImageFieldWidget extends Component {
 
   render ({inputName, namespace, options}) {
       const field = this.props.adapter.context
-      const isValid = this.props.validationError ? false : undefined
+      const isValid = this.props.validationError || this.props.invariantError ? false : undefined
 
       return <FileUploadWidget
           id={generateId(namespace, '__Field')}

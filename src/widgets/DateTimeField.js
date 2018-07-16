@@ -92,7 +92,7 @@ class InputWidget extends Component {
   render ({inputName, namespace, options}) {
       const field = this.props.adapter.context
 
-      const isValid = this.props.validationError ? false : undefined
+      const isValid = this.props.validationError || this.props.invariantError ? false : undefined
 
       let dateStr
       if (this.state.value) {

@@ -18,8 +18,6 @@ import Input from 'inferno-bootstrap/lib/Form/Input'
 
 // Placeholder
 
-// Placeholder
-
 class DynamicSelectFieldWidget extends Component {
     constructor (props) {
         super(props)
@@ -43,7 +41,7 @@ class DynamicSelectFieldWidget extends Component {
 
         const selectOptions = field.getOptions(this.props.value, Object.assign({ rootValue: this.context.rootValue }, options))
 
-        const isValid = this.props.validationError ? false : undefined
+        const isValid = this.props.validationError || this.props.invariantError ? false : undefined
         const { lang, disableI18n } = options
 
         return <Input type="select"
