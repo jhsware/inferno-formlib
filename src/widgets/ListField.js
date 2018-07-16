@@ -86,7 +86,8 @@ function renderRows ({ field, value, lang, disableI18n, namespace, inputName, it
 
     // Support readOnly
     // Support validation constraints    
-    const myNamespace = namespace.concat([itemKeys[index].key]) // .concat returns a new array
+    const myNamespaceByKey = namespace.concat([itemKeys[index].key]) // .concat returns a new array
+    const myNamespace = namespace.concat([index])
     const dotName = myNamespace.join('.')
 
     // Unpack the invariant errors so they can be found by field key
@@ -100,7 +101,7 @@ function renderRows ({ field, value, lang, disableI18n, namespace, inputName, it
         validationError.invariantErrors = tmpInvariantErrors
     }
 
-    const { InputFieldAdapter, RowAdapter } = getWidgetAdapters(valueType, myNamespace.join('.'), customWidgets)
+    const { InputFieldAdapter, RowAdapter } = getWidgetAdapters(valueType, myNamespaceByKey.join('.'), customWidgets)
 
     const InputField = InputFieldAdapter.Component
     const Row = RowAdapter.Component
@@ -114,7 +115,7 @@ function renderRows ({ field, value, lang, disableI18n, namespace, inputName, it
     const ListRowContainer = globalRegistry.getAdapter(field, IListRowContainerWidget).Component
 
     return (
-      <ListRowContainer className="InfernoFormlib-DragItem" key={myNamespace.join('.')} data-drag-index={index} isFirstMount={!isMounted} propName={index} value={value[index]} validationError={validationError} onChange={onChange} onDelete={() => onDelete(index)}>
+      <ListRowContainer className="InfernoFormlib-DragItem" key={myNamespaceByKey.join('.')} data-drag-index={index} isFirstMount={!isMounted} propName={index} value={value[index]} validationError={validationError} onChange={onChange} onDelete={() => onDelete(index)}>
         <Row adapter={RowAdapter} namespace={myNamespace} value={value[index]} validationError={validationError} formIsMounted={!justAdded} options={{lang, disableI18n}}>
             <InputField
                 adapter={InputFieldAdapter}
