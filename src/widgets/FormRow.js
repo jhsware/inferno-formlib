@@ -238,4 +238,4 @@ createAdapter({
     Component: CheckboxRow
 }).registerWith(globalRegistry)
 
-export { CheckboxRow, ObjectRow, Row, ErrorMsg, HelpMsg, Label }
+export { CheckboxRow, ObjectRow, Row, ErrorMsg, HelpMsg, Label, unpackInvariantErrors }
