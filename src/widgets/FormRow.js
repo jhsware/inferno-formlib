@@ -26,9 +26,12 @@ function Label (props) {
 }
 
 function HelpMsg (props) {
+    // don't render if nothing to show
+    if (!props.text && !props.required) return null
+
     const outp = []
     if (props.text) outp.push(renderString(props.text, props.options && props.options.lang, undefined, props.options && props.options.disableI18n))
-    if (props.required) outp.push(renderString(i18n('isomorphic-schema--field_required', '(required)'), props.options && props.options.lang, '(required)', props.options && props.options.disableI18n))
+    if (props.required) outp.push(renderString(i18n('isomorphic-schema--field_required', '(required)'), props.options && props.options.lang, '(required)' /* Never disable i18n on this */))
 
     return <FormText className="text-muted" for={props.id}>{outp.join(' ')}</FormText>
 }
@@ -106,7 +109,7 @@ class Row extends Component {
             </div>
             {validationError ? <ErrorMsg validationError={validationError} submitted={submitted} options={options} /> : null}
             {invariantError ? <ErrorMsg validationError={invariantError} submitted={submitted} options={options} /> : null}
-            {field.help && <HelpMsg text={field.help} required={field._isRequired} options={options} />}
+            <HelpMsg text={field.help} required={field._isRequired} options={options} />
         </FormGroup>
     }
 }
@@ -225,7 +228,7 @@ class CheckboxRow extends Component {
                 </div>
                 {validationError ? <ErrorMsg validationError={validationError} submitted={submitted} options={options} /> : null}
                 {invariantError ? <ErrorMsg validationError={invariantError} submitted={submitted} options={options} /> : null}
-                {field.help && <HelpMsg text={field.help} required={field._isRequired} options={options} />}
+                <HelpMsg text={field.help} required={field._isRequired} options={options} />
             </FormGroup>
         )
     }
