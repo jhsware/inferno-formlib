@@ -75,7 +75,7 @@ export default class SelectAsyncBaseWidget extends Component {
             value={this.props.value || ''}
             valid={isValid}
             onChange={this.didGetChange}>
-            {field.placeholder && <option value="">{renderString(field.placeholder, options && options.lang, undefined, options && options.disableI18n)}</option>}
+            {field.placeholder && <option value="">{renderString(field.placeholder, options && options.lang)}</option>}
             {this.state.options.map((item) => <option value={item.name}>{item.title}</option>)}
         </Input>
     }

@@ -120,7 +120,6 @@ export default class Page extends Component {
 
         const value = this.state.value
         const lang = options && options.lang
-        const disableI18n = options && options.disableI18n
 
         return (
             <div className="TestContainer">
@@ -132,8 +131,8 @@ export default class Page extends Component {
                             id="value__Field"
                             name="value"
                             valid={isValid}
-                            placeholder={renderString(imageField.placeholder, lang, undefined, disableI18n)}
-                            options={{parentValue: this.state.value, lang, disableI18n}}
+                            placeholder={renderString(imageField.placeholder, lang, undefined)}
+                            options={{parentValue: this.state.value, lang}}
                             readOnly={imageField.readOnly}
                             value={imageField.toFormattedString(this.state.value)}
                             uploadUtilName={imageField.uploadUtilName}

@@ -39,7 +39,7 @@ class SelectFieldWidget extends Component {
         const field = this.props.adapter.context
 
         const isValid = this.props.validationError || this.props.invariantError ? false : undefined
-        const { lang, disableI18n } = options
+        const { lang } = options
 
         return <Input type="select"
             id={generateId(namespace, '__Field')}
@@ -49,8 +49,8 @@ class SelectFieldWidget extends Component {
             valid={isValid}
             
             onChange={this.didGetChange}>
-            {field.placeholder && <option value="">{renderString(field.placeholder, lang, undefined, disableI18n)}</option>}
-            {Array.isArray(field.options) && field.options.map((item) => <option value={item.name}>{renderString(item.title, lang, undefined, disableI18n)}</option>)}
+            {field.placeholder && <option value="">{renderString(field.placeholder, lang, undefined)}</option>}
+            {Array.isArray(field.options) && field.options.map((item) => <option value={item.name}>{renderString(item.title, lang, undefined)}</option>)}
         </Input>
     }
 }

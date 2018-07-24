@@ -4,7 +4,7 @@ import classnames from 'classnames'
 
 import getWidgetAdapters from './getWidgetAdapters'
 
-function renderFormRows ({ schema, value, selectFields, omitFields, lang, disableI18n, validationErrors, namespace, inputName, isMounted, customWidgets, onInput, onChange }) {
+function renderFormRows ({ schema, value, selectFields, omitFields, lang, validationErrors, namespace, inputName, isMounted, customWidgets, onInput, onChange }) {
   let renderFields =  Object.keys(schema._fields)
   if (Array.isArray(selectFields)) {
     renderFields = renderFields.filter((key) => selectFields.indexOf(key) >= 0)
@@ -71,14 +71,14 @@ function renderFormRows ({ schema, value, selectFields, omitFields, lang, disabl
         value={value[propName]}
         validationError={validationError}
         formIsMounted={isMounted}
-        options={{lang, disableI18n}}>
+        options={{lang}}>
         <InputField 
           adapter={InputFieldAdapter}
           namespace={myNamespace}
           inputName={newInputName}
           propName={propName}
           value={value[propName]}
-          options={{parentValue: value, lang, disableI18n}}
+          options={{parentValue: value, lang}}
           validationError={validationError}
           formIsMounted={isMounted}
           customWidgets={customWidgets}
@@ -131,7 +131,6 @@ class FormRows extends Component {
         selectFields: (typeof this.props.selectFields === 'string' ? this.props.selectFields.split(',').map((k) => k.trim()) : this.props.selectFields),
         omitFields: (typeof this.props.omitFields === 'string' ? this.props.omitFields.split(',').map((k) => k.trim()) : this.props.omitFields),
         lang: this.props.lang,
-        disableI18n: this.props.options && this.props.options.disableI18n,
 
         validationErrors: this.props.validationErrors,
         isMounted: this.isMounted,

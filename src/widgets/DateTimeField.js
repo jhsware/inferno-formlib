@@ -127,7 +127,7 @@ class InputWidget extends Component {
             id={generateId(this.props.namespace, '_time__Field')}
             name={this.props.inputName + '_time'}
             valid={isValid}
-            placeholder={renderString('hh:mm:ss', options && options.lang, undefined, options && options.disableI18n)}
+            placeholder={renderString('hh:mm:ss', options && options.lang)}
             readOnly={field.readOnly}
             value={this.state.value && this.state.value.toLocaleTimeString()}
 

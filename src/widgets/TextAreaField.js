@@ -57,7 +57,7 @@ class TextAreaWidget extends Component {
         return <Input type="textarea"
             id={generateId(namespace, '__Field')}
             name={inputName}
-            placeholder={renderString(field.placeholder, options && options.lang, undefined, options && options.disableI18n)}
+            placeholder={renderString(field.placeholder, options && options.lang)}
             readOnly={field.readOnly}
             value={this.state.value}
             valid={isValid}

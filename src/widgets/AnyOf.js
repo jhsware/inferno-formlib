@@ -56,7 +56,7 @@ class AnyOf extends Component {
             id={generateId(namespace, '__Field')}
             name={inputName}
             valid={isValid}
-            placeholder={renderString(field.placeholder, options && options.lang, undefined, options && options.disableI18n)}
+            placeholder={renderString(field.placeholder, options && options.lang)}
             readOnly={field.readOnly}
             value={field.toFormattedString(this.state.value)}
 

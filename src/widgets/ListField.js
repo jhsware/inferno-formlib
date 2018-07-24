@@ -77,7 +77,7 @@ createAdapter({
     Component: ListRowContainerWidget,
 }).registerWith(globalRegistry)
 
-function renderRows ({ field, value, lang, disableI18n, namespace, inputName, itemKeys, validationErrors, customWidgets, onInput, onChange, onDelete, isMounted }) {
+function renderRows ({ field, value, lang, namespace, inputName, itemKeys, validationErrors, customWidgets, onInput, onChange, onDelete, isMounted }) {
   if (value === undefined) return
 
   return value.map((item, index) => {
@@ -116,7 +116,7 @@ function renderRows ({ field, value, lang, disableI18n, namespace, inputName, it
 
     return (
       <ListRowContainer className="InfernoFormlib-DragItem" key={myNamespaceByKey.join('.')} data-drag-index={index} isFirstMount={!isMounted} propName={index} value={value[index]} validationError={validationError} onChange={onChange} onDelete={() => onDelete(index)}>
-        <Row adapter={RowAdapter} namespace={myNamespace} value={value[index]} validationError={validationError} formIsMounted={!justAdded} options={{lang, disableI18n}}>
+        <Row adapter={RowAdapter} namespace={myNamespace} value={value[index]} validationError={validationError} formIsMounted={!justAdded} options={{lang}}>
             <InputField
                 adapter={InputFieldAdapter}
                 namespace={myNamespace}
@@ -124,7 +124,7 @@ function renderRows ({ field, value, lang, disableI18n, namespace, inputName, it
                 propName={index}
                 value={value[index]}
                 validationError={validationError}
-                options={{parentValue: value, lang, disableI18n}}
+                options={{parentValue: value, lang}}
                 formIsMounted={!justAdded}
                 customWidgets={customWidgets}
 
@@ -273,10 +273,10 @@ export class ListFieldWidget extends Component {
     const field = this.props.adapter.context
     const emptyArray = this.props.value === undefined || this.props.value.length === 0
     return <div id={generateId(this.props.namespace, '__Field')} className="InfernoFormlib-ListField InfernoFormlib-DragContainer">
-        {emptyArray && field.placeholder && <ListFieldRow key="placeholder" isFirstMount={!this.props.formIsMounted}><Placeholder text={renderString(field.placeholder, undefined, undefined, this.props.options && this.props.options.disableI18n)} /></ListFieldRow>}
+        {emptyArray && field.placeholder && <ListFieldRow key="placeholder" isFirstMount={!this.props.formIsMounted}><Placeholder text={renderString(field.placeholder)} /></ListFieldRow>}
         {renderRows({
             lang: this.props.options.lang,
-            disableI18n: this.props.options && this.props.options.disableI18n,
+            
             field: field,
             value: this.props.value,
             namespace: this.props.namespace || [],

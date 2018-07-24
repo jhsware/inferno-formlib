@@ -51,7 +51,7 @@ class CheckboxWidget extends Component {
             id={generateId(namespace, '__Field')}
             name={inputName}
             valid={isValid}
-            placeholder={renderString(field.placeholder, options && options.lang, undefined, options && options.disableI18n)}
+            placeholder={renderString(field.placeholder, options && options.lang)}
             readOnly={field.readOnly}
             checked={this.state.isChecked} // This is a checkbox and it should pass value as checked
             onChange={this.didGetChange} />

@@ -22,7 +22,7 @@ import FormGroup from 'inferno-bootstrap/lib/Form/FormGroup'
 import _bs_Label from 'inferno-bootstrap/lib/Form/Label'
 
 function Label (props) {
-    return <_bs_Label>{renderString(props.children, props.options && props.options.lang, undefined, props.options && props.options.disableI18n)}</_bs_Label>
+    return <_bs_Label>{renderString(props.children, props.options && props.options.lang)}</_bs_Label>
 }
 
 function HelpMsg (props) {
@@ -30,8 +30,8 @@ function HelpMsg (props) {
     if (!props.text && !props.required) return null
 
     const outp = []
-    if (props.text) outp.push(renderString(props.text, props.options && props.options.lang, undefined, props.options && props.options.disableI18n))
-    if (props.required) outp.push(renderString(i18n('isomorphic-schema--field_required', '(required)'), props.options && props.options.lang, '(required)' /* Never disable i18n on this */))
+    if (props.text) outp.push(renderString(props.text, props.options && props.options.lang))
+    if (props.required) outp.push(renderString(i18n('isomorphic-schema--field_required', '(required)'), props.options && props.options.lang, '(required)'))
 
     return <FormText className="text-muted" for={props.id}>{outp.join(' ')}</FormText>
 }
@@ -223,7 +223,7 @@ class CheckboxRow extends Component {
                 <div className="InfernoFormlib-RowFieldContainer">
                     <_bs_Label id={this.props.id} check>
                         {children}
-                        {renderString(field.label, options && options.lang, undefined, options && options.disableI18n)}
+                        {renderString(field.label, options && options.lang)}
                     </_bs_Label>
                 </div>
                 {validationError ? <ErrorMsg validationError={validationError} submitted={submitted} options={options} /> : null}

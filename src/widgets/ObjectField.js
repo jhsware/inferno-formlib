@@ -15,7 +15,7 @@ import { IInputFieldWidget }  from '../interfaces'
 import getWidgetAdapters from '../getWidgetAdapters'
 import { generateId } from './utils'
 
-function renderRows ({ schema, value, lang, disableI18n, namespace, inputName, validationErrors, isMounted, customWidgets, onInput, onChange }) {
+function renderRows ({ schema, value, lang, namespace, inputName, validationErrors, isMounted, customWidgets, onInput, onChange }) {
   const widgets = Object.keys(schema._fields).map((propName) => {
     // Call the validationConstraint methods to figure out if the field should be validated
     const shouldValidate = schema._validationConstraints.reduce((prev, curr) => {
@@ -60,14 +60,14 @@ function renderRows ({ schema, value, lang, disableI18n, namespace, inputName, v
         value={value && value[propName]}
         validationError={validationError}
         formIsMounted={isMounted}
-        options={{lang, disableI18n}}>
+        options={{lang}}>
         <InputField
           adapter={InputFieldAdapter}
           namespace={myNamespace}
           inputName={newInputName}
           propName={propName}
           value={value && value[propName]}
-          options={{parentValue: value, lang, disableI18n}}
+          options={{parentValue: value, lang}}
           validationError={validationError}
           formIsMounted={isMounted}
           customWidgets={customWidgets}
@@ -111,7 +111,7 @@ export class ObjectFieldWidget extends Component {
     return <div id={generateId(this.props.namespace, '__Field')} className="InfernoFormlib-ObjectField">
         {renderRows({
           lang: this.props.options && this.props.options.lang,
-          disableI18n: this.props.options && this.props.options.disableI18n,
+          
           schema: field.schema,
           namespace: this.props.namespace || [],
           inputName: this.props.inputName,

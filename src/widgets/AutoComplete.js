@@ -266,7 +266,7 @@ class AutoCompleteBaseWidget extends Component {
                 name={inputName}
                 className={classnames(cls)}
                 autocomplete="off"
-                placeholder={renderString(field.placeholder, options && options.lang, undefined, options && options.disableI18n)}
+                placeholder={renderString(field.placeholder, options && options.lang)}
                 readOnly={field.readOnly}
                 value={this.state.text}
 

@@ -42,7 +42,7 @@ class DynamicSelectFieldWidget extends Component {
         const selectOptions = field.getOptions(this.props.value, Object.assign({ rootValue: this.context.rootValue }, options))
 
         const isValid = this.props.validationError || this.props.invariantError ? false : undefined
-        const { lang, disableI18n } = options
+        const { lang } = options
 
         return <Input type="select"
             id={generateId(namespace, '__Field')}
@@ -51,8 +51,8 @@ class DynamicSelectFieldWidget extends Component {
             readOnly={field.readOnly}
             value={this.props.value}
             onChange={this.didGetChange}>
-            {field.placeholder && <option value="">{renderString(field.placeholder, lang, undefined, disableI18n)}</option>}
-            {selectOptions.map((item) => <option value={item.name}>{renderString(item.title, lang, undefined, disableI18n)}</option>)}
+            {field.placeholder && <option value="">{renderString(field.placeholder, lang, undefined)}</option>}
+            {selectOptions.map((item) => <option value={item.name}>{renderString(item.title, lang, undefined)}</option>)}
         </Input>
     }
 }
