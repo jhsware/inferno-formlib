@@ -225,6 +225,7 @@ const formSchema = new Schema('Form Schema', {
   bio: new TextAreaField({
     label: 'Bio',
     placeholder: 'Type here...',
+    help: 'This <b>will be</b> rendered as HTML',
     required: true
   })
 })
@@ -265,7 +266,12 @@ export default class FormSection extends Component {
       <Form onSubmit={this.doSubmit}>
         <Row>
           <Col>
-            <FormRows schema={formSchema} validationErrors={this.state.validationError} value={this.state.value} onChange={this.didChange} />
+            <FormRow
+              renderHelpAsHtml={true}
+              schema={formSchema}
+              validationErrors={this.state.validationError}
+              value={this.state.value}
+              onChange={this.didChange} />
           </Col>
         </Row>
         <Row>

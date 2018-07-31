@@ -25,7 +25,7 @@ function Label (props) {
     return <_bs_Label>{renderString(props.children, props.options && props.options.lang)}</_bs_Label>
 }
 
-function HelpMsg (props) {
+function HelpMsg (props, context) {
     // don't render if nothing to show
     if (!props.text && !props.required) return null
 
@@ -33,7 +33,11 @@ function HelpMsg (props) {
     if (props.text) outp.push(renderString(props.text, props.options && props.options.lang))
     if (props.required) outp.push(renderString(i18n('isomorphic-schema--field_required', '(required)'), props.options && props.options.lang, '(required)'))
 
-    return <FormText className="text-muted" for={props.id}>{outp.join(' ')}</FormText>
+    if (context && context.renderHelpAsHtml) {
+        return <FormText className="text-muted" for={props.id} dangerouslySetInnerHTML={{ __html: outp.join(' ')}} />
+    } else {
+        return <FormText className="text-muted" for={props.id}>{outp.join(' ')}</FormText>
+    }
 }
 
 class ErrorMsg extends Component {

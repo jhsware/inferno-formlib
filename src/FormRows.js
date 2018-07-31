@@ -99,11 +99,15 @@ class FormRows extends Component {
   }
 
   getChildContext () {
-    if (!this.context.hasOwnProperty('rootValue')) {
-      return {
-        rootValue: this.props.value
-      }
+    const outp = {
+      renderHelpAsHtml: this.props.renderHelpAsHtml || false
     }
+    
+    if (!this.context.hasOwnProperty('rootValue')) {
+      outp['rootValue'] = this.props.value
+    }
+
+    return outp
   }
 
   render () {
