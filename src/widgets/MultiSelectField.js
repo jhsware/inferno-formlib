@@ -36,7 +36,7 @@ class MultiSelectFieldWidget extends Component {
         const selectedOptions = e.target.selectedOptions
         const values = []
         for (var i = 0; i < selectedOptions.length; i++) {
-            values.push(field.fromString(selectedOptions[i].value))
+            values.push(field.fromString(field.valueType.fromString(selectedOptions[i].value)))
         }
         this.props.onChange(this.props.propName, values)
     }
@@ -51,7 +51,7 @@ class MultiSelectFieldWidget extends Component {
             name={inputName}
             multiple="true"
             readOnly={field.readOnly}
-            value={this.props.value}
+            value={field.valueType.toFormattedString(field.toFormattedString(this.props.value))}
             valid={isValid}
             onChange={this.didGetChange}>
             {field.placeholder && <option value="">{renderString(field.placeholder, options && options.lang)}</option>}

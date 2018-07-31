@@ -25,15 +25,9 @@ class DynamicSelectFieldWidget extends Component {
         this.didGetChange = this.didGetChange.bind(this)
     }
 
-    componentWillReceiveProps (nextProps) {
-        this.setState({
-            value: nextProps.value
-        })
-    }
-
     didGetChange (e) {
         const field = this.props.adapter.context
-        this.props.onChange(this.props.propName, field.fromString(e.target.value))
+        this.props.onChange(this.props.propName, field.fromString(field.valueType.fromString(e.target.value)))
     }
 
     render ({inputName, namespace, options}) {
@@ -49,7 +43,7 @@ class DynamicSelectFieldWidget extends Component {
             name={inputName}
             valid={isValid}
             readOnly={field.readOnly}
-            value={this.props.value}
+            value={field.valueType.toFormattedString(field.toFormattedString(this.props.value))}
             onChange={this.didGetChange}>
             {field.placeholder && <option value="">{renderString(field.placeholder, lang, undefined)}</option>}
             {selectOptions.map((item) => <option value={item.name}>{renderString(item.title, lang, undefined)}</option>)}

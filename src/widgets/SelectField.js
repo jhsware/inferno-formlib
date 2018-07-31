@@ -32,7 +32,7 @@ class SelectFieldWidget extends Component {
 
     didGetChange (e) {
         const field = this.props.adapter.context
-        this.props.onChange(this.props.propName, field.fromString(e.target.value))
+        this.props.onChange(this.props.propName, field.fromString(field.valueType.fromString(e.target.value)))
     }
 
     render ({inputName, namespace, options}) {
@@ -45,7 +45,7 @@ class SelectFieldWidget extends Component {
             id={generateId(namespace, '__Field')}
             name={inputName}
             readOnly={field.readOnly && 'true'}
-            value={this.props.value}
+            value={field.valueType.toFormattedString(field.toFormattedString(this.props.value))}
             valid={isValid}
             
             onChange={this.didGetChange}>
