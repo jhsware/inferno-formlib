@@ -10,7 +10,7 @@ inferno-formlib 4.x supports Inferno v4
 
 inferno-formlib 3.x supports Inferno v3
 
-## Exampe With Sticky Action Bar
+## Example With Sticky Action Bar
 This is the basic anatomy of a form generated with inferno-formlib. It can generate nested forms from isomorphic-schema form definitions and list fields support drag'n'drop reordering.
 
 ```JavaScript
