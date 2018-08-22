@@ -69,7 +69,7 @@ export class ActionBar extends Component {
   
   render ({ boundary, children }) {
       return (
-          <div className="InfernoFormlib-ActionBarContainer">
+          <div className={classnames("InfernoFormlib-ActionBarContainer", this.props.className)}>
               <div ref={(e) => this._flowingEl = e} className={classnames("InfernoFormlib-ActionBar", {"InfernoFormlib-ActionBar--hidden": this.state.isSticky} )}>
                   {children}
               </div>
