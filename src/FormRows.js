@@ -62,32 +62,30 @@ function renderFormRows ({ schema, value, selectFields, omitFields, lang, valida
 
     const newInputName = (inputName && propName ? inputName + '[' + propName + ']' : inputName || propName)
 
+    const sharedProps = {
+      namespace: myNamespace,
+      propName,
+      value: value && value[propName],
+      options: {parentValue: value, lang},
+      validationError,
+      formIsMounted: isMounted,
+      // Callbacks
+      onChange,
+      onInput
+    }
     // TODO: Key should be namespace parent.propName
     return (
-      <Row
-        key={myNamespace.join('.')}
+      <Row key={myNamespace.join('.')}
         adapter={RowAdapter}
-        namespace={myNamespace}
-        value={value[propName]}
-        validationError={validationError}
-        formIsMounted={isMounted}
-        options={{lang}}>
+        {...sharedProps}>
         <InputField 
           adapter={InputFieldAdapter}
-          namespace={myNamespace}
           inputName={newInputName}
-          propName={propName}
-          value={value[propName]}
-          options={{parentValue: value, lang}}
-          validationError={validationError}
-          formIsMounted={isMounted}
           customWidgets={customWidgets}
-          
-          onInput={onInput}
-          onChange={onChange}/>
+          {...sharedProps} />
       </Row>
     )
-  } )
+  })
   return widgets
 }
 
@@ -125,7 +123,7 @@ class FormRows extends Component {
     }
 
     
-
+    // TODO: We should remove onInput and pass all changes down the chain to onChange
     return <div className={classnames('InfernoFormlib-FormRows', this.props.className)}>
       {renderFormRows({
         schema: this.props.schema,

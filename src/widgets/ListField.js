@@ -114,22 +114,36 @@ function renderRows ({ field, value, lang, namespace, inputName, itemKeys, valid
 
     const ListRowContainer = globalRegistry.getAdapter(field, IListRowContainerWidget).Component
 
+    const sharedProps = {
+        namespace: myNamespace,
+        propName: index,
+        value: value && value[index],
+        options: {parentValue: value, lang},
+        validationError,
+        formIsMounted: !justAdded,
+        // Callbacks
+        onChange,
+        onInput
+    }
     return (
-      <ListRowContainer className="InfernoFormlib-DragItem" key={myNamespaceByKey.join('.')} data-drag-index={index} isFirstMount={!isMounted} propName={index} value={value[index]} validationError={validationError} onChange={onChange} onDelete={() => onDelete(index)}>
-        <Row adapter={RowAdapter} namespace={myNamespace} value={value[index]} validationError={validationError} formIsMounted={!justAdded} options={{lang}}>
+      <ListRowContainer
+        className="InfernoFormlib-DragItem"
+        key={myNamespaceByKey.join('.')}
+        data-drag-index={index}
+        isFirstMount={!isMounted}
+        propName={index}
+        value={value[index]}
+        validationError={validationError}
+        onChange={onChange}
+        onDelete={() => onDelete(index)}>
+        <Row
+            adapter={RowAdapter} 
+            {...sharedProps}>
             <InputField
                 adapter={InputFieldAdapter}
-                namespace={myNamespace}
                 inputName={newInputName}
-                propName={index}
-                value={value[index]}
-                validationError={validationError}
-                options={{parentValue: value, lang}}
-                formIsMounted={!justAdded}
                 customWidgets={customWidgets}
-
-                onInput={onInput}
-                onChange={onChange} />
+                {...sharedProps} />
         </Row>
       </ListRowContainer>
     )

@@ -52,31 +52,30 @@ function renderRows ({ schema, value, lang, namespace, inputName, validationErro
 
     const newInputName = (inputName && propName ? inputName + '[' + propName + ']' : inputName || propName)
 
+    const sharedProps = {
+      namespace: myNamespace,
+      propName,
+      value: value && value[propName],
+      options: {parentValue: value, lang},
+      validationError,
+      formIsMounted: isMounted,
+      // Callbacks
+      onChange,
+      onInput
+    }
+    // TODO: Key should be namespace parent.propName?
     return (
-      <Row
-        key={myNamespace.join('.')}
+      <Row key={myNamespace.join('.')}
         adapter={RowAdapter}
-        namespace={myNamespace}
-        value={value && value[propName]}
-        validationError={validationError}
-        formIsMounted={isMounted}
-        options={{lang}}>
-        <InputField
+        {...sharedProps}>
+        <InputField 
           adapter={InputFieldAdapter}
-          namespace={myNamespace}
           inputName={newInputName}
-          propName={propName}
-          value={value && value[propName]}
-          options={{parentValue: value, lang}}
-          validationError={validationError}
-          formIsMounted={isMounted}
           customWidgets={customWidgets}
-          
-          onInput={onInput}
-          onChange={onChange} />
+          {...sharedProps} />
       </Row>
     )
-  } )
+  })
   return widgets
 }
 
