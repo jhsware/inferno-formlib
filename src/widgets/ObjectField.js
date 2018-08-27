@@ -12,7 +12,7 @@ import { Component } from 'inferno'
 import { interfaces } from 'isomorphic-schema'
 import { IInputFieldWidget }  from '../interfaces'
 import { generateId } from './utils'
-import { renderRows } from './ObjectFieldComponents'
+import { renderRows } from './ObjectFieldHelpers'
 
 export default class ObjectFieldWidget extends Component {
 

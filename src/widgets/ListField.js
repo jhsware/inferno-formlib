@@ -20,7 +20,7 @@ import { handleDragStart, handleDragOver, handleDragEnter, handleDragLeave, hand
 import {
     Placeholder,
     renderRows
-} from './ListFieldComponents'
+} from './ListFieldHelpers'
 
 
 export default class ListFieldWidget extends Component {
