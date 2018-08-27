@@ -144,7 +144,7 @@ function Placeholder (props) {
     </div>
 }
 
-export class ListFieldWidget extends Component {
+class ListFieldWidget extends Component {
 
   constructor (props) {
     super(props)
@@ -296,7 +296,12 @@ export class ListFieldWidget extends Component {
   }
 }
 
-export default ListFieldWidget
+export {
+    ListRowContainerWidget,
+    ListFieldWidget,
+    Placeholder,
+    renderRows
+}
 
 createAdapter({
     implements: IInputFieldWidget,

@@ -80,7 +80,7 @@ function renderRows ({ schema, value, lang, namespace, inputName, validationErro
   return widgets
 }
 
-export class ObjectFieldWidget extends Component {
+class ObjectFieldWidget extends Component {
 
   constructor (props) {
     super(props)
@@ -127,7 +127,10 @@ export class ObjectFieldWidget extends Component {
   }
 }
 
-export default ObjectFieldWidget
+export {
+  ObjectFieldWidget,
+  renderRows
+}
 
 createAdapter({
     implements: IInputFieldWidget,

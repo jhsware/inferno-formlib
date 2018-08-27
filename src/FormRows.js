@@ -147,5 +147,6 @@ class FormRows extends Component {
 }
 
 export {
-  FormRows
+  FormRows,
+  renderFormRows
 }
