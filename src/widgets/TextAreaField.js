@@ -42,7 +42,9 @@ class TextAreaWidget extends Component {
         this.setState({
             value: newVal
         })
-        this.props.onInput && this.props.onInput(this.props.propName, newVal)
+        // Trigger change so FormRow can update character counter
+        this.props.onChange(this.props.propName, newVal)
+
     }
 
     didGetChange (e) {
