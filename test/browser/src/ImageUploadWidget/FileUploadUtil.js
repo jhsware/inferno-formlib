@@ -1,8 +1,8 @@
-import { globalRegistry, createUtility } from 'component-registry'
+import { Utility } from 'component-registry'
 import axios from 'axios'
 import { IFileUploadUtil } from '../../../../lib/interfaces'
 
-const FileUploadUtil = createUtility({
+const FileUploadUtil = new Utility({
   implements: IFileUploadUtil,
   name: 'Image.Simple',
 
@@ -22,5 +22,9 @@ const FileUploadUtil = createUtility({
               return Promise.resolve(res.data.publicPath)
           })
           .catch((e) => { throw e })
+  },
+
+  delete (uri) {
+      // TODO: Implement this or go home!
   }
-}).registerWith(globalRegistry)
+})

@@ -7,11 +7,6 @@
 */
 import { Component } from 'inferno'
 
-import { createAdapter, globalRegistry } from 'component-registry'
-
-import { interfaces } from 'isomorphic-schema'
-import { IInputFieldWidget }  from '../interfaces'
-import classNames from 'classnames'
 import { renderString } from './common'
 import { generateId } from './utils'
 
@@ -84,9 +79,9 @@ export default class SelectAsyncBaseWidget extends Component {
 /*
 You need to register this widget for you custom field to make sure you get desired behaviour.
 
-createAdapter({
+new Adapter({
     implements: IInputFieldWidget,
     adapts: IYourCustomField,
     Component: SelectAsyncBaseWidget,
-}).registerWith(globalRegistry)
+})
 */

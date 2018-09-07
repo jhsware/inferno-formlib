@@ -4,11 +4,11 @@
     To use this input widget adapter you need to register it with your
     adapter registry or include as a custom field.
 
-        createAdapter({
+        new Adapter({
             implements: IInputFieldWidget,
             adapts: IYourCustomField,
             Component: AutoCompleteBaseWidget,
-        }).registerWith(globalRegistry)
+        })
 
     or
 
@@ -17,10 +17,6 @@
 */
 import { Component } from 'inferno'
 
-import { createAdapter, globalRegistry } from 'component-registry'
-
-import { interfaces } from 'isomorphic-schema'
-import { IInputFieldWidget }  from '../interfaces'
 import { animateOnAdd, animateOnRemove } from 'inferno-animation'
 
 import classnames from 'classnames'

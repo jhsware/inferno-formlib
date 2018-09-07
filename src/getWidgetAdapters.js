@@ -1,4 +1,3 @@
-import { globalRegistry } from 'component-registry'
 import { IInputFieldWidget, IFormRowWidget }  from './interfaces'
 
 export default function (field, propPath, customWidgetsDict) {
@@ -36,8 +35,8 @@ export default function (field, propPath, customWidgetsDict) {
     }
     
     // TODO: Support readOnly
-    if (!InputFieldAdapter) InputFieldAdapter = globalRegistry.getAdapter(field, IInputFieldWidget)
-    if (!RowAdapter) RowAdapter = globalRegistry.getAdapter(field, IFormRowWidget)
+    if (!InputFieldAdapter) InputFieldAdapter = new IInputFieldWidget(field)
+    if (!RowAdapter) RowAdapter = new IFormRowWidget(field)
 
     return {
       InputFieldAdapter,

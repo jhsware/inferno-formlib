@@ -5,7 +5,7 @@
     adapter registry.
 
 */
-import { createAdapter, globalRegistry } from 'component-registry'
+import { Adapter } from 'component-registry'
 
 import { Component } from 'inferno'
 import { safeGet } from 'safe-utils'
@@ -67,11 +67,11 @@ class ListRowContainerWidget extends Component {
     }
 }
 
-createAdapter({
+new Adapter({
     implements: IListRowContainerWidget,
     adapts: interfaces.IListField,
     Component: ListRowContainerWidget,
-}).registerWith(globalRegistry)
+})
 
 function renderRows ({ field, value, lang, namespace, inputName, itemKeys, validationErrors, customWidgets, onInput, onChange, onDelete, isMounted }) {
   if (value === undefined) return
@@ -108,7 +108,7 @@ function renderRows ({ field, value, lang, namespace, inputName, itemKeys, valid
 
     const newInputName = (inputName && index ? inputName + '[' + index + ']' : inputName || index)
 
-    const ListRowContainer = globalRegistry.getAdapter(field, IListRowContainerWidget).Component
+    const ListRowContainer = new IListRowContainerWidget(field).Component
 
     const sharedProps = {
         namespace: myNamespace,

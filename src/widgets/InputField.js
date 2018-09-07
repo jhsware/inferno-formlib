@@ -7,11 +7,10 @@
 */
 import { Component } from 'inferno'
 
-import { createAdapter, globalRegistry } from 'component-registry'
+import { Adapter } from 'component-registry'
 
 import { interfaces } from 'isomorphic-schema'
 import { IInputFieldWidget } from '../interfaces'
-import classNames from 'classnames'
 import { renderString } from './common'
 import { generateId } from './utils'
 
@@ -71,17 +70,17 @@ class InputWidget extends Component {
 
 export default InputWidget
 
-createAdapter({
+new Adapter({
     implements: IInputFieldWidget,
     adapts: interfaces.ITextField,
     Component: InputWidget
-}).registerWith(globalRegistry)
+})
 
-createAdapter({
+new Adapter({
     implements: IInputFieldWidget,
     adapts: interfaces.IIntegerField,
     Component: InputWidget
-}).registerWith(globalRegistry)
+})
 
 class DecimalWidget extends InputWidget {
     didGetInput (e) {
@@ -122,8 +121,8 @@ class DecimalWidget extends InputWidget {
     }
 }
 
-createAdapter({
+new Adapter({
     implements: IInputFieldWidget,
     adapts: interfaces.IDecimalField,
     Component: DecimalWidget
-}).registerWith(globalRegistry)
+})

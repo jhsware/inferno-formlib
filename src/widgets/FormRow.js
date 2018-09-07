@@ -6,14 +6,13 @@
 
 */
 import { Component } from 'inferno'
-import { createAdapter, globalRegistry } from 'component-registry'
+import { Adapter } from 'component-registry'
 
 import { interfaces, i18n } from 'isomorphic-schema'
 import { IFormRowWidget }  from '../interfaces'
 
 import { animateOnAdd, animateOnRemove } from 'inferno-animation'
 
-import classNames from 'classnames'
 import { renderString } from './common'
 
 import FormFeedback from 'inferno-bootstrap/lib/Form/FormFeedback'
@@ -118,12 +117,12 @@ class Row extends Component {
     }
 }
 
-createAdapter({
+new Adapter({
     implements: IFormRowWidget,
     adapts: interfaces.IBaseField,
     
     Component: Row
-}).registerWith(globalRegistry)
+})
 
 
 class ObjectRow extends Component {
@@ -157,12 +156,12 @@ class ObjectRow extends Component {
     }
 }
 
-createAdapter({
+new Adapter({
     implements: IFormRowWidget,
     adapts: interfaces.IObjectField,
     
     Component: ObjectRow
-}).registerWith(globalRegistry)
+})
 
 class ListRow extends Component {
     // TODO: Add animation support
@@ -195,12 +194,12 @@ class ListRow extends Component {
     }
 }
 
-createAdapter({
+new Adapter({
     implements: IFormRowWidget,
     adapts: interfaces.IListField,
     
     Component: ListRow
-}).registerWith(globalRegistry)
+})
 
 
 class CheckboxRow extends Component {
@@ -238,11 +237,11 @@ class CheckboxRow extends Component {
     }
 }
 
-createAdapter({
+new Adapter({
     implements: IFormRowWidget,
     adapts: interfaces.IBoolField,
     
     Component: CheckboxRow
-}).registerWith(globalRegistry)
+})
 
 export { CheckboxRow, ObjectRow, Row, ErrorMsg, HelpMsg, Label, unpackInvariantErrors }

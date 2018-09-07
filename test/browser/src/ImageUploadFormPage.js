@@ -1,12 +1,8 @@
 import { Component } from 'inferno'
-import { globalRegistry, createUtility } from 'component-registry'
-import axios from 'axios'
 
-import { IFileUploadUtil } from '../../../lib/interfaces'
 import { Schema } from 'isomorphic-schema'
 import { ImageField } from './ImageUploadWidget'
 import TextField from 'isomorphic-schema/lib/field_validators/TextField'
-import { FileUploadWidget } from '../../../lib/widgets/FileUploadWidget'
 import '../../../lib/widgets/InputField'
 import '../../../lib/widgets/FormRow'
 

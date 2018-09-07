@@ -7,7 +7,7 @@
 */
 import { Component } from 'inferno'
 
-import { createAdapter, globalRegistry } from 'component-registry'
+import { Adapter } from 'component-registry'
 import { renderString } from './common'
 
 import { interfaces } from 'isomorphic-schema'
@@ -67,8 +67,8 @@ class PasswordWidget extends Component {
 
 export default PasswordWidget
 
-createAdapter({
+new Adapter({
     implements: IInputFieldWidget,
     adapts: interfaces.IPasswordField,
     Component: PasswordWidget
-}).registerWith(globalRegistry)
+})

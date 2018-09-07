@@ -1,14 +1,10 @@
 import { Component } from 'inferno'
-import { globalRegistry } from 'component-registry'
 import { FileUploadWidget } from '../../../../lib/widgets/FileUploadWidget'
-import { IFileUploadUtil } from '../../../../lib/interfaces'
 import { renderString } from '../../../../lib/widgets/common'
 import { generateId } from '../../../../lib/widgets/utils'
 
 import Card from 'inferno-bootstrap/lib/Card/Card'
 import CardBody from 'inferno-bootstrap/lib/Card/CardBody'
-import CardTitle from 'inferno-bootstrap/lib/Card/CardTitle'
-import CardText from 'inferno-bootstrap/lib/Card/CardText'
 import CardFooter from 'inferno-bootstrap/lib/Card/CardFooter'
 import CardImg from 'inferno-bootstrap/lib/Card/CardImg'
 

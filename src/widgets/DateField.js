@@ -6,7 +6,7 @@
 
 */
 import { Component } from 'inferno'
-import { createAdapter, globalRegistry } from 'component-registry'
+import { Adapter } from 'component-registry'
 
 import { interfaces } from 'isomorphic-schema'
 import { IInputFieldWidget } from '../interfaces'
@@ -293,8 +293,8 @@ class InputWidget extends Component {
 
 export default InputWidget
 
-createAdapter({
+new Adapter({
     implements: IInputFieldWidget,
     adapts: interfaces.IDateField,
     Component: InputWidget
-}).registerWith(globalRegistry)
+})

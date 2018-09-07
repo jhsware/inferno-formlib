@@ -6,7 +6,7 @@
 
 */
 import { Component } from 'inferno'
-import { createAdapter, globalRegistry } from 'component-registry'
+import { Adapter } from 'component-registry'
 
 import { interfaces } from 'isomorphic-schema'
 import { IInputFieldWidget }  from '../interfaces'
@@ -67,8 +67,8 @@ class AnyOf extends Component {
 
 export default AnyOf
 
-createAdapter({
+new Adapter({
     implements: IInputFieldWidget,
     adapts: interfaces.IAnyOf,
     Component: AnyOf
-}).registerWith(globalRegistry)
+})

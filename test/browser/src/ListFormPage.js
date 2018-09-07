@@ -1,11 +1,8 @@
 import { Component } from 'inferno'
-import { globalRegistry, createUtility } from 'component-registry'
-import axios from 'axios'
 
 import { Schema } from 'isomorphic-schema'
 import TextField from 'isomorphic-schema/lib/field_validators/TextField'
 import ListField from 'isomorphic-schema/lib/field_validators/ListField'
-import ObjectField from 'isomorphic-schema/lib/field_validators/ObjectField'
 import '../../../lib/widgets/InputField'
 import '../../../lib/widgets/ListField'
 import '../../../lib/widgets/FormRow'

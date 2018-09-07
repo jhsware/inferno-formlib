@@ -5,7 +5,7 @@
     adapter registry.
 
 */
-import { createAdapter, globalRegistry } from 'component-registry'
+import { Adapter } from 'component-registry'
 
 import { Component } from 'inferno'
 import { safeGet } from 'safe-utils'
@@ -175,8 +175,8 @@ export default class ListFieldWidget extends Component {
   }
 }
 
-createAdapter({
+new Adapter({
     implements: IInputFieldWidget,
     adapts: interfaces.IListField,
     Component: ListFieldWidget,
-}).registerWith(globalRegistry)
+})

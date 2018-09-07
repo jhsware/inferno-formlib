@@ -294,7 +294,7 @@ Note that this approach will override the look and feel of all TextField rows.
 ```JavaScript
 import { Component } from 'inferno'
 
-import { createAdapter, globalRegistry } from 'component-registry'
+import { Adapter, globalRegistry } from 'component-registry'
 
 import { interfaces, i18n } from 'isomorphic-schema'
 import { IFormRowWidget }  from 'inferno-formlib/dist/interfaces'
@@ -358,12 +358,12 @@ class Row extends Component {
   }
 }
 
-createAdapter({
+new Adapter({
   implements: IFormRowWidget,
   adapts: interfaces.ITextField,
   
   Component: Row
-}).registerWith(globalRegistry)
+})
 
 ```
 
@@ -492,11 +492,11 @@ export const MySelectAsyncField = createObjectPrototype({
   }
 })
 
-createAdapter({
+new Adapter({
   implements: IInputFieldWidget,
   adapts: IMySelectAsyncField,
   Component: AutoComplete
-}).registerWith(globalRegistry)
+})
 ```
 
 Now you can use your new field in form schemas or ObjectPrototype interfaces. NOTE: When rendering forms with async

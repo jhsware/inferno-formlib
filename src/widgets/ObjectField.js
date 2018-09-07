@@ -5,7 +5,7 @@
     adapter registry.
 
 */
-import { createAdapter, globalRegistry } from 'component-registry'
+import { Adapter } from 'component-registry'
 
 import { Component } from 'inferno'
 
@@ -61,8 +61,8 @@ export default class ObjectFieldWidget extends Component {
   }
 }
 
-createAdapter({
+new Adapter({
     implements: IInputFieldWidget,
     adapts: interfaces.IObjectField,
     Component: ObjectFieldWidget,
-}).registerWith(globalRegistry)
+})

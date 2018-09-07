@@ -6,13 +6,13 @@
 
 */
 import { Component } from 'inferno'
-import { createAdapter, globalRegistry } from 'component-registry'
+import { Adapter } from 'component-registry'
 
 import { interfaces } from 'isomorphic-schema'
 import { IInputFieldWidget } from '../interfaces'
 import classnames from 'classnames'
 import { renderString } from './common'
-import { generateId, escapeIdSelector } from './utils'
+import { generateId } from './utils'
 
 import DateField from 'isomorphic-schema/lib/field_validators/DateField'
 import Input from 'inferno-bootstrap/lib/Form/Input'
@@ -139,8 +139,8 @@ class InputWidget extends Component {
 
 export default InputWidget
 
-createAdapter({
+new Adapter({
     implements: IInputFieldWidget,
     adapts: interfaces.IDateTimeField,
     Component: InputWidget
-}).registerWith(globalRegistry)
+})

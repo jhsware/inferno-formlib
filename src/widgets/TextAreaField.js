@@ -7,7 +7,7 @@
 */
 import { Component } from 'inferno'
 
-import { createAdapter, globalRegistry } from 'component-registry'
+import { Adapter } from 'component-registry'
 import { renderString } from './common'
 import { generateId } from './utils'
 
@@ -71,8 +71,8 @@ class TextAreaWidget extends Component {
 
 export default TextAreaWidget
 
-createAdapter({
+new Adapter({
     implements: IInputFieldWidget,
     adapts: interfaces.ITextAreaField,
     Component: TextAreaWidget,
-}).registerWith(globalRegistry)
+})

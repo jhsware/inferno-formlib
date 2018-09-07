@@ -7,11 +7,10 @@
 */
 import { Component } from 'inferno'
 
-import { createAdapter, globalRegistry } from 'component-registry'
+import { Adapter } from 'component-registry'
 
 import { interfaces } from 'isomorphic-schema'
 import { IInputFieldWidget }  from '../interfaces'
-import classNames from 'classnames'
 
 import Input from 'inferno-bootstrap/lib/Form/Input'
 import { renderString } from './common'
@@ -60,8 +59,8 @@ class CheckboxWidget extends Component {
 
 export default CheckboxWidget
 
-createAdapter({
+new Adapter({
     implements: IInputFieldWidget,
     adapts: interfaces.IBoolField,
     Component: CheckboxWidget
-}).registerWith(globalRegistry)
+})

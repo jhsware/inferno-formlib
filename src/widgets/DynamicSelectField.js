@@ -6,11 +6,10 @@
 
 */
 import { Component } from 'inferno'
-import { createAdapter, globalRegistry } from 'component-registry'
+import { Adapter } from 'component-registry'
 
 import { interfaces } from 'isomorphic-schema'
 import { IInputFieldWidget }  from '../interfaces'
-import classNames from 'classnames'
 import { renderString } from './common'
 import { generateId } from './utils'
 
@@ -53,8 +52,8 @@ class DynamicSelectFieldWidget extends Component {
 
 export default DynamicSelectFieldWidget
 
-createAdapter({
+new Adapter({
     implements: IInputFieldWidget,
     adapts: interfaces.IDynamicSelectBaseField,
     Component: DynamicSelectFieldWidget,
-}).registerWith(globalRegistry)
+})

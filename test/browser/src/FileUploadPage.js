@@ -1,5 +1,5 @@
 import { Component } from 'inferno'
-import { globalRegistry, createUtility } from 'component-registry'
+import { Utility } from 'component-registry'
 import axios from 'axios'
 
 import { FileUploadWidget } from '../../../lib/widgets/FileUploadWidget'
@@ -31,7 +31,7 @@ const imageValue = {
     title: '4 Companies With Vacation Incentives That\'ll Make You Reconsider'
 }
 
-const FileUploadUtil = createUtility({
+const FileUploadUtil = new Utility({
     implements: IFileUploadUtil,
     name: 'Image',
 
@@ -54,8 +54,12 @@ const FileUploadUtil = createUtility({
                 return Promise.resolve(outp)
             })
             .catch((e) => { throw e })
+    },
+
+    delete (uri) {
+        // TODO: Implement this or go home!
     }
-}).registerWith(globalRegistry)
+})
 
     /*
     var mediaApi = registry.getUtility(IFileUploadUtil, this.props.field.utilName || 'Image')
