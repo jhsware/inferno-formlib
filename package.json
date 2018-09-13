@@ -33,8 +33,8 @@
     "url": "git+ssh://git@github.com/jhsware/inferno-formlib.git"
   },
   "peerDependencies": {
-    "component-registry": "1.0.0-rc.2",
-    "isomorphic-schema": "1.0.0-beta.1"
+    "component-registry": "1.0.0-rc.4",
+    "isomorphic-schema": "1.0.0-beta.2"
   },
   "devDependencies": {
     "axios": "^0.17.1",
@@ -56,7 +56,7 @@
     "inferno-create-element": "^5.5.0",
     "inferno-devtools": "^5.5.0",
     "inferno-router": "^5.5.0",
-    "isomorphic-schema": "1.0.0-beta.1",
+    "isomorphic-schema": "1.0.0-beta.2",
     "moment": "^2.20.1",
     "rollup": "^0.62.0",
     "rollup-plugin-babel": "^3.0.7",
