@@ -9,5 +9,5 @@ export function renderString(label, lang, fallbackLabel) {
   }
 
   const i18n = globalRegistry.getUtility(ITranslationUtil, undefined, undefined)
-  return (i18n && label) ? i18n.message(label) || label : fallbackLabel || label
+  return (i18n && label) ? i18n.message(label, lang) || label : fallbackLabel || label
 }
