@@ -83,8 +83,47 @@ createAdapter({
     Component: InputWidget
 }).registerWith(globalRegistry)
 
+class DecimalWidget extends InputWidget {
+    didGetInput (e) {
+        const field = this.props.adapter.context
+        const inp = e.target.value
+
+        // Preserve content in input box if ending with decimal and not has any previous decimal
+        if (typeof inp === 'string' && inp[inp.length - 1] === '.' && inp.match(/\./g).length === 1) {
+            return this.setState({
+                value: inp
+            });
+        }
+        
+        const newVal = field.fromString(e.target.value)
+        this.setState({
+            value: newVal
+        })
+        // Trigger change so FormRow can update character counter
+        this.props.onChange(this.props.propName, newVal)
+    }
+
+    render ({inputName, namespace, options}) {
+        const field = this.props.adapter.context
+
+        const isValid = this.props.validationError || this.props.invariantError ? false : undefined
+        const value = (this.state.value === undefined || this.state.value === null ? '' : field.toFormattedString(this.state.value))
+
+        return <Input
+            id={generateId(namespace, '__Field')}
+            name={inputName}
+            valid={isValid}
+            placeholder={renderString(field.placeholder, options && options.lang)}
+            readOnly={field.readOnly}
+            value={value}
+
+            onInput={this.didGetInput}
+            onChange={this.didGetChange} />
+    }
+}
+
 createAdapter({
     implements: IInputFieldWidget,
     adapts: interfaces.IDecimalField,
-    Component: InputWidget
+    Component: DecimalWidget
 }).registerWith(globalRegistry)
