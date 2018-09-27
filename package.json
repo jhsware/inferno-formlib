@@ -1,6 +1,6 @@
 {
   "name": "inferno-formlib",
-  "version": "5.2.6",
+  "version": "5.2.7",
   "description": "Form library for inferno",
   "main": "dist/cjs/index.js",
   "umd:main": "dist/umd/index.js",
