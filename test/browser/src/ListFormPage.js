@@ -1,17 +1,17 @@
 import { Component } from 'inferno'
 
 import { Schema } from 'isomorphic-schema'
-import TextField from 'isomorphic-schema/lib/field_validators/TextField'
-import ListField from 'isomorphic-schema/lib/field_validators/ListField'
-import '../../../lib/widgets/InputField'
-import '../../../lib/widgets/ListField'
-import '../../../lib/widgets/FormRow'
+import TextField from 'isomorphic-schema/src/field_validators/TextField'
+import ListField from 'isomorphic-schema/src/field_validators/ListField'
+import '../../../src/widgets/InputField'
+import '../../../src/widgets/ListField'
+import '../../../src/widgets/FormRow'
 
-import { FormRows } from '../../../lib/FormRows'
-import Button from 'inferno-bootstrap/lib/Button'
-import Col from 'inferno-bootstrap/lib/Col'
-import Form from 'inferno-bootstrap/lib/Form/Form'
-import Row from 'inferno-bootstrap/lib/Row'
+import { FormRows } from '../../../src/FormRows'
+import Button from 'inferno-bootstrap/src/Button'
+import Col from 'inferno-bootstrap/src/Col'
+import Form from 'inferno-bootstrap/src/Form/Form'
+import Row from 'inferno-bootstrap/src/Row'
 
 const listItemSchema = new Schema('ListItem Schema', {
   title: new TextField({

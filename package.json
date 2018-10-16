@@ -18,8 +18,8 @@
     "build:legacy": "babel src --out-dir dist",
     "build:dist": "rollup -c",
     "build:dist:prod": "rollup -c",
-    "build-test": "rm -rf ./test/dist && NODE_ENV=development node_modules/.bin/webpack --mode development --config ./test/browser/webpack.config",
-    "build-test-dev": "rm -rf ./test/dist && NODE_ENV=development node_modules/.bin/webpack --mode development --watch --config ./test/browser/webpack.config.js"
+    "build-test": "rm -rf ./test/dist && NODE_ENV=test node_modules/.bin/webpack --mode development --config ./test/browser/webpack.config",
+    "build-test-dev": "rm -rf ./test/dist && NODE_ENV=test node_modules/.bin/webpack --mode development --watch --config ./test/browser/webpack.config.js"
   },
   "keywords": [
     "inferno",
@@ -33,20 +33,21 @@
     "url": "git+ssh://git@github.com/jhsware/inferno-formlib.git"
   },
   "peerDependencies": {
-    "component-registry": "1.0.0-rc.4",
-    "isomorphic-schema": "1.0.0-beta.2"
+    "component-registry": "1.0.0-rc.6",
+    "isomorphic-schema": "1.0.0-beta.6"
   },
   "devDependencies": {
     "axios": "^0.17.1",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
+    "babel-plugin-add-module-exports": "^1.0.0",
     "babel-plugin-external-helpers": "^6.22.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-inferno-app": "^7.1.0",
     "babel-preset-stage-2": "^6.24.1",
     "bootstrap": "^4.1.1",
-    "component-registry": "1.0.0-rc.2",
+    "component-registry": "1.0.0-rc.6",
     "cross-env": "^5.2.0",
     "express": "^4.16.2",
     "formidable": "^1.2.0",
@@ -56,7 +57,7 @@
     "inferno-create-element": "^5.5.0",
     "inferno-devtools": "^5.5.0",
     "inferno-router": "^5.5.0",
-    "isomorphic-schema": "1.0.0-beta.2",
+    "isomorphic-schema": "1.0.0-beta.6",
     "moment": "^2.20.1",
     "rollup": "^0.62.0",
     "rollup-plugin-babel": "^3.0.7",

@@ -5,14 +5,14 @@
     adapter registry.
 
 */
-import { Component } from 'inferno'
+import { Component, render } from 'inferno'
 
 import classNames from 'classnames'
 
-import Button from 'inferno-bootstrap/lib/Button'
-import Popover from 'inferno-bootstrap/lib/Popover'
-import PopoverBody from 'inferno-bootstrap/lib/PopoverBody'
-import PopoverHeader from 'inferno-bootstrap/lib/PopoverHeader'
+import Button from 'inferno-bootstrap/src/Button'
+import Popover from 'inferno-bootstrap/src/Popover'
+import PopoverBody from 'inferno-bootstrap/src/PopoverBody'
+import PopoverHeader from 'inferno-bootstrap/src/PopoverHeader'
 
 // Placeholder
 
@@ -55,5 +55,5 @@ class Widget extends Component {
 if (typeof window !== 'undefined') {
   // require('inferno-devtools')
 
-  Inferno.render(<Widget />, document.getElementById('app'))
+  render(<Widget />, document.getElementById('app'))
 }

@@ -3,5 +3,15 @@
     ["env", { "modules": false }],
     "stage-2",
     "inferno-app"
-  ]
+  ],
+    "plugins": [
+    "add-module-exports"
+  ],
+  "env": {
+    "test": {
+      "presets": [
+        "env"
+      ]
+    }
+  }
 }

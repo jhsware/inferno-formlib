@@ -1,0 +1,29 @@
+{
+  "name": "test-inferno-formlib",
+  "version": "5.2.5",
+  "description": "Form library for inferno",
+  "main": "server.js",
+  "scripts": {
+    "start": "node ./server.js"
+  },
+  "keywords": [
+    "inferno",
+    "isomorphic-schema",
+    "formlib"
+  ],
+  "author": "Sebastian Ware <sebastian@urbantalk.se> (https://github.com/jhsware)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/jhsware/inferno-formlib.git"
+  },
+  "dependencies": {
+    "component-registry": "1.0.0-rc.6",
+    "isomorphic-schema": "1.0.0-beta.6",
+    "bootstrap": "^4.1.1",
+    "express": "^4.16.2",
+    "formidable": "^1.2.0",
+    "axios": "^0.17.1",
+    "safe-utils": "^0.2.1"
+  }
+}

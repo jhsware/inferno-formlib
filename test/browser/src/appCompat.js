@@ -2,10 +2,10 @@ import 'inferno-compat'
 import { Component, render } from 'inferno'
 import { BrowserRouter, Switch, Route, Redirect, Link } from 'inferno-router'
 
-import Button from 'inferno-bootstrap/lib/Button'
+import Button from 'inferno-bootstrap/src/Button'
 
-import Nav from 'inferno-bootstrap/lib/Navigation/Nav'
-import NavItem from 'inferno-bootstrap/lib/Navigation/NavItem'
+import Nav from 'inferno-bootstrap/src/Navigation/Nav'
+import NavItem from 'inferno-bootstrap/src/Navigation/NavItem'
 
 import FormPage from './FormPage'
 import DatePage from './DatePage'

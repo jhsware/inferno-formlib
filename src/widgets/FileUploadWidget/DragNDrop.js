@@ -1,4 +1,4 @@
-'use strict';
+
 import { Component } from 'inferno'
 import classNames from 'classnames'
 

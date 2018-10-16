@@ -1,12 +1,12 @@
 import { Component } from 'inferno'
-import DateTimeFieldWidget from '../../../lib/widgets/DateTimeField'
-import DateTimeField from 'isomorphic-schema/lib/field_validators/DateTimeField'
-import FormText from 'inferno-bootstrap/lib/Form/FormText'
-import FormGroup from 'inferno-bootstrap/lib/Form/FormGroup'
-import Label from 'inferno-bootstrap/lib/Form/Label'
+import DateTimeFieldWidget from '../../../src/widgets/DateTimeField'
+import DateTimeField from 'isomorphic-schema/src/field_validators/DateTimeField'
+import FormText from 'inferno-bootstrap/src/Form/FormText'
+import FormGroup from 'inferno-bootstrap/src/Form/FormGroup'
+import Label from 'inferno-bootstrap/src/Form/Label'
 
-import Row from 'inferno-bootstrap/lib/Row'
-import Col from 'inferno-bootstrap/lib/Col'
+import Row from 'inferno-bootstrap/src/Row'
+import Col from 'inferno-bootstrap/src/Col'
 
 const dateTimeField = new DateTimeField({
     label: 'DateTime Field',

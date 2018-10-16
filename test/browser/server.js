@@ -10,7 +10,7 @@ app.use('/images', (req, res, next) => {
 })
 
 // Static resources
-app.use('/bootstrap', express.static(__dirname + '/../../node_modules/bootstrap/dist'))
+app.use('/bootstrap', express.static(__dirname + '/node_modules/bootstrap/dist'))
 app.use('/static', express.static(__dirname))
 
 // Apps
