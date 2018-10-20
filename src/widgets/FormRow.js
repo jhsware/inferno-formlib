@@ -7,7 +7,7 @@
 */
 import { Component } from 'inferno'
 import { Adapter } from 'component-registry'
-
+import { findDOMNode } from 'inferno-extras'
 import { interfaces, i18n } from 'isomorphic-schema'
 import { IFormRowWidget }  from '../interfaces'
 
@@ -42,11 +42,11 @@ function HelpMsg (props, context) {
 class ErrorMsg extends Component {
 
     componentDidMount () {
-        animateOnAdd(this.$LI.dom, 'InfernoFormlib-ErrorMsg--Animation')
+        animateOnAdd(findDOMNode(this), 'InfernoFormlib-ErrorMsg--Animation')
     }
 
     componentWillUnmount () {
-        animateOnRemove(this.$LI.dom, 'InfernoFormlib-ErrorMsg--Animation')
+        animateOnRemove(findDOMNode(this), 'InfernoFormlib-ErrorMsg--Animation')
     }
 
     render () {
@@ -92,12 +92,12 @@ class Row extends Component {
     // support required
     componentDidMount () {
         if (this.props.formIsMounted) {
-            animateOnAdd(this.$LI.dom, 'InfernoFormlib-Row--Animation')
+            animateOnAdd(findDOMNode(this), 'InfernoFormlib-Row--Animation')
         }
     }
 
     componentWillUnmount () {
-        animateOnRemove(this.$LI.dom, 'InfernoFormlib-Row--Animation')
+        animateOnRemove(findDOMNode(this), 'InfernoFormlib-Row--Animation')
     }
 
     render ({validationError, submitted, options, children}) {
@@ -131,12 +131,12 @@ class ObjectRow extends Component {
     // support required
     componentDidMount () {
         if (this.props.formIsMounted) {
-            animateOnAdd(this.$LI.dom, 'InfernoFormlib-Row--Animation')
+            animateOnAdd(findDOMNode(this), 'InfernoFormlib-Row--Animation')
         }
     }
 
     componentWillUnmount () {
-        animateOnRemove(this.$LI.dom, 'InfernoFormlib-Row--Animation')
+        animateOnRemove(findDOMNode(this), 'InfernoFormlib-Row--Animation')
     }
 
     render ({validationError, submitted, options, children}) {
@@ -169,12 +169,12 @@ class ListRow extends Component {
     // support required
     componentDidMount () {
         if (this.props.formIsMounted) {
-            animateOnAdd(this.$LI.dom, 'InfernoFormlib-Row--Animation')
+            animateOnAdd(findDOMNode(this), 'InfernoFormlib-Row--Animation')
         }
     }
 
     componentWillUnmount () {
-        animateOnRemove(this.$LI.dom, 'InfernoFormlib-Row--Animation')
+        animateOnRemove(findDOMNode(this), 'InfernoFormlib-Row--Animation')
     }
 
     render ({validationError, submitted, options, children}) {
@@ -208,12 +208,12 @@ class CheckboxRow extends Component {
     // support required
     componentDidMount () {
         if (this.props.formIsMounted) {
-            animateOnAdd(this.$LI.dom, 'InfernoFormlib-Row--Animation')
+            animateOnAdd(findDOMNode(this), 'InfernoFormlib-Row--Animation')
         }
     }
 
     componentWillUnmount () {
-        animateOnRemove(this.$LI.dom, 'InfernoFormlib-Row--Animation')
+        animateOnRemove(findDOMNode(this), 'InfernoFormlib-Row--Animation')
     }
 
     render ({validationError, submitted, options, children}) {

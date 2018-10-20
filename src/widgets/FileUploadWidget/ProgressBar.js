@@ -1,5 +1,3 @@
-import Inferno from 'inferno'
-
 import classNames from 'classnames'
 import toNumber from 'lodash.tonumber'
 

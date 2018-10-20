@@ -6,6 +6,7 @@
 
 */
 import { Component } from 'inferno'
+import { findDOMNode } from 'inferno-extras'
 import { Adapter } from 'component-registry'
 
 import { interfaces } from 'isomorphic-schema'
@@ -172,7 +173,7 @@ class InputWidget extends Component {
         
         while (tmpNode) {
           // NOTE: Using className to check if we clicked in the calendar. Should use better test.
-          if (this._elInput.$LI.dom === tmpNode || (tmpNode.className && tmpNode.className.indexOf('InfernoFormlib-DateFieldCalendar') >= 0)) {
+          if (findDOMNode(this._elInput) === tmpNode || (tmpNode.className && tmpNode.className.indexOf('InfernoFormlib-DateFieldCalendar') >= 0)) {
             doesContainTarget = true
             break
           }

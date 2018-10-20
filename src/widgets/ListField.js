@@ -8,6 +8,7 @@
 import { Adapter } from 'component-registry'
 
 import { Component } from 'inferno'
+import { findDOMNode } from 'inferno-extras'
 import { safeGet } from 'safe-utils'
 
 import { interfaces } from 'isomorphic-schema'
@@ -15,7 +16,14 @@ import { IInputFieldWidget }  from '../interfaces'
 import { renderString } from './common'
 import { generateId } from './utils'
 
-import { handleDragStart, handleDragOver, handleDragEnter, handleDragLeave, handleDragEnd, handleDrop } from '../draggable'
+import {
+    handleDragStart,
+    handleDragOver,
+    handleDragEnter,
+    handleDragLeave,
+    handleDragEnd,
+    handleDrop
+} from '../draggable'
 
 import {
     Placeholder,
@@ -59,7 +67,7 @@ export default class ListFieldWidget extends Component {
   }
 
   componentDidMount () {
-    let domEl = this.$LI.dom
+    let domEl = findDOMNode(this)
     domEl.addEventListener('dragstart', this.handleDragStart, false)
     domEl.addEventListener('dragover', this.handleDragOver, false)
     domEl.addEventListener('dragenter', this.handleDragEnter, false)
@@ -70,7 +78,7 @@ export default class ListFieldWidget extends Component {
   }
 
   componentWillUnmount () {
-    let domEl = this.$LI.dom
+    let domEl = findDOMNode(this)
     domEl.removeEventListener('dragstart', this.handleDragStart, false)
     domEl.removeEventListener('dragover', this.handleDragOver, false)
     domEl.removeEventListener('dragenter', this.handleDragEnter, false)
@@ -111,6 +119,9 @@ export default class ListFieldWidget extends Component {
 
   doAddRow (e) {
     e.preventDefault()
+    // Adding this because in some cases the event will keep on calling this event handler.
+    // Could be due to propagation.
+    e.stopPropagation()
     const value = this.props.value || []
     value.push(undefined)
     this.props.onChange(this.props.propName, value)

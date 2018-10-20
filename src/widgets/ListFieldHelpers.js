@@ -8,6 +8,7 @@
 import { Adapter } from 'component-registry'
 
 import { Component } from 'inferno'
+import { findDOMNode } from 'inferno-extras'
 import { safeGet } from 'safe-utils'
 
 import { animateOnAdd, animateOnRemove } from 'inferno-animation'
@@ -28,21 +29,21 @@ class ListRowContainerWidget extends Component {
 
     componentDidMount () {
         if (!this.props.isFirstMount) {
-            animateOnAdd(this.$LI.dom, 'InfernoFormlib-ListFieldRow--Animation')
+            animateOnAdd(findDOMNode(this), 'InfernoFormlib-ListFieldRow--Animation')
         }
     }
 
     componentWillUnmount () {
-        let domEl = this.$LI.dom
+        let domEl = findDOMNode(this)
         animateOnRemove(domEl, 'InfernoFormlib-ListFieldRow--Animation')
     }
 
     doMakeDraggable (e) {
-        this.$LI.dom.setAttribute('draggable', true)
+        findDOMNode(this).setAttribute('draggable', true)
     }
 
     doMakeUndraggable (e) {
-        this.$LI.dom.removeAttribute('draggable')
+        findDOMNode(this).removeAttribute('draggable')
     }
 
     render () {

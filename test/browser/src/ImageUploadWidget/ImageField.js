@@ -1,6 +1,6 @@
 import { createInterfaceClass, createObjectPrototype } from 'component-registry'
 const Interface = createInterfaceClass('inferno-formlib')
-import BaseField from 'isomorphic-schema/src/field_validators/BaseField'
+import { BaseField } from 'isomorphic-schema'
 
 var IImageField = new Interface({
   name: 'IImageField'

@@ -3,10 +3,12 @@ import { FileUploadWidget } from '../../../../src/widgets/FileUploadWidget'
 import { renderString } from '../../../../src/widgets/common'
 import { generateId } from '../../../../src/widgets/utils'
 
-import Card from 'inferno-bootstrap/src/Card/Card'
-import CardBody from 'inferno-bootstrap/src/Card/CardBody'
-import CardFooter from 'inferno-bootstrap/src/Card/CardFooter'
-import CardImg from 'inferno-bootstrap/src/Card/CardImg'
+import {
+    Card,
+    CardBody,
+    CardFooter,
+    CardImg
+} from 'inferno-bootstrap'
 
 export default class ImageFieldWidget extends Component {
   constructor (props) {

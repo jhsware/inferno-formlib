@@ -2,15 +2,17 @@ import { Component } from 'inferno'
 
 import { Schema } from 'isomorphic-schema'
 import { ImageField } from './ImageUploadWidget'
-import TextField from 'isomorphic-schema/src/field_validators/TextField'
+import { TextField } from 'isomorphic-schema'
 import '../../../src/widgets/InputField'
 import '../../../src/widgets/FormRow'
 
 import { FormRows } from '../../../src/FormRows'
-import Form from 'inferno-bootstrap/src/Form/Form'
-import Row from 'inferno-bootstrap/src/Row'
-import Col from 'inferno-bootstrap/src/Col'
-import Button from 'inferno-bootstrap/src/Button'
+import {
+  Form,
+  Row,
+  Col,
+  Button
+} from 'inferno-bootstrap'
 
 const formSchema = new Schema('Form Schema', {
   title: new TextField({

@@ -4,19 +4,19 @@ import axios from 'axios'
 
 import { FileUploadWidget } from '../../../src/widgets/FileUploadWidget'
 import { IFileUploadUtil } from '../../../src/interfaces'
-import TextField from 'isomorphic-schema/src/field_validators/TextField'
-import FormText from 'inferno-bootstrap/src/Form/FormText'
-import FormGroup from 'inferno-bootstrap/src/Form/FormGroup'
-import Label from 'inferno-bootstrap/src/Form/Label'
+import { TextField } from 'isomorphic-schema'
+import {
+    FormText,
+    FormGroup,
+    Label,
+    Card,
+    CardBody,
+    CardTitle,
+    CardText,
+    CardFooter,
+    CardImg
+} from 'inferno-bootstrap'
 import { renderString } from '../../../src/widgets/common'
-
-import Card from 'inferno-bootstrap/src/Card/Card'
-import CardBody from 'inferno-bootstrap/src/Card/CardBody'
-import CardTitle from 'inferno-bootstrap/src/Card/CardTitle'
-import CardText from 'inferno-bootstrap/src/Card/CardText'
-import CardFooter from 'inferno-bootstrap/src/Card/CardFooter'
-import CardImg from 'inferno-bootstrap/src/Card/CardImg'
-
 
 const imageField = new TextField({
     label: 'Image file',

@@ -16,7 +16,7 @@
 
 */
 import { Component } from 'inferno'
-
+import { findDOMNode } from 'inferno-extras'
 import { animateOnAdd, animateOnRemove } from 'inferno-animation'
 
 import classnames from 'classnames'
@@ -41,7 +41,7 @@ class AutocompleteItem extends Component {
     componentWillReceiveProps (nextProps) {
         if (nextProps.isMarked && !this.props.isMarked) {
             // Check if it is visible
-            const domNode = this.$LI.dom
+            const domNode = findDOMNode(this)
             const currBottom = domNode.offsetTop + domNode.offsetHeight
             if (currBottom > (domNode.parentNode.offsetHeight + domNode.parentNode.scrollTop)) {
               domNode.parentNode.scrollTop = currBottom - domNode.parentNode.offsetHeight
@@ -52,11 +52,11 @@ class AutocompleteItem extends Component {
     }
 
     componentDidMount () {
-        animateOnAdd(this.$LI.dom, 'InfernoFormlib-AutocompleteItem--Animation')
+        animateOnAdd(findDOMNode(this), 'InfernoFormlib-AutocompleteItem--Animation')
     }
 
     componentWillUnmount () {
-        animateOnRemove(this.$LI.dom, 'InfernoFormlib-AutocompleteItem--Animation')
+        animateOnRemove(findDOMNode(this), 'InfernoFormlib-AutocompleteItem--Animation')
     }
 
     didClick (e) {
@@ -182,7 +182,7 @@ class AutoCompleteBaseWidget extends Component {
         console.log('DID PRESS: ' + e)
         if (_actionKeys[e.key] && this.state.markAtIndex !== undefined) {
             // So we got a hotkey
-            const domEl = this._inputNode.$LI.dom
+            const domEl = findDOMNode(this._inputNode)
             if (domEl === e.target) {
                 // And it was fired in our input box
                 if (e.key === 'ArrowUp') {
@@ -244,7 +244,7 @@ class AutoCompleteBaseWidget extends Component {
       this.props.onChange(this.props.propName, field.fromString(value))
       
       // Blur focus to emphasize that selection has been done
-      this._inputNode.$LI.dom.blur()
+      findDOMNode(this._inputNode).blur()
     }
 
     renderInput ({inputName, namespace, options}) {

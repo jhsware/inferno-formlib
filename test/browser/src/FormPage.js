@@ -1,16 +1,18 @@
 import { Component } from 'inferno'
 
-import { Schema } from 'isomorphic-schema'
-import TextField from 'isomorphic-schema/src/field_validators/TextField'
-import EmailField from 'isomorphic-schema/src/field_validators/EmailField'
-import BoolField from 'isomorphic-schema/src/field_validators/BoolField'
-import SelectField from 'isomorphic-schema/src/field_validators/SelectField'
-import IntegerField from 'isomorphic-schema/src/field_validators/IntegerField'
-import DecimalField from 'isomorphic-schema/src/field_validators/DecimalField'
-import TextAreaField from 'isomorphic-schema/src/field_validators/TextAreaField'
-import ListField from 'isomorphic-schema/src/field_validators/ListField'
-import ObjectField from 'isomorphic-schema/src/field_validators/ObjectField'
-import '../../../src/widgets/InputField'
+import { 
+  Schema,
+  TextField,
+  EmailField,
+  BoolField,
+  SelectField,
+  IntegerField,
+  DecimalField,
+  TextAreaField,
+  ListField,
+  ObjectField } from 'isomorphic-schema'
+
+  import '../../../src/widgets/InputField'
 import '../../../src/widgets/BoolField'
 import '../../../src/widgets/SelectField'
 import '../../../src/widgets/TextAreaField'
@@ -21,10 +23,12 @@ import { ActionBar } from '../../../src/widgets/ActionBar'
 import { getElOffset } from '../../../src/widgets/utils'
 
 import { FormRows } from '../../../src/FormRows'
-import Button from 'inferno-bootstrap/src/Button'
-import Col from 'inferno-bootstrap/src/Col'
-import Form from 'inferno-bootstrap/src/Form/Form'
-import Row from 'inferno-bootstrap/src/Row'
+import {
+  Button,
+  Col,
+  Form,
+  Row
+} from 'inferno-bootstrap'
 
 const listItemSchema = new Schema('ListItem Schema', {
   score: new IntegerField({

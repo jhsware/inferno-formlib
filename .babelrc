@@ -1,17 +1,21 @@
 {
   "presets": [
-    ["env", { "modules": false }],
-    "stage-2",
+    ["@babel/env", { "modules": false }],
     "inferno-app"
   ],
     "plugins": [
-    "add-module-exports"
+      "@babel/plugin-proposal-class-properties",
+      "@babel/plugin-transform-runtime",
+      "@babel/plugin-syntax-object-rest-spread",
+      "@babel/plugin-syntax-jsx",
+      "add-module-exports"
   ],
   "env": {
     "test": {
       "presets": [
-        "env"
+        "@babel/env",
+        "inferno-app"
       ]
     }
-  }
+  }  
 }

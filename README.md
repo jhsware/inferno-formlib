@@ -293,6 +293,7 @@ Note that this approach will override the look and feel of all TextField rows.
 
 ```JavaScript
 import { Component } from 'inferno'
+import { findDOMNode } from 'inferno-extras'
 
 import { Adapter, globalRegistry } from 'component-registry'
 
@@ -327,12 +328,12 @@ class Row extends Component {
   // support required
   componentDidMount () {
       if (this.props.formIsMounted) {
-          animateOnAdd(this.$LI.dom, 'InfernoFormlib-Row--Animation')
+          animateOnAdd(findDOMNode(this), 'InfernoFormlib-Row--Animation')
       }
   }
 
   componentWillUnmount () {
-      animateOnRemove(this.$LI.dom, 'InfernoFormlib-Row--Animation')
+      animateOnRemove(findDOMNode(this), 'InfernoFormlib-Row--Animation')
   }
 
   render () {
