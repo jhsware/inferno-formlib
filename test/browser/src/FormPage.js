@@ -12,7 +12,7 @@ import {
   ListField,
   ObjectField } from 'isomorphic-schema'
 
-  import '../../../src/widgets/InputField'
+import '../../../src/widgets/InputField'
 import '../../../src/widgets/BoolField'
 import '../../../src/widgets/SelectField'
 import '../../../src/widgets/TextAreaField'
