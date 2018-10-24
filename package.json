@@ -87,11 +87,12 @@
     "@babel/runtime": "^7.1.2",
     "classnames": "^2.2.6",
     "inferno": "^6.0.3",
-    "inferno-animation": "^6.0.0",
-    "inferno-bootstrap": "^6.0.0",
+    "inferno-animation": "^6.0.1",
+    "inferno-bootstrap": "^6.0.1",
     "inferno-extras": "^6.0.3",
-    "inferno-popper": "^6.0.1",
+    "inferno-popper": "^6.0.2",
     "lodash.tonumber": "^4.0.3",
-    "safe-utils": "^0.2.1"
+    "safe-utils": "^0.2.1",
+    "striptags": "^3.1.1"
   }
 }
