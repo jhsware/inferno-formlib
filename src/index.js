@@ -21,25 +21,27 @@ import './widgets/FormRow'
 
 import * as interfaces from './interfaces'
 
-export default {
+const widgets = {
+    AutoCompleteWidget,
+    AnyOfWidget,
+    CheckboxWidget,
+    DynamicSelectWidget,
+    FileUploadWidget,
+    InputWidget,
+    ListWidget,
+    MultiSelectWidget,
+    ObjectWidget,
+    PasswordWidget,
+    SelectWidget,
+    TextAreaWidget,
+    SelectAsyncBaseWidget,
+
+    ProgressOverlay
+}
+
+export {
     CustomWidget,
     FormRows,
     interfaces,
-    widgets: {
-        AutoCompleteWidget,
-        AnyOfWidget,
-        CheckboxWidget,
-        DynamicSelectWidget,
-        FileUploadWidget,
-        InputWidget,
-        ListWidget,
-        MultiSelectWidget,
-        ObjectWidget,
-        PasswordWidget,
-        SelectWidget,
-        TextAreaWidget,
-        SelectAsyncBaseWidget,
-
-        ProgressOverlay
-    } 
+    widgets 
 }

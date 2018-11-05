@@ -26,11 +26,6 @@ const baseConfig = (outputFormat) => {
         include: 'node_modules/**',  // Default: undefined
       }),
       babel({
-        plugins: [
-          // Ensure "external-helpers" is only included in rollup builds
-          // Issue: https://github.com/rollup/rollup/issues/1595
-          '@babel/external-helpers'
-        ],
         runtimeHelpers: true
       }),
       replace({
