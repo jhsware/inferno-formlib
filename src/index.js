@@ -21,7 +21,7 @@ import './widgets/FormRow'
 
 import * as interfaces from './interfaces'
 
-module.exports = {
+export default {
     CustomWidget,
     FormRows,
     interfaces,
