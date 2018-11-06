@@ -9,9 +9,8 @@ const baseConfig = (outputFormat) => {
 
   let file;
   switch (outputFormat) {
-    case 'umd':
     case 'cjs':
-      file = 'dist/' + outputFormat + '/index' + (isProduction ? '.min' : '') + '.js';
+      file = 'dist/index.' + outputFormat + (isProduction ? '.min' : '') + '.js';
       break;
 
     default:
@@ -36,7 +35,7 @@ const baseConfig = (outputFormat) => {
       }) : false,
     ],
     external: [
-      'classnames',
+      'classnames', 
       'component-registry',
       'inferno',
       'inferno-animation',
@@ -50,10 +49,11 @@ const baseConfig = (outputFormat) => {
       file: file,
       format: outputFormat,
       sourcemap: true,
+      exports: 'named',
       globals: {
         classnames: 'classNames',
         'component-registry': 'componentRegistry',
-        inferno: 'Inferno',
+        'inferno': 'Inferno',
         'inferno-animation': 'infernoAnimation',
         'inferno-create-element': 'infernoCreateElement',
         'inferno-popper': 'infernoPopper',
@@ -65,6 +65,5 @@ const baseConfig = (outputFormat) => {
 };
 
 export default [
-  baseConfig('cjs'),
-  baseConfig('umd'),
+  baseConfig('cjs')
 ];

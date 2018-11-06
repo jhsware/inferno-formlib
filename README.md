@@ -530,3 +530,16 @@ Make sure you have the following in your .babelrc file (you probably do) and all
     ]
 }
 ```
+
+
+# Dev Notes
+
+## Distribution
+
+main: '', // CommonJS module transpiled to ES5. Can be consumed by webpack or Node.js as is
+module: '', // ES6 module with import/export but transpiled to ES5
+esnext: '', // ES6 code
+https://github.com/rollup/rollup/wiki/pkg.module
+
+Side effects:
+https://webpack.js.org/guides/tree-shaking/
