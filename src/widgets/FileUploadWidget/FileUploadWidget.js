@@ -6,11 +6,10 @@
 
 */
 import { Component } from 'inferno'
-import classNames from 'classnames'
 import { DragNDrop } from './DragNDrop'
 
 import { IFileUploadUtil } from '../../interfaces'
-import Button from 'inferno-bootstrap/lib/Button'
+import { Button } from 'inferno-bootstrap'
 
 // Placeholder
 

@@ -15,17 +15,16 @@ import classNames from 'classnames'
 import { renderString } from './common'
 import { generateId, escapeIdSelector } from './utils'
 
-import Button from 'inferno-bootstrap/lib/Button'
-import Input from 'inferno-bootstrap/lib/Form/Input'
-import InputGroup from 'inferno-bootstrap/lib/Form/InputGroup'
-import Popover from 'inferno-bootstrap/lib/Popover'
-import PopoverBody from 'inferno-bootstrap/lib/PopoverBody'
-import PopoverHeader from 'inferno-bootstrap/lib/PopoverHeader'
-
-import Nav from 'inferno-bootstrap/lib/Navigation/Nav'
-import NavItem from 'inferno-bootstrap/lib/Navigation/NavItem'
-import NavLink from 'inferno-bootstrap/lib/Navigation/NavLink'
-
+import {
+  Input,
+  InputGroup,
+  Popover,
+  PopoverBody,
+  PopoverHeader,
+  Nav,
+  NavItem,
+  NavLink
+} from 'inferno-bootstrap'
 
 import { Manager, Target } from 'inferno-popper'
 // Placeholder

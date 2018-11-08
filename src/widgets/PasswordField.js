@@ -13,7 +13,7 @@ import { renderString } from './common'
 import { interfaces } from 'isomorphic-schema'
 import { IInputFieldWidget }  from '../interfaces'
 
-import Input from 'inferno-bootstrap/lib/Form/Input'
+import { Input } from 'inferno-bootstrap'
 import { generateId } from './utils'
 
 // Placeholder

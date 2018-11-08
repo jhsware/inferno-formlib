@@ -15,10 +15,12 @@ import { animateOnAdd, animateOnRemove } from 'inferno-animation'
 
 import { renderString } from './common'
 
-import FormFeedback from 'inferno-bootstrap/lib/Form/FormFeedback'
-import FormText from 'inferno-bootstrap/lib/Form/FormText'
-import FormGroup from 'inferno-bootstrap/lib/Form/FormGroup'
-import _bs_Label from 'inferno-bootstrap/lib/Form/Label'
+import {
+    FormFeedback,
+    FormText,
+    FormGroup,
+    Label as _bs_Label
+ } from 'inferno-bootstrap'
 
 function Label (props) {
     return <_bs_Label>{renderString(props.children, props.options && props.options.lang)}</_bs_Label>

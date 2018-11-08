@@ -13,7 +13,7 @@ import { IInputFieldWidget }  from '../interfaces'
 import { renderString } from './common'
 import { generateId } from './utils'
 
-import Input from 'inferno-bootstrap/lib/Form/Input'
+import { Input } from 'inferno-bootstrap'
 
 // Placeholder
 

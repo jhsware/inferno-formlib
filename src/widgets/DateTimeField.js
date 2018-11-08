@@ -14,8 +14,8 @@ import classnames from 'classnames'
 import { renderString } from './common'
 import { generateId } from './utils'
 
-import DateField from 'isomorphic-schema/lib/field_validators/DateField'
-import Input from 'inferno-bootstrap/lib/Form/Input'
+import { DateField } from 'isomorphic-schema'
+import { Input } from 'inferno-bootstrap'
 import DateInput from './DateField'
 
 function pad (inp) {

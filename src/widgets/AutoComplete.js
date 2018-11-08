@@ -21,10 +21,12 @@ import { animateOnAdd, animateOnRemove } from 'inferno-animation'
 
 import classnames from 'classnames'
 
-import Input from 'inferno-bootstrap/lib/Form/Input'
-import Dropdown from 'inferno-bootstrap/lib/Dropdown'
-import DropdownMenu from 'inferno-bootstrap/lib/DropdownMenu'
-import DropdownItem from 'inferno-bootstrap/lib/DropdownItem'
+import {
+    Input,
+    Dropdown,
+    DropdownMenu,
+    DropdownItem
+ } from 'inferno-bootstrap'
 import { Target } from 'inferno-popper'
 
 import {renderString} from './common'

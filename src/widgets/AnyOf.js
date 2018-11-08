@@ -12,7 +12,7 @@ import { interfaces } from 'isomorphic-schema'
 import { IInputFieldWidget }  from '../interfaces'
 import classNames from 'classnames'
 
-import Input from 'inferno-bootstrap/lib/Form/Input'
+import { Input } from 'inferno-bootstrap'
 import { renderString } from './common'
 import { generateId } from './utils'
 

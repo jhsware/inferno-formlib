@@ -17,7 +17,7 @@ import { interfaces } from 'isomorphic-schema'
 import { IListRowContainerWidget }  from '../interfaces'
 import getWidgetAdapters from '../getWidgetAdapters'
 
-import Button from 'inferno-bootstrap/lib/Button'
+import { Button } from 'inferno-bootstrap'
 
 class ListRowContainerWidget extends Component {
     constructor (props) {

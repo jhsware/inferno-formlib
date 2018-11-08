@@ -5,7 +5,7 @@ import classnames from 'classnames'
 
 const _getElOffset = getElOffset
 
-export class ActionBar extends Component {
+export default class ActionBar extends Component {
   // TODO: Make this sticky AF
   constructor (props) {
       super(...arguments)

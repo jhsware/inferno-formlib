@@ -14,7 +14,7 @@ import { generateId } from './utils'
 import { interfaces } from 'isomorphic-schema'
 import { IInputFieldWidget }  from '../interfaces'
 
-import Input from 'inferno-bootstrap/lib/Form/Input'
+import { Input } from 'inferno-bootstrap'
 
 // Placeholder
 
