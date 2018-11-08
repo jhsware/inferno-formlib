@@ -1,8 +1,5 @@
 import babel from 'rollup-plugin-babel';
 import minify from 'rollup-plugin-babel-minify';
-import replace from 'rollup-plugin-replace';
-import nodeResolve from 'rollup-plugin-node-resolve';
-import commonjs from 'rollup-plugin-commonjs';
 
 const baseConfig = (outputFormat) => {
   const isProduction = process.env.NODE_ENV === 'production';
