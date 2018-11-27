@@ -1,10 +1,12 @@
 # inferno-formlib
 [![Build Status](https://travis-ci.org/jhsware/inferno-formlib.svg?branch=v0.2.24)](https://travis-ci.org/jhsware/inferno-formlib)
-[![gzip size](http://img.badgesize.io/https://unpkg.com/inferno-formlib/dist/cjs/index.min.js?compression=gzip)](https://unpkg.com/inferno-formlib/dist/cjs/index.min.js)
+[![gzip size](http://img.badgesize.io/https://unpkg.com/inferno-formlib@6.0.5/dist/index.cjs.js?compression=gzip)](https://unpkg.com/inferno-formlib@6.0.5/dist/index.cjs.js)
 
 The goal of this project is to create a bootstrap 4 compatible form generation library for Inferno.js using isomorphic-schema definitions.
 
 ## Compatibility
+inferno-formlib 6.x support Inferno v6
+
 inferno-formlib 5.x supports Inferno v5
 
 inferno-formlib 4.x supports Inferno v4
