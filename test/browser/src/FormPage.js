@@ -19,7 +19,7 @@ import '../../../src/widgets/TextAreaField'
 import '../../../src/widgets/ListField'
 import '../../../src/widgets/ObjectField'
 import '../../../src/widgets/FormRow'
-import { ActionBar } from '../../../src/widgets/ActionBar'
+import ActionBar from '../../../src/widgets/ActionBar'
 import { getElOffset } from '../../../src/widgets/utils'
 
 import { FormRows } from '../../../src/FormRows'
