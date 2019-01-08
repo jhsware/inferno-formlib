@@ -114,7 +114,7 @@ class Row extends Component {
             </div>
             {validationError ? <ErrorMsg validationError={validationError} submitted={submitted} options={options} /> : null}
             {invariantError ? <ErrorMsg validationError={invariantError} submitted={submitted} options={options} /> : null}
-            <HelpMsg text={field.help} required={field._isRequired} options={options} />
+            <HelpMsg text={field.help} required={field._isRequired && !validationError} options={options} />
         </FormGroup>
     }
 }
