@@ -373,7 +373,41 @@ new Adapter({
 ```
 
 ## i18n Support
-TODO: Explain how to add i18n support
+To add translations, you can add a translation utility which implements ITranslationUtil.
+Use string template style variables to output options from the field definition.
+
+```JavaScript
+import { interfaces } from 'inferno-formlib'
+import { Utility } from 'component-registry'
+
+export default new Utility({
+  implements: interfaces.ITranslationUtil,
+  message (label, lang) {
+    // Use 'en' as fallback language
+    const langDict = lang[lang] || lang['en']
+    // Use label as fallback string
+    return langDict[label] || label
+  }
+})
+
+/* eslint-disable */
+var en = {
+  'isomorphic-schema--field_required': 'Required',
+  'isomorphic-schema--text_field_too_short': 'The text is too short. Min ${minLength} chars.'
+}
+
+var sv = {
+  'isomorphic-schema--field_required': 'Obligatorisk',
+  'isomorphic-schema--text_field_too_short': 'Texten är för kort. Minst ${minLength} tecken.'
+}
+
+var fr = {
+  'isomorphic-schema--field_required': 'Obligatoire',
+  'isomorphic-schema--text_field_too_short': 'Le texte est trop court. Au moins ${minLength} caractères.'
+}
+
+var lang = { en, sv, fr }
+```
 
 ## Creating a Widget
 For now, check the code at https://github.com/jhsware/inferno-formlib/tree/master/test/browser/src/ImageUploadWidget
