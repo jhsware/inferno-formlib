@@ -35,7 +35,7 @@
   },
   "peerDependencies": {
     "component-registry": "1.0.0-rc.8",
-    "isomorphic-schema": "1.0.0-beta.7"
+    "isomorphic-schema": "1.0.0-beta.9"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.2",
@@ -67,7 +67,7 @@
     "inferno-devtools": "^7.0.4",
     "inferno-router": "^7.0.4",
     "inferno-test-utils": "^7.0.4",
-    "isomorphic-schema": "1.0.0-beta.7",
+    "isomorphic-schema": "1.0.0-beta.9",
     "jest": "^23.6.0",
     "jsdom": "^11.6.2",
     "moment": "^2.22.2",
