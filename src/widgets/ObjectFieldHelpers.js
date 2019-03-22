@@ -8,8 +8,28 @@
 import { safeGet } from 'safe-utils'
 import getWidgetAdapters from '../getWidgetAdapters'
 
-function renderRows ({ schema, value, lang, namespace, inputName, validationErrors, isMounted, customWidgets, onInput, onChange }) {
-  const widgets = Object.keys(schema._fields).map((propName) => {
+function renderRows ({ schema, value, selectFields, omitFields, lang, namespace, inputName, validationErrors, isMounted, customWidgets, onInput, onChange }) {
+  let renderFields =  Object.keys(schema._fields)
+  let dottedNamespace = Array.isArray(namespace) ? namespace.join('.') : ''
+  
+  if (Array.isArray(selectFields) && selectFields.length > 0) {
+    renderFields = renderFields.filter((key) => {
+      const dottedName = dottedNamespace ? `${dottedNamespace}.${key}` : key
+      const tmp = selectFields.filter((sel) => sel === dottedName || sel.startsWith(dottedName + '.'))
+      return tmp.length > 0
+    })
+    // Remove root level props so they aren't counted when we pass on to next level
+    // so we can select all if none are passed
+    selectFields = selectFields.filter((key) => key.indexOf('.') >= 0)
+  }
+  if (Array.isArray(omitFields)) {
+    renderFields = renderFields.filter((key) => {
+      const dottedName = dottedNamespace ? `${dottedNamespace}.${key}` : key
+      return omitFields.indexOf(dottedName) < 0
+    })
+  }
+  
+  const widgets = renderFields.map((propName) => {
     // Call the validationConstraint methods to figure out if the field should be validated
     const shouldValidate = schema._validationConstraints.reduce((prev, curr) => {
       return prev && curr(value, propName)
@@ -65,6 +85,8 @@ function renderRows ({ schema, value, lang, namespace, inputName, validationErro
           adapter={InputFieldAdapter}
           inputName={newInputName}
           customWidgets={customWidgets}
+          selectFields={selectFields}
+          omitFields={omitFields}
           {...sharedProps} />
       </Row>
     )

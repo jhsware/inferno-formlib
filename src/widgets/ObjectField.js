@@ -44,18 +44,19 @@ export default class ObjectFieldWidget extends Component {
     const field = this.props.adapter.context
     return <div id={generateId(this.props.namespace, '__Field')} className="InfernoFormlib-ObjectField">
         {renderRows({
-          lang: this.props.options && this.props.options.lang,
-          
           schema: field.schema,
           namespace: this.props.namespace || [],
           inputName: this.props.inputName,
           value: this.props.value,
-          validationErrors: this.props.validationError,
-          customWidgets: this.props.customWidgets,
+          selectFields: (typeof this.props.selectFields === 'string' ? this.props.selectFields.split(',').map((k) => k.trim()) : this.props.selectFields),
+          omitFields: (typeof this.props.omitFields === 'string' ? this.props.omitFields.split(',').map((k) => k.trim()) : this.props.omitFields),
+          lang: this.props.options && this.props.options.lang,
 
+          validationErrors: this.props.validationError,
+          isMounted: this.isMounted,
+          customWidgets: this.props.customWidgets,
           onInput: this.didInput,
-          onChange: this.didUpdate,
-          isMounted: this.isMounted
+          onChange: this.didUpdate
         })}
     </div>
   }

@@ -6,11 +6,23 @@ import getWidgetAdapters from './getWidgetAdapters'
 
 function renderFormRows ({ schema, value, selectFields, omitFields, lang, validationErrors, namespace, inputName, isMounted, customWidgets, onInput, onChange }) {
   let renderFields =  Object.keys(schema._fields)
-  if (Array.isArray(selectFields)) {
-    renderFields = renderFields.filter((key) => selectFields.indexOf(key) >= 0)
+  let dottedNamespace = Array.isArray(namespace) ? namespace.join('.') : ''
+
+  if (Array.isArray(selectFields) && selectFields.length > 0) {
+    renderFields = renderFields.filter((key) => {
+      const dottedName = dottedNamespace ? `${dottedNamespace}.${key}` : key
+      const tmp = selectFields.filter((sel) => sel === dottedName || sel.startsWith(dottedName + '.'))
+      return tmp.length > 0
+    })
+    // Remove root level props so they aren't counted when we pass on to next level
+    // so we can select all if none are passed
+    selectFields = selectFields.filter((key) => key.indexOf('.') >= 0)
   }
   if (Array.isArray(omitFields)) {
-    renderFields = renderFields.filter((key) => omitFields.indexOf(key) < 0)
+    renderFields = renderFields.filter((key) => {
+      const dottedName = dottedNamespace ? `${dottedNamespace}.${key}` : key
+      return omitFields.indexOf(dottedName) < 0
+    })
   }
 
   let widgetAdapters = renderFields.map((key) => {
@@ -82,6 +94,8 @@ function renderFormRows ({ schema, value, selectFields, omitFields, lang, valida
           adapter={InputFieldAdapter}
           inputName={newInputName}
           customWidgets={customWidgets}
+          selectFields={selectFields}
+          omitFields={omitFields}
           {...sharedProps} />
       </Row>
     )
