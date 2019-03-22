@@ -159,6 +159,20 @@ export default class ListFieldWidget extends Component {
     this.props.onChange(this.props.propName, value)
   }
 
+  renderAddButton () {
+    const field = this.props.adapter.context
+    const nrofItems = (Array.isArray(this.props.value) && this.props.value.length) || 0
+    
+    // Respect maxLength
+    if (field.maxLength <= nrofItems) return null
+
+    return (
+        <div className="InfernoFormlib-ListFieldActionBar">
+            <input type="button" className="btn btn-primary" value="Lägg till" onClick={this.doAddRow} />
+        </div>
+    )
+  }
+
   render({inputName, namespace, options}) {
     const field = this.props.adapter.context
     const emptyArray = this.props.value === undefined || this.props.value.length === 0
@@ -179,9 +193,7 @@ export default class ListFieldWidget extends Component {
             onDelete: this.doDeleteRow,
             isMounted: this.isMounted
         })}
-        <div className="InfernoFormlib-ListFieldActionBar">
-            <input type="button" className="btn btn-primary" value="Lägg till" onClick={this.doAddRow} />
-        </div>
+        {this.renderAddButton()}
     </div>
   }
 }

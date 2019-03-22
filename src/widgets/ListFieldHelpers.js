@@ -77,7 +77,11 @@ new Adapter({
 function renderRows ({ field, value, lang, namespace, inputName, itemKeys, validationErrors, customWidgets, onInput, onChange, onDelete, isMounted }) {
   if (value === undefined) return
 
+
   return value.map((item, index) => {
+    // Respect maxLength
+    if (field.maxLength !== undefined && field.maxLength <= index) return
+
     const valueType = field.valueType
     let validationError = safeGet(() => validationErrors.errors[index])
 
