@@ -20,7 +20,8 @@ import { FileUploadWidget, ProgressOverlay } from './widgets/FileUploadWidget/in
 
 import CustomWidget from './CustomWidget'
 
-import { CheckboxRow, ObjectRow, Row, ErrorMsg, HelpMsg, Label, unpackInvariantErrors } from './widgets/FormRow'
+import { CheckboxRow, ObjectRow, Row } from './widgets/FormRow'
+import { ErrorMsg, HelpMsg, Label, unpackInvariantErrors } from './widgets/validation'
 import { renderString } from './widgets/common'
 import { getElOffset, escapeIdSelector, generateId, throttle } from './widgets/utils'
 
