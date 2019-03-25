@@ -9,6 +9,8 @@ import _bs_Label from 'inferno-bootstrap/lib/Form/Label'
 import FormText from 'inferno-bootstrap/lib/Form/FormText'
 import FormFeedback from 'inferno-bootstrap/lib/Form/FormFeedback'
 
+import { findDOMNode } from 'inferno-extras'
+import { animateOnAdd, animateOnRemove } from 'inferno-animation'
 
 /*
 
@@ -62,11 +64,11 @@ function unpackInvariantErrors (validationError, namespace) {
 class ErrorMsg extends Component {
 
     componentDidMount () {
-        animateOnAdd(this.$LI.dom, 'InfernoFormlib-ErrorMsg--Animation')
+        animateOnAdd(findDOMNode(this), 'InfernoFormlib-ErrorMsg--Animation')
     }
   
     componentWillUnmount () {
-        animateOnRemove(this.$LI.dom, 'InfernoFormlib-ErrorMsg--Animation')
+        animateOnRemove(findDOMNode(this), 'InfernoFormlib-ErrorMsg--Animation')
     }
   
     render () {

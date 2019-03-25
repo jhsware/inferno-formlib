@@ -8,7 +8,7 @@
 import { Component } from 'inferno'
 import { Adapter } from 'component-registry'
 import { findDOMNode } from 'inferno-extras'
-import { interfaces, i18n } from 'isomorphic-schema'
+import { interfaces } from 'isomorphic-schema'
 import { IFormRowWidget }  from '../interfaces'
 
 import { animateOnAdd, animateOnRemove } from 'inferno-animation'
@@ -16,8 +16,6 @@ import { animateOnAdd, animateOnRemove } from 'inferno-animation'
 import { renderString } from './common'
 
 import {
-    FormFeedback,
-    FormText,
     FormGroup,
     Label as _bs_Label
  } from 'inferno-bootstrap'
