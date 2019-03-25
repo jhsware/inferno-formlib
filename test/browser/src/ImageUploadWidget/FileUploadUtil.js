@@ -22,5 +22,7 @@ const FileUploadUtil = createUtility({
               return Promise.resolve(res.data.publicPath)
           })
           .catch((e) => { throw e })
-  }
+  },
+
+  delete: function () {}
 }).registerWith(globalRegistry)

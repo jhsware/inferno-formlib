@@ -8,7 +8,7 @@ import { i18n } from 'isomorphic-schema'
 import _bs_Label from 'inferno-bootstrap/lib/Form/Label'
 import FormText from 'inferno-bootstrap/lib/Form/FormText'
 import FormFeedback from 'inferno-bootstrap/lib/Form/FormFeedback'
-
+import { animateOnAdd, animateOnRemove } from 'inferno-animation'
 
 /*
 
