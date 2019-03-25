@@ -2,7 +2,7 @@
 
 import { Component } from 'inferno'
 
-import { renderString } from './common'
+import { renderString } from './widgets/common'
 import { i18n } from 'isomorphic-schema'
 
 import _bs_Label from 'inferno-bootstrap/lib/Form/Label'

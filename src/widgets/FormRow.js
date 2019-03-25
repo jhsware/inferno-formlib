@@ -22,7 +22,7 @@ import {
     Label as _bs_Label
  } from 'inferno-bootstrap'
 
-import { ErrorMsg, HelpMsg, unpackInvariantErrors, Label} from './validation'
+import { ErrorMsg, HelpMsg, unpackInvariantErrors, Label} from '../FormRowHelpers'
 
 /*
     PROPS:
