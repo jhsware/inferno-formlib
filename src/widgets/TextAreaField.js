@@ -63,6 +63,9 @@ class TextAreaWidget extends Component {
             readOnly={field.readOnly}
             value={this.state.value}
             valid={isValid}
+
+            aria-label={ inputName || 'textarea'}
+            aria-invalid={isValid}
             
             onInput={this.didGetInput}
             onChange={this.didGetChange} />

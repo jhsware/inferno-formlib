@@ -49,6 +49,10 @@ class CheckboxWidget extends Component {
         return <Input type="checkbox"
             id={generateId(namespace, '__Field')}
             name={inputName}
+
+            aria-label={ inputName || 'checkbox'}
+            aria-invalid={isValid}
+
             valid={isValid}
             placeholder={renderString(field.placeholder, options && options.lang)}
             readOnly={field.readOnly}

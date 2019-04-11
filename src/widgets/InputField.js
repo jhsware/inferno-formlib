@@ -63,6 +63,9 @@ class InputWidget extends Component {
             readOnly={field.readOnly}
             value={field.toFormattedString(this.state.value)}
 
+            aria-label={ inputName || 'text'}
+            aria-invalid={isValid}
+
             onInput={this.didGetInput}
             onChange={this.didGetChange} />
     }
@@ -115,6 +118,9 @@ class DecimalWidget extends InputWidget {
             placeholder={renderString(field.placeholder, options && options.lang)}
             readOnly={field.readOnly}
             value={value}
+
+            aria-label={ inputName || 'text'}
+            aria-invalid={isValid}
 
             onInput={this.didGetInput}
             onChange={this.didGetChange} />
