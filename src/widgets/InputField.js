@@ -50,15 +50,16 @@ class InputWidget extends Component {
         this.props.onChange(this.props.propName, this.state.value)
     }
 
-    render ({inputName, namespace, options, _id, doesNotRenderLabel}) {
+    render ({inputName, namespace, options, id, doesNotRenderLabel}) {
         const field = this.props.adapter.context
 
         const isValid = this.props.validationError || this.props.invariantError ? false : undefined
 
         const ariaLabels = {
-            'aria-invalid': !isValid,
-            'aria-labelledby': doesNotRenderLabel ? undefined : _id,
-            'aria-label': doesNotRenderLabel ? _id : undefined
+            'aria-invalid': isValid !== undefined,
+            'aria-labelledby': doesNotRenderLabel ? undefined : id,
+            'aria-label': doesNotRenderLabel ? field.label : undefined,
+            'aria-required': field._isRequired ? field._isRequired : undefined
         }
 
         return <Input
@@ -68,6 +69,7 @@ class InputWidget extends Component {
             placeholder={renderString(field.placeholder, options && options.lang)}
             readOnly={field.readOnly}
             value={field.toFormattedString(this.state.value)}
+            required={true}
 
             {...ariaLabels}
 
@@ -110,16 +112,17 @@ class DecimalWidget extends InputWidget {
         this.props.onChange(this.props.propName, newVal)
     }
 
-    render ({inputName, namespace, options, _id, doesNotRenderLabel}) {
+    render ({inputName, namespace, options, id, doesNotRenderLabel}) {
         const field = this.props.adapter.context
 
         const isValid = this.props.validationError || this.props.invariantError ? false : undefined
         const value = (this.state.value === undefined || this.state.value === null ? '' : field.toFormattedString(this.state.value))
 
         const ariaLabels = {
-            'aria-invalid': !isValid,
-            'aria-labelledby': doesNotRenderLabel ? undefined : _id,
-            'aria-label': doesNotRenderLabel ? _id : undefined
+            'aria-invalid': isValid !== undefined,
+            'aria-labelledby': doesNotRenderLabel ? undefined : id,
+            'aria-label': doesNotRenderLabel ? field.label : undefined,
+            'aria-required': field._isRequired ? field._isRequired : undefined
         }
 
         return <Input

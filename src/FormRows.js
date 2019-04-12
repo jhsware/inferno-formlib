@@ -79,7 +79,7 @@ function renderFormRows ({ schema, value, selectFields, omitFields, lang, valida
     const myId = myNamespace.join('.')
 
     const sharedProps = {
-      _id: myId,
+      id: myId,
       namespace: myNamespace,
       doesNotRenderLabel,
       propName,

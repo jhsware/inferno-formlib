@@ -123,13 +123,13 @@ class ListRow extends Component {
         animateOnRemove(findDOMNode(this), 'InfernoFormlib-Row--Animation')
     }
 
-    render ({validationError, submitted, options, children, _id}) {
+    render ({validationError, submitted, options, children, id}) {
         const field = this.props.adapter.context
         
         const invariantError = unpackInvariantErrors(this.props.validationError, this.props.namespace)
 
         return <FormGroup className="InfernoFormlib-ListRow">
-            {field.label && <Label id={_id} options={options}>{field.label}</Label>}
+            {field.label && <Label id={id} options={options}>{field.label}</Label>}
             {validationError ? <ErrorMsg validationError={validationError} submitted={submitted} options={options} /> : null}
             {invariantError ? <ErrorMsg validationError={invariantError} submitted={submitted} options={options} /> : null}
             {field.help ? <HelpMsg text={field.help} required={field._isRequired} options={options} /> : null}
