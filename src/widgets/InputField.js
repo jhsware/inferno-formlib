@@ -50,10 +50,16 @@ class InputWidget extends Component {
         this.props.onChange(this.props.propName, this.state.value)
     }
 
-    render ({inputName, namespace, options}) {
+    render ({inputName, namespace, options, _id, doesNotRenderLabel}) {
         const field = this.props.adapter.context
 
         const isValid = this.props.validationError || this.props.invariantError ? false : undefined
+
+        const ariaLabels = {
+            'aria-invalid': !isValid,
+            'aria-labelledby': doesNotRenderLabel ? undefined : _id,
+            'aria-label': doesNotRenderLabel ? _id : undefined
+        }
 
         return <Input
             id={generateId(namespace, '__Field')}
@@ -63,8 +69,7 @@ class InputWidget extends Component {
             readOnly={field.readOnly}
             value={field.toFormattedString(this.state.value)}
 
-            aria-label={ inputName || 'text'}
-            aria-invalid={isValid}
+            {...ariaLabels}
 
             onInput={this.didGetInput}
             onChange={this.didGetChange} />
@@ -105,11 +110,17 @@ class DecimalWidget extends InputWidget {
         this.props.onChange(this.props.propName, newVal)
     }
 
-    render ({inputName, namespace, options}) {
+    render ({inputName, namespace, options, _id, doesNotRenderLabel}) {
         const field = this.props.adapter.context
 
         const isValid = this.props.validationError || this.props.invariantError ? false : undefined
         const value = (this.state.value === undefined || this.state.value === null ? '' : field.toFormattedString(this.state.value))
+
+        const ariaLabels = {
+            'aria-invalid': !isValid,
+            'aria-labelledby': doesNotRenderLabel ? undefined : _id,
+            'aria-label': doesNotRenderLabel ? _id : undefined
+        }
 
         return <Input
             id={generateId(namespace, '__Field')}
@@ -119,8 +130,7 @@ class DecimalWidget extends InputWidget {
             readOnly={field.readOnly}
             value={value}
 
-            aria-label={ inputName || 'text'}
-            aria-invalid={isValid}
+            {...ariaLabels}
 
             onInput={this.didGetInput}
             onChange={this.didGetChange} />
