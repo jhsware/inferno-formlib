@@ -49,6 +49,10 @@ class MultiSelectFieldWidget extends Component {
         return <Input type="select"
             id={generateId(namespace, '__Field')}
             name={inputName}
+
+            aria-label={ inputName || 'select'}
+            aria-invalid={isValid}
+            
             multiple="true"
             readOnly={field.readOnly}
             value={field.valueType.toFormattedString(field.toFormattedString(this.props.value))}

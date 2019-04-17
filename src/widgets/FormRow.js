@@ -42,13 +42,13 @@ class Row extends Component {
         animateOnRemove(this.$LI.dom, 'InfernoFormlib-Row--Animation')
     }
 
-    render ({validationError, submitted, options, children}) {
+    render ({validationError, submitted, options, children, id}) {
         const field = this.props.adapter.context
 
         const invariantError = unpackInvariantErrors(this.props.validationError, this.props.namespace)
 
         return <FormGroup id={this.props.namespace.join('.') + '__Row'}>
-            {field.label && <Label id={this.props.id} options={options}>{field.label}</Label>}
+            {field.label && <Label id={id} options={options}>{field.label}</Label>}
             <div className="InfernoFormlib-RowFieldContainer">
                 {children}
             </div>
@@ -63,7 +63,10 @@ createAdapter({
     implements: IFormRowWidget,
     adapts: interfaces.IBaseField,
     
-    Component: Row
+    Component: Row,
+    doesNotRenderLabel: function () { 
+        return this.context.label ? false : true 
+    }
 }).registerWith(globalRegistry)
 
 
@@ -81,13 +84,13 @@ class ObjectRow extends Component {
         animateOnRemove(this.$LI.dom, 'InfernoFormlib-Row--Animation')
     }
 
-    render ({validationError, submitted, options, children}) {
+    render ({validationError, submitted, options, children, id}) {
         const field = this.props.adapter.context
         
         const invariantError = unpackInvariantErrors(this.props.validationError, this.props.namespace)
 
         return <FormGroup className="InfernoFormlib-ObjectRow">
-            {field.label && <Label id={this.props.id} options={options}>{field.label}</Label>}
+            {field.label && <Label id={id} options={options}>{field.label}</Label>}
             {validationError ? <ErrorMsg validationError={validationError} submitted={submitted} options={options} /> : null}
             {invariantError ? <ErrorMsg validationError={invariantError} submitted={submitted} options={options} /> : null}
             {field.help ? <HelpMsg text={field.help} required={field._isRequired} options={options} /> : null}
@@ -102,7 +105,10 @@ createAdapter({
     implements: IFormRowWidget,
     adapts: interfaces.IObjectField,
     
-    Component: ObjectRow
+    Component: ObjectRow,
+    doesNotRenderLabel: function () { 
+        return this.context.label ? false : true 
+    }
 }).registerWith(globalRegistry)
 
 class ListRow extends Component {
@@ -119,13 +125,13 @@ class ListRow extends Component {
         animateOnRemove(this.$LI.dom, 'InfernoFormlib-Row--Animation')
     }
 
-    render ({validationError, submitted, options, children}) {
+    render ({validationError, submitted, options, children, id}) {
         const field = this.props.adapter.context
         
         const invariantError = unpackInvariantErrors(this.props.validationError, this.props.namespace)
 
         return <FormGroup className="InfernoFormlib-ListRow">
-            {field.label && <Label id={this.props.id} options={options}>{field.label}</Label>}
+            {field.label && <Label id={id} options={options}>{field.label}</Label>}
             {validationError ? <ErrorMsg validationError={validationError} submitted={submitted} options={options} /> : null}
             {invariantError ? <ErrorMsg validationError={invariantError} submitted={submitted} options={options} /> : null}
             {field.help ? <HelpMsg text={field.help} required={field._isRequired} options={options} /> : null}
@@ -140,7 +146,10 @@ createAdapter({
     implements: IFormRowWidget,
     adapts: interfaces.IListField,
     
-    Component: ListRow
+    Component: ListRow,
+    doesNotRenderLabel: function () { 
+        return this.context.label ? false : true 
+    }
 }).registerWith(globalRegistry)
 
 
@@ -158,7 +167,7 @@ class CheckboxRow extends Component {
         animateOnRemove(this.$LI.dom, 'InfernoFormlib-Row--Animation')
     }
 
-    render ({validationError, submitted, options, children}) {
+    render ({validationError, submitted, options, children, id}) {
         const field = this.props.adapter.context
 
         const invariantError = unpackInvariantErrors(this.props.validationError, this.props.namespace)
@@ -166,7 +175,7 @@ class CheckboxRow extends Component {
         return (
             <FormGroup id={this.props.namespace.join('.') + '__Row'} check>
                 <div className="InfernoFormlib-RowFieldContainer">
-                    <_bs_Label id={this.props.id} check>
+                    <_bs_Label id={id} check>
                         {children}
                         {renderString(field.label, options && options.lang)}
                     </_bs_Label>
@@ -183,7 +192,10 @@ createAdapter({
     implements: IFormRowWidget,
     adapts: interfaces.IBoolField,
     
-    Component: CheckboxRow
+    Component: CheckboxRow,
+    doesNotRenderLabel: function () { 
+        return this.context.label ? false : true 
+    }
 }).registerWith(globalRegistry)
 
 export { CheckboxRow, ObjectRow, Row }

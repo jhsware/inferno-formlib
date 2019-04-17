@@ -42,6 +42,10 @@ class DynamicSelectFieldWidget extends Component {
             id={generateId(namespace, '__Field')}
             name={inputName}
             valid={isValid}
+
+            aria-label={ inputName || 'select'}
+            aria-invalid={isValid}
+
             readOnly={field.readOnly}
             value={field.valueType.toFormattedString(field.toFormattedString(this.props.value))}
             onChange={this.didGetChange}>

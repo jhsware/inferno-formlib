@@ -270,6 +270,9 @@ class AutoCompleteBaseWidget extends Component {
                 readOnly={field.readOnly}
                 value={this.state.text}
 
+                aria-label={ inputName || 'autocomplete'}
+                aria-invalid={isValid}
+
                 onChange={this.didGetChange}
                 onInput={this.didGetInput} />
         )

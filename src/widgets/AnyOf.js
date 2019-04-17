@@ -60,6 +60,9 @@ class AnyOf extends Component {
             readOnly={field.readOnly}
             value={field.toFormattedString(this.state.value)}
 
+            aria-label={ inputName || 'text'}
+            aria-invalid={isValid}
+
             onInput={this.didGetInput}
             onChange={this.didGetChange} />
     }

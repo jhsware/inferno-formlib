@@ -58,12 +58,18 @@ function renderFormRows ({ schema, value, selectFields, omitFields, lang, valida
     const Row = RowAdapter.Component
     const InputField = InputFieldAdapter.Component
 
+    const doesNotRenderLabel = RowAdapter.doesNotRenderLabel()
+
     const myNamespace = namespace.concat([propName]) // .concat returns a new array
 
     const newInputName = (inputName && propName ? inputName + '[' + propName + ']' : inputName || propName)
 
+    const myId = myNamespace.join('.')
+
     const sharedProps = {
+      id: myId,
       namespace: myNamespace,
+      doesNotRenderLabel,
       propName,
       value: value && value[propName],
       options: {parentValue: value, lang},
