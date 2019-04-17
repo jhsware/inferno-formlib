@@ -10,9 +10,11 @@ import {
   DecimalField,
   TextAreaField,
   ListField,
+  AnyOf,
   ObjectField } from 'isomorphic-schema'
 
 import '../../../src/widgets/InputField'
+import '../../../src/widgets/AnyOf'
 import '../../../src/widgets/BoolField'
 import '../../../src/widgets/SelectField'
 import '../../../src/widgets/TextAreaField'
@@ -55,6 +57,10 @@ const subFormSchema = new Schema('SubForm Schema', {
 const formSchema = new Schema('Form Schema', {
   active: new BoolField({
     label: 'Active'
+  }),
+  any: new AnyOf({
+    label: 'Any',
+    required: true
   }),
   title: new TextField({
     label: 'Title',
