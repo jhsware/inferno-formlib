@@ -4,6 +4,7 @@ import axios from 'axios'
 
 import { Schema } from 'isomorphic-schema'
 import TextField from 'isomorphic-schema/lib/field_validators/TextField'
+import AnyOf from 'isomorphic-schema/lib/field_validators/AnyOf'
 import EmailField from 'isomorphic-schema/lib/field_validators/EmailField'
 import BoolField from 'isomorphic-schema/lib/field_validators/BoolField'
 import SelectField from 'isomorphic-schema/lib/field_validators/SelectField'
@@ -12,15 +13,15 @@ import DecimalField from 'isomorphic-schema/lib/field_validators/DecimalField'
 import TextAreaField from 'isomorphic-schema/lib/field_validators/TextAreaField'
 import ListField from 'isomorphic-schema/lib/field_validators/ListField'
 import ObjectField from 'isomorphic-schema/lib/field_validators/ObjectField'
-import AnyOf from 'isomorphic-schema/lib/field_validators/AnyOf'
+
 import '../../../lib/widgets/InputField'
+import '../../../lib/widgets/AnyOf'
 import '../../../lib/widgets/BoolField'
 import '../../../lib/widgets/SelectField'
 import '../../../lib/widgets/TextAreaField'
 import '../../../lib/widgets/ListField'
 import '../../../lib/widgets/ObjectField'
 import '../../../lib/widgets/FormRow'
-import '../../../src/widgets/AnyOf'
 import { ActionBar } from '../../../lib/widgets/ActionBar'
 import { getElOffset } from '../../../lib/widgets/utils'
 
@@ -57,7 +58,7 @@ const formSchema = new Schema('Form Schema', {
     label: 'Active'
   }),
   any: new AnyOf({
-    label: 'Any',
+    label: 'test',
     required: true
   }),
   title: new TextField({
