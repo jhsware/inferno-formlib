@@ -30,7 +30,7 @@ class DynamicSelectFieldWidget extends Component {
         this.props.onChange(this.props.propName, field.fromString(field.valueType.fromString(e.target.value)))
     }
 
-    render ({inputName, namespace, options}) {
+    render ({inputName, namespace, options, doesNotRenderLabel, id}) {
         const field = this.props.adapter.context
 
         const selectOptions = field.getOptions(this.props.value, Object.assign({ rootValue: this.context.rootValue }, options))
@@ -38,10 +38,20 @@ class DynamicSelectFieldWidget extends Component {
         const isValid = this.props.validationError || this.props.invariantError ? false : undefined
         const { lang } = options
 
+        const ariaLabels = {
+            'aria-invalid': isValid !== undefined,
+            'aria-labelledby': doesNotRenderLabel ? undefined : id,
+            'aria-label': doesNotRenderLabel ? renderString(field.label || 'inferno-formlib--InputField', options && options.lang, 'DynamicSelect Field') : undefined,
+            'aria-required': field._isRequired ? field._isRequired : undefined
+        }
+
         return <Input type="select"
             id={generateId(namespace, '__Field')}
             name={inputName}
             valid={isValid}
+
+            {...ariaLabels}
+
             readOnly={field.readOnly}
             value={field.valueType.toFormattedString(field.toFormattedString(this.props.value))}
             onChange={this.didGetChange}>

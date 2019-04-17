@@ -71,6 +71,10 @@ export default class SelectAsyncBaseWidget extends Component {
         return <Input type="select"
             id={generateId(namespace, '__Field')}
             name={inputName}
+
+            aria-label={ inputName || 'select'}
+            aria-invalid={isValid}
+            
             readOnly={field.readOnly}
             value={field.valueType.toFormattedString(field.toFormattedString(this.props.value))}
             valid={isValid}

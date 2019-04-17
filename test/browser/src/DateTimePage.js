@@ -52,6 +52,8 @@ export default class Page extends Component {
                             <Label id="dateField">{dateTimeField.label}</Label>
                             <div className="InfernoFormlib-RowFieldContainer">
                                 <DateTimeFieldWidget
+                                    id="dateField"
+                                    doesNotRenderLabel={false}
                                     namespace={['value']}
                                     adapter={dummyAdapter}
                                     onChange={() => null} />
@@ -67,6 +69,8 @@ export default class Page extends Component {
                             <Label id="secondDateField">{secondDateTimeField.label}</Label>
                             <div className="InfernoFormlib-RowFieldContainer">
                                 <DateTimeFieldWidget
+                                    id="secondDateField"
+                                    doesNotRenderLabel={false}
                                     namespace={['secondValue']}
                                     adapter={secondDummyAdapter}
                                     onChange={() => null} />

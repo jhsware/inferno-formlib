@@ -45,6 +45,8 @@ function renderRows ({ schema, value, lang, namespace, inputName, validationErro
 
     const newInputName = (inputName && propName ? inputName + '[' + propName + ']' : inputName || propName)
 
+    const doesNotRenderLabel = RowAdapter.doesNotRenderLabel()
+
     const sharedProps = {
       namespace: myNamespace,
       propName,
@@ -52,6 +54,8 @@ function renderRows ({ schema, value, lang, namespace, inputName, validationErro
       options: {parentValue: value, lang},
       validationError,
       formIsMounted: isMounted,
+      doesNotRenderLabel,
+      id: dotName,
       // Callbacks
       onChange,
       onInput

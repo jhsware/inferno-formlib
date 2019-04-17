@@ -51,10 +51,17 @@ class InputWidget extends Component {
         this.props.onChange(this.props.propName, this.state.value)
     }
 
-    render ({inputName, namespace, options}) {
+    render ({inputName, namespace, options, id, doesNotRenderLabel}) {
         const field = this.props.adapter.context
 
         const isValid = this.props.validationError || this.props.invariantError ? false : undefined
+
+        const ariaLabels = {
+            'aria-invalid': isValid !== undefined,
+            'aria-labelledby': doesNotRenderLabel ? undefined : id,
+            'aria-label': doesNotRenderLabel ? renderString(field.label || 'inferno-formlib--InputField', options && options.lang, 'Input Field') : undefined,
+            'aria-required': field._isRequired ? field._isRequired : undefined
+        }
 
         return <Input
             id={generateId(namespace, '__Field')}
@@ -63,6 +70,8 @@ class InputWidget extends Component {
             placeholder={renderString(field.placeholder, options && options.lang)}
             readOnly={field.readOnly}
             value={field.toFormattedString(this.state.value)}
+
+            {...ariaLabels}
 
             onInput={this.didGetInput}
             onChange={this.didGetChange} />
@@ -103,11 +112,18 @@ class DecimalWidget extends InputWidget {
         this.props.onChange(this.props.propName, newVal)
     }
 
-    render ({inputName, namespace, options}) {
+    render ({inputName, namespace, options, id, doesNotRenderLabel}) {
         const field = this.props.adapter.context
 
         const isValid = this.props.validationError || this.props.invariantError ? false : undefined
         const value = (this.state.value === undefined || this.state.value === null ? '' : field.toFormattedString(this.state.value))
+
+        const ariaLabels = {
+            'aria-invalid': isValid !== undefined,
+            'aria-labelledby': doesNotRenderLabel ? undefined : id,
+            'aria-label': doesNotRenderLabel ? renderString(field.label || 'inferno-formlib--InputField', options && options.lang, 'Input Field') : undefined,
+            'aria-required': field._isRequired ? field._isRequired : undefined
+        }
 
         return <Input
             id={generateId(namespace, '__Field')}
@@ -116,6 +132,8 @@ class DecimalWidget extends InputWidget {
             placeholder={renderString(field.placeholder, options && options.lang)}
             readOnly={field.readOnly}
             value={value}
+
+            {...ariaLabels}
 
             onInput={this.didGetInput}
             onChange={this.didGetChange} />

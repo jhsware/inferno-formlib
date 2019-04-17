@@ -4,6 +4,7 @@ import axios from 'axios'
 
 import { Schema } from 'isomorphic-schema'
 import TextField from 'isomorphic-schema/lib/field_validators/TextField'
+import AnyOf from 'isomorphic-schema/lib/field_validators/AnyOf'
 import EmailField from 'isomorphic-schema/lib/field_validators/EmailField'
 import BoolField from 'isomorphic-schema/lib/field_validators/BoolField'
 import SelectField from 'isomorphic-schema/lib/field_validators/SelectField'
@@ -12,7 +13,9 @@ import DecimalField from 'isomorphic-schema/lib/field_validators/DecimalField'
 import TextAreaField from 'isomorphic-schema/lib/field_validators/TextAreaField'
 import ListField from 'isomorphic-schema/lib/field_validators/ListField'
 import ObjectField from 'isomorphic-schema/lib/field_validators/ObjectField'
+
 import '../../../lib/widgets/InputField'
+import '../../../lib/widgets/AnyOf'
 import '../../../lib/widgets/BoolField'
 import '../../../lib/widgets/SelectField'
 import '../../../lib/widgets/TextAreaField'
@@ -53,6 +56,10 @@ const subFormSchema = new Schema('SubForm Schema', {
 const formSchema = new Schema('Form Schema', {
   active: new BoolField({
     label: 'Active'
+  }),
+  any: new AnyOf({
+    label: 'test',
+    required: true
   }),
   title: new TextField({
     label: 'Title',

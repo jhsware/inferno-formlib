@@ -47,10 +47,17 @@ class AnyOf extends Component {
         this.props.onChange(this.props.propName, this.state.value)
     }
 
-    render ({inputName, namespace, options}) {
+    render ({inputName, namespace, options, doesNotRenderLabel, id}) {
         const field = this.props.adapter.context
 
         const isValid = this.props.validationError || this.props.invariantError ? false : undefined
+
+        const ariaLabels = {
+            'aria-invalid': isValid !== undefined,
+            'aria-labelledby': doesNotRenderLabel ? undefined : id,
+            'aria-label': doesNotRenderLabel ? renderString(field.label || 'inferno-formlib--InputField', options && options.lang, 'AnyOf Field') : undefined,
+            'aria-required': field._isRequired ? field._isRequired : undefined
+        }
 
         return <Input
             id={generateId(namespace, '__Field')}
@@ -59,6 +66,8 @@ class AnyOf extends Component {
             placeholder={renderString(field.placeholder, options && options.lang)}
             readOnly={field.readOnly}
             value={field.toFormattedString(this.state.value)}
+
+            {...ariaLabels}
 
             onInput={this.didGetInput}
             onChange={this.didGetChange} />

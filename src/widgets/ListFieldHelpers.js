@@ -110,6 +110,8 @@ function renderRows ({ field, value, lang, namespace, inputName, itemKeys, valid
 
     const ListRowContainer = globalRegistry.getAdapter(field, IListRowContainerWidget).Component
 
+    const doesNotRenderLabel = RowAdapter.doesNotRenderLabel()
+
     const sharedProps = {
         namespace: myNamespace,
         propName: index,
@@ -117,6 +119,8 @@ function renderRows ({ field, value, lang, namespace, inputName, itemKeys, valid
         options: {parentValue: value, lang},
         validationError,
         formIsMounted: !justAdded,
+        doesNotRenderLabel,
+        id: dotName,
         // Callbacks
         onChange,
         onInput
