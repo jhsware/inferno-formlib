@@ -131,6 +131,9 @@ class InputWidget extends Component {
             readOnly={field.readOnly}
             value={this.state.value && this.state.value.toLocaleTimeString()}
 
+            aria-label={ inputName || 'date-time'}
+            aria-invalid={isValid}
+
             onChange={this.didGetTimeInput} />
         </DateInput>
       )  

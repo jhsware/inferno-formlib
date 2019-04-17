@@ -111,6 +111,8 @@ class FileUploadWidget extends Component {
               name={this.props.name}
               className="form-control-file"
               type="file"
+
+              aria-label={ this.props.name || 'file'}
             
               onChange={(e) => {
                 e.preventDefault()

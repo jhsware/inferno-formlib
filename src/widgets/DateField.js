@@ -270,6 +270,9 @@ class InputWidget extends Component {
                   readOnly={field.readOnly}
                   value={field.toFormattedString(this.state.value)}
 
+                  aria-label={ inputName || 'date'}
+                  aria-invalid={isValid}
+
                   onFocus={this.doShowPopover}
                   onBlur={this.didClickBody}
                   

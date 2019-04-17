@@ -19,7 +19,7 @@ import { animateOnAdd, animateOnRemove } from 'inferno-animation'
 */
 
 function Label (props) {
-  return <_bs_Label>{renderString(props.children, props.options && props.options.lang)}</_bs_Label>
+  return <_bs_Label id={props.id}>{renderString(props.children, props.options && props.options.lang)}</_bs_Label>
 }
 
 function HelpMsg (props, context) {
