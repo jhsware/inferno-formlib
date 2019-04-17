@@ -115,6 +115,8 @@ function renderRows ({ field, value, lang, namespace, inputName, itemKeys, valid
 
     const ListRowContainer = new IListRowContainerWidget(field).Component
 
+    const doesNotRenderLabel = RowAdapter.doesNotRenderLabel()
+
     const sharedProps = {
         namespace: myNamespace,
         propName: index,
@@ -122,6 +124,8 @@ function renderRows ({ field, value, lang, namespace, inputName, itemKeys, valid
         options: {parentValue: value, lang},
         validationError,
         formIsMounted: !justAdded,
+        doesNotRenderLabel,
+        id: dotName,
         // Callbacks
         onChange,
         onInput

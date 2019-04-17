@@ -38,6 +38,8 @@ export default class Page extends Component {
                     <Label id="dateField">{dateField.label}</Label>
                     <div className="InfernoFormlib-RowFieldContainer">
                         <DateFieldWidget
+                            id="dateField"
+                            doesNotRenderLabel={false}
                             namespace={['value']}
                             adapter={dummyAdapter}
                             onChange={() => null} />

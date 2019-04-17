@@ -51,10 +51,17 @@ class TextAreaWidget extends Component {
         this.props.onChange(this.props.propName, this.state.value)
     }
 
-    render ({inputName, namespace, options}) {
+    render ({inputName, namespace, options, doesNotRenderLabel, id}) {
         const field = this.props.adapter.context
 
         const isValid = this.props.validationError || this.props.invariantError ? false : undefined
+
+        const ariaLabels = {
+            'aria-invalid': isValid !== undefined,
+            'aria-labelledby': doesNotRenderLabel ? undefined : id,
+            'aria-label': doesNotRenderLabel ? renderString(field.label || 'inferno-formlib--InputField', options && options.lang, 'TextArea Field') : undefined,
+            'aria-required': field._isRequired ? field._isRequired : undefined
+        }
 
         return <Input type="textarea"
             id={generateId(namespace, '__Field')}
@@ -64,8 +71,7 @@ class TextAreaWidget extends Component {
             value={this.state.value}
             valid={isValid}
 
-            aria-label={ inputName || 'textarea'}
-            aria-invalid={isValid}
+            {...ariaLabels}
             
             onInput={this.didGetInput}
             onChange={this.didGetChange} />
