@@ -58,7 +58,7 @@ class InputWidget extends Component {
         const ariaLabels = {
             'aria-invalid': isValid !== undefined,
             'aria-labelledby': doesNotRenderLabel ? undefined : id,
-            'aria-label': doesNotRenderLabel ? field.label : undefined,
+            'aria-label': doesNotRenderLabel ? renderString(field.label || 'inferno-formlib--InputField', options && options.lang, 'Input Field') : undefined,
             'aria-required': field._isRequired ? field._isRequired : undefined
         }
 
@@ -69,7 +69,6 @@ class InputWidget extends Component {
             placeholder={renderString(field.placeholder, options && options.lang)}
             readOnly={field.readOnly}
             value={field.toFormattedString(this.state.value)}
-            required={true}
 
             {...ariaLabels}
 
@@ -121,7 +120,7 @@ class DecimalWidget extends InputWidget {
         const ariaLabels = {
             'aria-invalid': isValid !== undefined,
             'aria-labelledby': doesNotRenderLabel ? undefined : id,
-            'aria-label': doesNotRenderLabel ? field.label : undefined,
+            'aria-label': doesNotRenderLabel ? renderString(field.label || 'inferno-formlib--InputField', options && options.lang, 'Input Field') : undefined,
             'aria-required': field._isRequired ? field._isRequired : undefined
         }
 

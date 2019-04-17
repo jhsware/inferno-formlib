@@ -44,13 +44,13 @@ class Row extends Component {
         animateOnRemove(findDOMNode(this), 'InfernoFormlib-Row--Animation')
     }
 
-    render ({validationError, submitted, options, children, _id}) {
+    render ({validationError, submitted, options, children, id}) {
         const field = this.props.adapter.context
 
         const invariantError = unpackInvariantErrors(this.props.validationError, this.props.namespace)
 
         return <FormGroup id={this.props.namespace.join('.') + '__Row'}>
-            {field.label && <Label id={_id} options={options}>{field.label}</Label>}
+            {field.label && <Label id={id} options={options}>{field.label}</Label>}
             <div className="InfernoFormlib-RowFieldContainer">
                 {children}
             </div>
@@ -66,7 +66,9 @@ new Adapter({
     adapts: interfaces.IBaseField,
     
     Component: Row,
-    doesNotRenderLabel: false
+    doesNotRenderLabel: function () { 
+        return this.context.label ? false : true 
+    }
 })
 
 
@@ -84,13 +86,13 @@ class ObjectRow extends Component {
         animateOnRemove(findDOMNode(this), 'InfernoFormlib-Row--Animation')
     }
 
-    render ({validationError, submitted, options, children, _id}) {
+    render ({validationError, submitted, options, children, id}) {
         const field = this.props.adapter.context
         
         const invariantError = unpackInvariantErrors(this.props.validationError, this.props.namespace)
 
         return <FormGroup className="InfernoFormlib-ObjectRow">
-            {field.label && <Label id={_id} options={options}>{field.label}</Label>}
+            {field.label && <Label id={id} options={options}>{field.label}</Label>}
             {validationError ? <ErrorMsg validationError={validationError} submitted={submitted} options={options} /> : null}
             {invariantError ? <ErrorMsg validationError={invariantError} submitted={submitted} options={options} /> : null}
             {field.help ? <HelpMsg text={field.help} required={field._isRequired} options={options} /> : null}
@@ -106,7 +108,9 @@ new Adapter({
     adapts: interfaces.IObjectField,
     
     Component: ObjectRow,
-    doesNotRenderLabel: false
+    doesNotRenderLabel: function () { 
+        return this.context.label ? false : true 
+    }
 })
 
 class ListRow extends Component {
@@ -145,7 +149,9 @@ new Adapter({
     adapts: interfaces.IListField,
     
     Component: ListRow,
-    doesNotRenderLabel: false
+    doesNotRenderLabel: function () { 
+        return this.context.label ? false : true 
+    }
 })
 
 
@@ -163,7 +169,7 @@ class CheckboxRow extends Component {
         animateOnRemove(findDOMNode(this), 'InfernoFormlib-Row--Animation')
     }
 
-    render ({validationError, submitted, options, children, _id}) {
+    render ({validationError, submitted, options, children, id}) {
         const field = this.props.adapter.context
 
         const invariantError = unpackInvariantErrors(this.props.validationError, this.props.namespace)
@@ -171,7 +177,7 @@ class CheckboxRow extends Component {
         return (
             <FormGroup id={this.props.namespace.join('.') + '__Row'} check>
                 <div className="InfernoFormlib-RowFieldContainer">
-                    <_bs_Label id={_id} check>
+                    <_bs_Label id={id} check>
                         {children}
                         {renderString(field.label, options && options.lang)}
                     </_bs_Label>
@@ -189,7 +195,9 @@ new Adapter({
     adapts: interfaces.IBoolField,
     
     Component: CheckboxRow,
-    doesNotRenderLabel: false
+    doesNotRenderLabel: function () { 
+        return this.context.label ? false : true
+    }
 })
 
 export { CheckboxRow, ObjectRow, Row, ErrorMsg, HelpMsg, Label, unpackInvariantErrors }

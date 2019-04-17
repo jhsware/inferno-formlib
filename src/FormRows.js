@@ -70,7 +70,7 @@ function renderFormRows ({ schema, value, selectFields, omitFields, lang, valida
     const Row = RowAdapter.Component
     const InputField = InputFieldAdapter.Component
 
-    const { doesNotRenderLabel } = RowAdapter
+    const doesNotRenderLabel = RowAdapter.doesNotRenderLabel()
 
     const myNamespace = namespace.concat([propName]) // .concat returns a new array
 
