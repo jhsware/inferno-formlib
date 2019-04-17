@@ -41,17 +41,23 @@ class MultiSelectFieldWidget extends Component {
         this.props.onChange(this.props.propName, values)
     }
 
-    render ({inputName, namespace, options}) {
+    render ({inputName, namespace, options, doesNotRenderLabel, id}) {
         const field = this.props.adapter.context
 
         const isValid = this.props.validationError || this.props.invariantError ? false : undefined
+
+        const ariaLabels = {
+            'aria-invalid': isValid !== undefined,
+            'aria-labelledby': doesNotRenderLabel ? undefined : id,
+            'aria-label': doesNotRenderLabel ? renderString(field.label || 'inferno-formlib--InputField', options && options.lang, 'MultiSelect Field') : undefined,
+            'aria-required': field._isRequired ? field._isRequired : undefined
+        }
 
         return <Input type="select"
             id={generateId(namespace, '__Field')}
             name={inputName}
 
-            aria-label={ inputName || 'select'}
-            aria-invalid={isValid}
+            {...ariaLabels}
             
             multiple="true"
             readOnly={field.readOnly}

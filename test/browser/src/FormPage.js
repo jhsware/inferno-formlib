@@ -12,6 +12,7 @@ import DecimalField from 'isomorphic-schema/lib/field_validators/DecimalField'
 import TextAreaField from 'isomorphic-schema/lib/field_validators/TextAreaField'
 import ListField from 'isomorphic-schema/lib/field_validators/ListField'
 import ObjectField from 'isomorphic-schema/lib/field_validators/ObjectField'
+import AnyOf from 'isomorphic-schema/lib/field_validators/AnyOf'
 import '../../../lib/widgets/InputField'
 import '../../../lib/widgets/BoolField'
 import '../../../lib/widgets/SelectField'
@@ -19,6 +20,7 @@ import '../../../lib/widgets/TextAreaField'
 import '../../../lib/widgets/ListField'
 import '../../../lib/widgets/ObjectField'
 import '../../../lib/widgets/FormRow'
+import '../../../src/widgets/AnyOf'
 import { ActionBar } from '../../../lib/widgets/ActionBar'
 import { getElOffset } from '../../../lib/widgets/utils'
 
@@ -53,6 +55,10 @@ const subFormSchema = new Schema('SubForm Schema', {
 const formSchema = new Schema('Form Schema', {
   active: new BoolField({
     label: 'Active'
+  }),
+  any: new AnyOf({
+    label: 'Any',
+    required: true
   }),
   title: new TextField({
     label: 'Title',
