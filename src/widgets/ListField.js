@@ -168,7 +168,11 @@ export default class ListFieldWidget extends Component {
 
     return (
         <div className="InfernoFormlib-ListFieldActionBar">
-            <input type="button" className="btn btn-primary" value="Lägg till" onClick={this.doAddRow} />
+            <input
+              type="button"
+              className="btn btn-primary"
+              value={renderString('inferno-formlib--ListField_Add', options && options.lang, 'Lägg till')}
+              onClick={this.doAddRow} />
         </div>
     )
   }

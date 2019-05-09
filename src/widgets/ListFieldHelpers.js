@@ -61,7 +61,7 @@ class ListRowContainerWidget extends Component {
                         onClick={(e) => {
                             e.preventDefault()
                             this.props.onDelete()
-                        }}>Ta bort</Button>
+                        }}>{renderString('inferno-formlib--ListField_Remove', options && options.lang, 'Ta bort')}</Button>
                 </div>
             </div>
         )
