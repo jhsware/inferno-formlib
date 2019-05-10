@@ -10,9 +10,11 @@ import { createAdapter, globalRegistry } from 'component-registry'
 import { Component } from 'inferno'
 import { safeGet } from 'safe-utils'
 
+import { renderString } from './common'
+import { i18n } from 'isomorphic-schema'
+
 import { interfaces } from 'isomorphic-schema'
 import { IInputFieldWidget }  from '../interfaces'
-import { renderString } from './common'
 import { generateId } from './utils'
 
 import { handleDragStart, handleDragOver, handleDragEnter, handleDragLeave, handleDragEnd, handleDrop } from '../draggable'
@@ -148,9 +150,9 @@ export default class ListFieldWidget extends Component {
     this.props.onChange(this.props.propName, value)
   }
 
-  renderAddButton () {
-    const field = this.props.adapter.context
-    const nrofItems = (Array.isArray(this.props.value) && this.props.value.length) || 0
+  renderAddButton ({ adapter, value, options }) {
+    const field = adapter.context
+    const nrofItems = (Array.isArray(value) && value.length) || 0
     
     // Respect maxLength
     if (field.maxLength <= nrofItems) return null
@@ -160,22 +162,22 @@ export default class ListFieldWidget extends Component {
             <input
               type="button"
               className="btn btn-primary"
-              value={renderString('inferno-formlib--ListField_add', options && options.lang, 'Add')}
+              value={renderString(i18n('inferno-formlib--ListField_add', 'Add'), options && options.lang, 'Add')}
               onClick={this.doAddRow} />
         </div>
     )
   }
 
   render({adapter, value, namespace, options}) {
-    const field = this.props.adapter.context
-    const emptyArray = this.props.value === undefined || this.props.value.length === 0
-    return <div id={generateId(this.props.namespace, '__Field')} className="InfernoFormlib-ListField InfernoFormlib-DragContainer">
+    const field = adapter.context
+    const emptyArray = value === undefined || value.length === 0
+    return <div id={generateId(namespace, '__Field')} className="InfernoFormlib-ListField InfernoFormlib-DragContainer">
         {emptyArray && field.placeholder && <ListFieldRow key="placeholder" isFirstMount={!this.props.formIsMounted}><Placeholder text={renderString(field.placeholder)} /></ListFieldRow>}
         {renderRows({
-            lang: this.props.options.lang,
+            lang: options.lang,
             
             field: field,
-            value: this.props.value,
+            value: value,
             namespace: namespace || [],
             inputName: this.props.inputName,
             itemKeys: this.keys,

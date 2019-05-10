@@ -10,6 +10,9 @@ import { createAdapter, globalRegistry } from 'component-registry'
 import { Component } from 'inferno'
 import { safeGet } from 'safe-utils'
 
+import { renderString } from './common'
+import { i18n } from 'isomorphic-schema'
+
 import { animateOnAdd, animateOnRemove } from 'inferno-animation'
 
 import { interfaces } from 'isomorphic-schema'
@@ -45,14 +48,14 @@ class ListRowContainerWidget extends Component {
         this.$LI.dom.removeAttribute('draggable')
     }
 
-    render () {
+    render ({ children, className, options }) {
         return (
-            <div className={"InfernoFormlib-ListFieldRow" + (this.props.className ? ' ' + this.props.className : '')} data-drag-index={this.props['data-drag-index']}>
+            <div className={"InfernoFormlib-ListFieldRow" + (className ? ' ' + className : '')} data-drag-index={this.props['data-drag-index']}>
                 <div className="InfernoFormlib-DragHandle"
                     onMouseDown={this.doMakeDraggable}
                     onMouseUp={this.doMakeUndraggable} />
                 
-                {this.props.children}
+                {children}
 
                 <div className="InfernoFormlib-ListFieldRowDeleteBtnWrapper">
                     <Button className="InfernoFormlib-ListFieldRowDeleteBtn"
@@ -60,7 +63,7 @@ class ListRowContainerWidget extends Component {
                         onClick={(e) => {
                             e.preventDefault()
                             this.props.onDelete()
-                        }}>{renderString('inferno-formlib--ListField_remove', options && options.lang, 'Remove')}</Button>
+                        }}>{renderString(i18n('inferno-formlib--ListField_remove', 'Remove'), options && options.lang, 'Remove')}</Button>
                 </div>
             </div>
         )
