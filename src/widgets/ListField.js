@@ -148,7 +148,25 @@ export default class ListFieldWidget extends Component {
     this.props.onChange(this.props.propName, value)
   }
 
-  render({inputName, namespace, options}) {
+  renderAddButton () {
+    const field = this.props.adapter.context
+    const nrofItems = (Array.isArray(this.props.value) && this.props.value.length) || 0
+    
+    // Respect maxLength
+    if (field.maxLength <= nrofItems) return null
+
+    return (
+        <div className="InfernoFormlib-ListFieldActionBar">
+            <input
+              type="button"
+              className="btn btn-primary"
+              value={renderString('inferno-formlib--ListField_Add', options && options.lang, 'Lägg till')}
+              onClick={this.doAddRow} />
+        </div>
+    )
+  }
+
+  render({adapter, value, namespace, options}) {
     const field = this.props.adapter.context
     const emptyArray = this.props.value === undefined || this.props.value.length === 0
     return <div id={generateId(this.props.namespace, '__Field')} className="InfernoFormlib-ListField InfernoFormlib-DragContainer">
@@ -158,7 +176,7 @@ export default class ListFieldWidget extends Component {
             
             field: field,
             value: this.props.value,
-            namespace: this.props.namespace || [],
+            namespace: namespace || [],
             inputName: this.props.inputName,
             itemKeys: this.keys,
             validationErrors: this.props.validationError,
@@ -168,9 +186,7 @@ export default class ListFieldWidget extends Component {
             onDelete: this.doDeleteRow,
             isMounted: this.isMounted
         })}
-        <div className="InfernoFormlib-ListFieldActionBar">
-            <input type="button" className="btn btn-primary" value="Lägg till" onClick={this.doAddRow} />
-        </div>
+        {this.renderAddButton({adapter, value, options})}
     </div>
   }
 }
