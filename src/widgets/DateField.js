@@ -134,7 +134,7 @@ function Calendar (props) {
         </table>
       </PopoverBody>
       <div className="DateFieldFooter">
-        <a href="#showSelected" onClick={props.onShowSelected}>{props.value || renderString('inferno-formlib--DateField-showSelected', undefined, 'välj ett datum')}</a>
+        <a href="#showSelected" onClick={props.onShowSelected}>{props.value || renderString('inferno-formlib--DateField-select_date', undefined, 'välj ett datum')}</a>
       </div>
     </Popover>      
   )
