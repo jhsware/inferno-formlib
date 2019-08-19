@@ -29,8 +29,8 @@ import {
 import { Manager, Target } from 'inferno-popper'
 // Placeholder
 
-const months = 'januari_februari_mars_april_maj_juni_juli_augusti_september_oktober_november_december'.split('_')
-const weekdaysMin = 'sö_må_ti_on_to_fr_lö'.split('_')
+const months = renderString('inferno-formlib--DateField-months', undefined, 'januari_februari_mars_april_maj_juni_juli_augusti_september_oktober_november_december').split('_')
+const weekdaysMin = renderString('inferno-formlib--DateField-weekdays', undefined, 'sö_må_ti_on_to_fr_lö').split('_')
 
 const weekStartsOn = 1
 
@@ -134,7 +134,7 @@ function Calendar (props) {
         </table>
       </PopoverBody>
       <div className="DateFieldFooter">
-        <a href="#showSelected" onClick={props.onShowSelected}>{props.value || 'välj ett datum'}</a>
+        <a href="#showSelected" onClick={props.onShowSelected}>{props.value || renderString('inferno-formlib--DateField-select_date', undefined, 'välj ett datum')}</a>
       </div>
     </Popover>      
   )
