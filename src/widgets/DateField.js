@@ -27,10 +27,6 @@ import {
 } from 'inferno-bootstrap'
 
 import { Manager, Target } from 'inferno-popper'
-// Placeholder
-
-const months = renderString('inferno-formlib--DateField-months', undefined, 'januari_februari_mars_april_maj_juni_juli_augusti_september_oktober_november_december').split('_')
-const weekdaysMin = renderString('inferno-formlib--DateField-weekdays', undefined, 'sö_må_ti_on_to_fr_lö').split('_')
 
 const weekStartsOn = 1
 
@@ -70,6 +66,9 @@ function getCalendar (date, locale) {
       rowNr++
     }
   }
+
+  const weekdaysMin = renderString('inferno-formlib--DateField-weekdays', undefined, 'sö_må_ti_on_to_fr_lö').split('_')
+  const months = renderString('inferno-formlib--DateField-months', undefined, 'januari_februari_mars_april_maj_juni_juli_augusti_september_oktober_november_december').split('_')
 
   const cal = {
     monthName: months[date.getUTCMonth()],
