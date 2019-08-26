@@ -42,7 +42,7 @@ function CalendarDay (props) {
         "text-muted": !props.isCurrentMonth,
         "DateFieldItem--selected": props.isSelected,
         "DateFieldItem--today": props.isToday
-      })}>{props.dayNr}</td>
+      })}><a href='#'>{props.dayNr}</a></td>
   )
 }
 
