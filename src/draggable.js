@@ -43,7 +43,9 @@ export function handleDragStart (e) {
 
     e.dataTransfer.effectAllowed = 'move'
     e.dataTransfer.dropEffect = 'move'
-    // e.dataTransfer.setData('text', e.target.getAttribute('data-drag-index'))
+
+    // This is needed for drag to work in FF
+    e.dataTransfer.setData('text', e.target.getAttribute('data-drag-index'))
 
     draggable.classList.add('InfernoFormlib-DragItem--isDragging')
     
@@ -125,6 +127,8 @@ export function handleDragEnd (e) {
 }
 
 export function handleDrop (e) {
+    // If not called, drop event will try to rediriect in FF
+    e.preventDefault()
     e.stopPropagation()
 
     const draggable = getDraggable(e.target)
