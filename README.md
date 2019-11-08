@@ -4,16 +4,9 @@
 
 The goal of this project is to create a bootstrap 4 compatible form generation library for Inferno.js using isomorphic-schema definitions.
 
-## Compatibility
+## Currently maintained versions
 inferno-formlib 7.x supports Inferno v7
-
-inferno-formlib 6.x supports Inferno v6
-
 inferno-formlib 5.x supports Inferno v5
-
-inferno-formlib 4.x supports Inferno v4
-
-inferno-formlib 3.x supports Inferno v3
 
 ## Example With Sticky Action Bar
 This is the basic anatomy of a form generated with inferno-formlib. It can generate nested forms from isomorphic-schema form definitions and list fields support drag'n'drop reordering.
