@@ -11,6 +11,9 @@ export class DragNDrop extends Component {
       isDragging: false
     }
 
+    // I need to bind these event handlers to this, and
+    // I only want to do it once to make sure they can be
+    // removed properly
     this.setDrag = this.setDrag.bind(this)
     this.onDocumentDrag = this.onDocumentDrag.bind(this)
     this.onDocumentDragEnd = this.onDocumentDragEnd.bind(this)
@@ -19,12 +22,17 @@ export class DragNDrop extends Component {
     this.onDrop = this.onDrop.bind(this)
     this.onDragOver = this.onDragOver.bind(this)
     this.componentDidMount = this.componentDidMount.bind(this)
+    this.onDragEnd = this.onDragEnd.bind(this)
   }
 
   setDrag (change) {
-    this.setState({
-      inDragCount: this.state.inDragCount + change
-    })
+    let inDragCount = this.state.inDragCount + change
+
+    if (inDragCount >= 0) {
+      this.setState({
+        inDragCount
+      })
+    }
   }
 
   element () {
@@ -49,27 +57,29 @@ export class DragNDrop extends Component {
 
   onDragEnter (e) {
     e.preventDefault()
-    if (this.state.inDragCount == 0){
-      console.log("[DragNDrop] onDragEnter", e.target);
-    }
     this.setDrag(1)
   }
 
   onDragLeave (e) {
     this.setDrag(-1)
-    if (this.state.inDragCount == 0) {
-      console.log("[DragNDrop] onDragLeave");
-    }
+  }
+  
+  onDragEnd (e) {
+    this._unregisterEventHandlers()
   }
 
   onDrop (e) {
     e.preventDefault()
-    this.setDrag(0 - this.state.inDragCount);
+    this.setState({
+      inDragCount: 0,
+      isDragging: false
+    })
+
     var file = e.dataTransfer.files[0];
+    // console.log("[DragNDrop] file:", file.name);
+    this.props.onDrop(file, file.name)
 
-    console.log("[DragNDrop] file:", file.name);
-
-    this.props.onDrop(file)
+    this._unregisterEventHandlers()
   }
 
   onDragOver (e){
@@ -77,33 +87,41 @@ export class DragNDrop extends Component {
   }
 
   dragStart () {
-    // TODO: removeEventListeners
-    var el = this.element()
-    if (el) {
-      el.addEventListener('dragenter', this.onDragEnter)  
-      el.addEventListener('dragleave', this.onDragLeave)
-      el.addEventListener('dragover', this.onDragOver)
-      el.addEventListener('drop', this.onDrop)
-    }
-    
-    document.addEventListener("dragenter", this.onDocumentDrag)
-    document.addEventListener("dragleave", this.onDocumentDragEnd)
+    this._registerEventHandlers()
   }
 
   componentDidMount () {
     this.dragStart()
   }
 
-  componentWillUnmount () {
+  _registerEventHandlers () {
+    var el = this.element()
+    if (el) {
+      el.addEventListener('dragenter', this.onDragEnter)  
+      el.addEventListener('dragleave', this.onDragLeave)
+      el.addEventListener('dragover', this.onDragOver)
+      el.addEventListener('drop', this.onDrop)
+      el.addEventListener('dragend', this.onDragEnd)
+    }
+    document.addEventListener("dragenter", this.onDocumentDrag)
+    document.addEventListener("dragleave", this.onDocumentDragEnd)
+  }
+
+  _unregisterEventHandlers () {
     var el = this.element()
     if (el) {
       el.removeEventListener('dragenter', this.onDragEnter)  
       el.removeEventListener('dragleave', this.onDragLeave)
       el.removeEventListener('dragover', this.onDragOver)
       el.removeEventListener('drop', this.onDrop)
+      el.removeEventListener('dragend', this.onDragEnd)
     }
     document.removeEventListener("dragenter", this.ondDrag)
     document.removeEventListener("dragleave", this.onDocumentDragEnd)
+  }
+
+  componentWillUnmount () {
+    this._unregisterEventHandlers()
   }
   
   render () {

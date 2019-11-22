@@ -22,6 +22,7 @@ class FileUploadWidget extends Component {
       errMsg: undefined
     }
 
+    this.didClick = this.didClick.bind(this)
     this.doUpload = this.doUpload.bind(this)
     this.didGetProgress = this.didGetProgress.bind(this)
     this.doClearError = this.doClearError.bind(this)
@@ -34,6 +35,10 @@ class FileUploadWidget extends Component {
         errMsg: undefined
       })
     }
+  }
+
+  didClick (e) {
+    this.props.onClick && this.props.onClick(e)
   }
 
   doClearError (e) {
@@ -114,6 +119,7 @@ class FileUploadWidget extends Component {
 
               aria-label={ this.props.name || 'file'}
             
+              onClick={this.didClick}
               onChange={(e) => {
                 e.preventDefault()
                 this.doUpload(e.target.files[0])

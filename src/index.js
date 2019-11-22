@@ -16,7 +16,7 @@ import PasswordWidget from './widgets/PasswordField'
 import SelectAsyncBaseWidget from './widgets/SelectAsyncBaseWidget'
 import SelectWidget from './widgets/SelectField'
 import TextAreaWidget from './widgets/TextAreaField'
-import { FileUploadWidget, ProgressOverlay } from './widgets/FileUploadWidget/index'
+import { FileUploadWidget, ProgressOverlay, DragNDrop } from './widgets/FileUploadWidget/index'
 
 import CustomWidget from './CustomWidget'
 
@@ -43,6 +43,7 @@ const widgets = {
     TextAreaWidget,
     SelectAsyncBaseWidget,
 
+    DragNDrop,
     ProgressOverlay
 }
 

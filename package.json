@@ -35,8 +35,8 @@
     "url": "git+ssh://git@github.com/jhsware/inferno-formlib.git"
   },
   "peerDependencies": {
-    "component-registry": "1.0.0-rc.8",
-    "isomorphic-schema": "1.0.0-beta.10"
+    "component-registry": "^1.0.2",
+    "isomorphic-schema": "^1.0.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.2",
@@ -56,7 +56,7 @@
     "babel-register": "^6.26.0",
     "bootstrap": "^4.3.1",
     "clean-webpack-plugin": "^0.1.19",
-    "component-registry": "1.0.0-rc.8",
+    "component-registry": "^1.0.2",
     "create-inferno-app": "^7.0.6",
     "cross-env": "^5.2.0",
     "express": "^4.16.2",
@@ -68,7 +68,7 @@
     "inferno-devtools": "^7.0.4",
     "inferno-router": "^7.0.4",
     "inferno-test-utils": "^7.0.4",
-    "isomorphic-schema": "1.0.0-beta.10",
+    "isomorphic-schema": "^1.0.0",
     "jest": "^23.6.0",
     "jsdom": "^11.6.2",
     "moment": "^2.22.2",
