@@ -25,6 +25,16 @@ export class DragNDrop extends Component {
     this.onDragEnd = this.onDragEnd.bind(this)
   }
 
+  componentDidMount () {
+    // TODO: Should we only register a single event handler here which
+    // triggers dragStart? This is just a bit weird.
+    this.dragStart()
+  }
+
+  componentWillUnmount () {
+    this._unregisterEventHandlers()
+  }
+  
   setDrag (change) {
     let inDragCount = this.state.inDragCount + change
 
@@ -75,11 +85,18 @@ export class DragNDrop extends Component {
       isDragging: false
     })
 
-    var file = e.dataTransfer.files[0];
-    // console.log("[DragNDrop] file:", file.name);
-    this.props.onDrop(file, file.name)
+    if (this.props.multiFile) {
+      var files = e.dataTransfer.files;
+      this.props.onDrop(files)
+    }
+    else {
+      var file = e.dataTransfer.files[0];
+      // console.log("[DragNDrop] file:", file.name);
+      this.props.onDrop(file, file.name)
+    }
 
-    this._unregisterEventHandlers()
+    // TODO: Why did we do this? It disables drag'n'drop
+    // this._unregisterEventHandlers()
   }
 
   onDragOver (e){
@@ -88,10 +105,6 @@ export class DragNDrop extends Component {
 
   dragStart () {
     this._registerEventHandlers()
-  }
-
-  componentDidMount () {
-    this.dragStart()
   }
 
   _registerEventHandlers () {
@@ -120,10 +133,6 @@ export class DragNDrop extends Component {
     document.removeEventListener("dragleave", this.onDocumentDragEnd)
   }
 
-  componentWillUnmount () {
-    this._unregisterEventHandlers()
-  }
-  
   render () {
     const cls = classNames('DragNDroppable', {
       'DragNDroppable--drag-hover' : this.state.inDragCount > 0,
