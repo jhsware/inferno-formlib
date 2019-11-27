@@ -1,6 +1,6 @@
 {
   "name": "inferno-formlib",
-  "version": "7.1.7",
+  "version": "7.1.8",
   "description": "Form library for inferno",
   "main": "dist/index.cjs.js",
   "module": "lib/index.js",
