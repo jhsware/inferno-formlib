@@ -117,10 +117,14 @@ class FormRows extends Component {
   }
 
   getChildContext () {
-    const outp = {
-      renderHelpAsHtml: this.props.renderHelpAsHtml || false
+    // Pass along the existing context
+    const outp = {}
+    for (let k in this.context) {
+      outp[k] = this.context[k]
     }
     
+    // And add our extra helpers
+    outp['renderHelpAsHtml'] = this.props.renderHelpAsHtml || this.context.renderHelpAsHtml || false
     if (!this.context.hasOwnProperty('rootValue')) {
       outp['rootValue'] = this.props.value
     }
@@ -129,12 +133,10 @@ class FormRows extends Component {
   }
 
   render () {
-    // TODO: This should be cached for performance
     const customWidgetDict = {}
     if (this.props.children) {
       let children = Array.isArray(this.props.children) ? this.props.children : [this.props.children]
       children.forEach((widget) => {
-        // TODO: Does this code really work?
         customWidgetDict[widget.props.propPath] = {
           fieldWidget: widget.props.fieldWidget,
           rowWidget: widget.props.rowWidget
