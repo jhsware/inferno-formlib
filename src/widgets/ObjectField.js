@@ -20,7 +20,7 @@ export default class ObjectFieldWidget extends Component {
     super(props)
 
     this.isMounted = false
-    
+
     this.didUpdate = this.didUpdate.bind(this)
     this.didInput = this.didInput.bind(this)
   }
@@ -43,7 +43,6 @@ export default class ObjectFieldWidget extends Component {
   }
 
   render() {
-    debugger
     const field = this.props.adapter.context
     return <div id={generateId(this.props.namespace, '__Field')} className="InfernoFormlib-ObjectField">
         {renderRows({
