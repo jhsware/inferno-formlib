@@ -54,6 +54,8 @@ export default class ListFieldWidget extends Component {
         }
     }
 
+    this.isMounted = false
+    
     this.didInput = this.didInput.bind(this)
     this.didUpdate = this.didUpdate.bind(this)
     this.doAddRow = this.doAddRow.bind(this)
@@ -77,6 +79,9 @@ export default class ListFieldWidget extends Component {
     domEl.addEventListener('dragend', this.handleDragEnd, false)
     domEl.addEventListener('drop', this.handleDrop, false)
     this.listenersAdded = true
+
+    // Because this is a container we set isMounted here instead of getting it from parent
+    this.isMounted = true
   }
 
   componentWillUnmount () {
@@ -90,9 +95,6 @@ export default class ListFieldWidget extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    // Because this is a container we set isMounted here instead of getting it from parent
-    this.isMounted = true
-
     // Making this test less strict to support Mobx Arrays:
     if (!(nextProps.value instanceof Array) || nextProps.value.length < this.keys.length) {
         // We got undefined or fewer values than previously, need to shorten the keys array

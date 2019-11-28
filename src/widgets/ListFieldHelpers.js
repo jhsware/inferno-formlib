@@ -126,7 +126,7 @@ function renderRows ({ field, value, lang, namespace, inputName, itemKeys, valid
         value: value && value[index],
         options: {parentValue: value, lang},
         validationError,
-        formIsMounted: !justAdded,
+        formIsMounted: isMounted && !justAdded,
         doesNotRenderLabel,
         id: dotName,
         // Callbacks

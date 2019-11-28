@@ -19,11 +19,13 @@ export default class ObjectFieldWidget extends Component {
   constructor (props) {
     super(props)
 
+    this.isMounted = false
+    
     this.didUpdate = this.didUpdate.bind(this)
     this.didInput = this.didInput.bind(this)
   }
 
-  componentWillReceiveProps (nextProps) {
+  componentDidMount () {
     // Because this is a container we set isMounted here instead of getting it from parent
     this.isMounted = true
   }
@@ -41,6 +43,7 @@ export default class ObjectFieldWidget extends Component {
   }
 
   render() {
+    debugger
     const field = this.props.adapter.context
     return <div id={generateId(this.props.namespace, '__Field')} className="InfernoFormlib-ObjectField">
         {renderRows({
