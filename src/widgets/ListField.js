@@ -110,15 +110,15 @@ export default class ListFieldWidget extends Component {
   }
 
   didInput (propName, data) {
-    const value = this.props.value || {}
-    value[propName] = data
-    this.props.onInput && this.props.onInput(this.props.propName, value)
+    const newValue = [...this.props.value]
+    newValue[propName] = data
+    this.props.onInput && this.props.onInput(this.props.propName, newValue)
   }
 
   didUpdate (propName, data) {
-    const value = this.props.value
-    value[propName] = data
-    this.props.onChange(this.props.propName, value)
+    const newValue = [...this.props.value]
+    newValue[propName] = data
+    this.props.onChange(this.props.propName, newValue)
   }
 
   doAddRow (e) {
