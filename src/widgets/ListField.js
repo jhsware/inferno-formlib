@@ -183,7 +183,7 @@ export default class ListFieldWidget extends Component {
 
   render({adapter, value, namespace, options}) {
     const field = adapter.context
-    const emptyArray = value === undefined || value.length === 0
+    const emptyArray = !Array.isArray(value) || value.length === 0
     return <div id={generateId(namespace, '__Field')} className="InfernoFormlib-ListField InfernoFormlib-DragContainer">
         {emptyArray && field.placeholder && <ListFieldRow key="placeholder" isFirstMount={!this.props.formIsMounted}><Placeholder text={renderString(field.placeholder)} /></ListFieldRow>}
         {renderRows({
