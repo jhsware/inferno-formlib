@@ -190,7 +190,7 @@ export default class ListFieldWidget extends Component {
             lang: options.lang,
             
             field: field,
-            value: value,
+            value: value || [],
             namespace: namespace || [],
             inputName: this.props.inputName,
             itemKeys: this.keys,
