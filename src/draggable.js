@@ -15,7 +15,7 @@ function debounce (key, callback) {
 
 function getDraggable (node) {
     for (let target = node; !target.classList.contains('InfernoFormlib-DragContainer'); target = target.parentNode) {
-        if (target.parentNode.classList.contains('InfernoFormlib-DragContainer')) {
+        if (target.parentNode === null || target.parentNode.classList.contains('InfernoFormlib-DragContainer')) {
             return target
         }
     }
