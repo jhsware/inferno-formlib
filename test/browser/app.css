@@ -72,6 +72,22 @@ body {
 }
 
 /* DateField Widget */
+a.InfernoFormlib-DateField-unset {
+  opacity: 1;
+  margin-left: 0.5rem;
+  width: 1em;
+  transition: 0.3s ease-in;
+  color: red;
+  cursor: pointer;
+  align-self: center;
+
+}
+.InfernoFormlib-DateTimeGroup--noValue a.InfernoFormlib-DateField-unset {
+  opacity: 0;
+  margin-left: 0;
+  width: 0;
+}
+
 .InfernoFormlib-DateFieldCalendar .DateFieldHeaderItem {
     text-align: center;
     color: #aaa;

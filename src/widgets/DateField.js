@@ -14,6 +14,7 @@ import { IInputFieldWidget } from '../interfaces'
 import classNames from 'classnames'
 import { renderString } from './common'
 import { generateId, escapeIdSelector } from './utils'
+import classnames from 'classnames'
 
 import {
   Input,
@@ -30,6 +31,9 @@ import { Manager, Target } from 'inferno-popper'
 
 const weekStartsOn = 1
 
+function isProperDate (inp) {
+  return typeof inp === 'string' && inp.length === 10 && !isNaN(new Date(inp).getTime())
+}
 
 function toMs (days) {
   return days * 24 * 3600000
@@ -143,7 +147,14 @@ class InputWidget extends Component {
     constructor (props) {
         super(props)
 
-        let date = new Date()
+        // Show the month of the current date value
+        let date
+        if (isProperDate(props.value)) {
+          date = new Date(props.value)
+        }
+        else {
+          date = new Date()
+        }
         // Adjust internal date so UTC equals current timezone
         date = new Date(date.valueOf() - date.getTimezoneOffset() * 60000 + 12 * 3600)
 
@@ -152,19 +163,9 @@ class InputWidget extends Component {
             popoverOpen: false,
             showMonth: { year: date.getUTCFullYear(), month: date.getUTCMonth()}
         }
-        this.didGetInput = this.didGetInput.bind(this)
-        this.didGetChange = this.didGetChange.bind(this)
-        this.togglePopover = this.togglePopover.bind(this)
-        this.doShowPopover = this.doShowPopover.bind(this)
-        this.doHidePopover = this.doHidePopover.bind(this)
-
-        this.doUpdateValue = this.doUpdateValue.bind(this)
-        this.doUpdateShowMonth = this.doUpdateShowMonth.bind(this)
-        this.doShowSelected = this.doShowSelected.bind(this)
-        this.didClickBody = this.didClickBody.bind(this)
     }
 
-    didClickBody (e) {
+    didClickBody = (e) => {
       if (this.state.popoverOpen) {
         let tmpNode = e.target
         let doesContainTarget = false
@@ -189,63 +190,79 @@ class InputWidget extends Component {
     }
 
     componentWillReceiveProps (nextProps) {
+      if (nextProps.value !== this.props.value) {
         this.setState({
-            value: nextProps.value
+            value: nextProps.value,
+            popoverOpen: this.state.popoverOpen && isProperDate(nextProps.value)
         })
 
-        // Todo: Update calendar
+        // Update calendar
+        let date = isProperDate(nextProps.value) ? new Date(nextProps.value) : new Date()
+        // Adjust internal date so UTC equals current timezone
+        date = new Date(date.valueOf() - date.getTimezoneOffset() * 60000 + 12 * 3600)
+        this.doUpdateShowMonth(date)
+      }
     }
 
-    doUpdateValue (newDate) {
+    doUpdateValue = (newDate) => {
       this.setState({
         value: newDate // TODO: Update
       })
-      this.didGetChange()
+      this.props.onChange(this.props.propName, newDate)
     }
 
-    doUpdateShowMonth (newDate) {
+    doUpdateShowMonth = (newDate) => {
       this.setState({
         showMonth: { year: newDate.getFullYear(), month: newDate.getMonth()}
       })
     }
 
-    doShowSelected (e) {
+    doShowSelected = (e) => {
       e.preventDefault()
       this.setState({
         showMonth: { year: parseInt(this.state.value.slice(0, 4)), month: parseInt(this.state.value.slice(5, 7)) - 1 }
       })
     }
 
-    didGetInput (e) {
+    didGetInput = (e) => {
       const field = this.props.adapter.context
-      const newVal = field.fromString(e.target.value)
+      const value = field.fromString(e.target.value)
       this.setState({
-          value: newVal
+        value,
+        popoverOpen: this.state.popoverOpen && isProperDate(value)
       })
+      if (value === undefined || isProperDate(value)) {
+        this.props.onChange(this.props.propName, value)
+      }
     }
 
-    didGetChange (e) {
-        this.props.onChange(this.props.propName, this.state.value)
-    }
-
-    togglePopover () {
+    togglePopover = () => {
       this.setState({
         popoverOpen: !this.state.popoverOpen
       })
     }
 
-    doShowPopover () {
-      this.setState({
-        popoverOpen: true
-      })
-      document.addEventListener('click', this.didClickBody)
+    doShowPopover = () => {
+      if (!this.state.popoverOpen) {
+        this.setState({
+          popoverOpen: true
+        })
+        document.addEventListener('click', this.didClickBody)
+      }
     }
 
-    doHidePopover (e) {
-      this.setState({
-        popoverOpen: false
-      })
-      document.removeEventListener('click', this.didClickBody)
+    doHidePopover = (e) => {
+      if (this.state.popoverOpen) {
+        this.setState({
+          popoverOpen: false
+        })
+        document.removeEventListener('click', this.didClickBody)
+      }
+    }
+
+    doUnset = (e) => {
+      e.preventDefault()
+      this.props.onChange(this.props.propName, undefined)
     }
 
     render ({inputName, namespace, options, doesNotRenderLabel, id}) {
@@ -281,8 +298,9 @@ class InputWidget extends Component {
                   onFocus={this.doShowPopover}
                   onBlur={this.didClickBody}
                   
-                  onChange={this.didGetInput} />
+                  onInput={this.didGetInput} />
                 {this.props.children}
+                <a href="#clear" className="InfernoFormlib-DateField-unset" onClick={this.doUnset}>x</a>
               </InputGroup>
             </Target>
             <Calendar

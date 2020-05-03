@@ -28,6 +28,10 @@ function pad (inp) {
   }
 }
 
+function isProperDateTime (inp) {
+  return !isNaN(new Date(inp).getTime())
+}
+
 class InputWidget extends Component {
   constructor (props) {
       super(props)
@@ -35,8 +39,6 @@ class InputWidget extends Component {
       this.state = {
           value: props.value,
       }
-      this.didGetDateInput = this.didGetDateInput.bind(this)
-      this.didGetTimeInput = this.didGetTimeInput.bind(this)
   }
 
   componentWillReceiveProps (nextProps) {
@@ -47,46 +49,57 @@ class InputWidget extends Component {
       // Todo: Update calendar
   }
 
-  didGetDateInput (propName, value) {
-    const tmpNew = value.split('-')
+  didGetDateInput = (propName, value) => {
+    if (typeof value === 'string') {
+      const tmpNew = value.split('-')
 
-    const newVal = this.state.value || new Date()
-    newVal.setFullYear(tmpNew[0])
-    newVal.setMonth(tmpNew[1] - 1)
-    newVal.setDate(tmpNew[2])
+      value = this.state.value || new Date()
+      value.setFullYear(tmpNew[0])
+      value.setMonth(tmpNew[1] - 1)
+      value.setDate(tmpNew[2])
+    }
 
     this.setState({
-        value: newVal
+        value,
+        popoverOpen: this.state.popoverOpen && isProperDateTime(value)
     })
-    this.props.onChange(this.props.propName, newVal)
+    if (value === undefined || isProperDateTime(value)) {
+      this.props.onChange(this.props.propName, value)
+    }
   }
 
-  didGetTimeInput (e) {
+  didGetTimeInput = (e) => {
     e.preventDefault()
     let value = e.target.value
 
-    const tmpNew = value.split(/[^\d]/).map((n) => parseInt(n))
-
-    // Handle 12 hour clock https://www.timeanddate.com/time/am-and-pm.html
-    if (value.indexOf('pm') > 0) {
-      if (tmpNew[0] < 12) {
-        tmpNew[0] += 12
-      } 
-    } else if (value.indexOf('am') > 0) {
-      if (tmpNew[0] === 12 && tmpNew[1] > 0) {
-        tmpNew[0] = 0
+    if (typeof value === 'string') {
+      const tmpNew = value.split(/[^\d]/).map((n) => parseInt(n))
+  
+      // Handle 12 hour clock https://www.timeanddate.com/time/am-and-pm.html
+      if (value.indexOf('pm') > 0) {
+        if (tmpNew[0] < 12) {
+          tmpNew[0] += 12
+        } 
+      } else if (value.indexOf('am') > 0) {
+        if (tmpNew[0] === 12 && tmpNew[1] > 0) {
+          tmpNew[0] = 0
+        }
       }
+  
+      value = this.state.value || new Date()
+      value.setHours(tmpNew[0] || 0)
+      value.setMinutes(tmpNew[1] || 0)
+      value.setSeconds(tmpNew[2] || 0)
     }
 
-    const newVal = this.state.value || new Date()
-    newVal.setHours(tmpNew[0])
-    newVal.setMinutes(tmpNew[1])
-    newVal.setSeconds(tmpNew[2] || 0)
-
     this.setState({
-        value: newVal
+        value,
+        popoverOpen: this.state.popoverOpen && isProperDateTime(value)
     })
-    this.props.onChange(this.props.propName, newVal)
+
+    if (value === undefined || isProperDateTime(value)) {
+      this.props.onChange(this.props.propName, value)
+    }
   }
 
   render ({inputName, namespace, options, doesNotRenderLabel, id}) {
