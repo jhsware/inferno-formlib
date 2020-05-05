@@ -44,6 +44,10 @@ export default class ObjectFieldWidget extends Component {
 
   render() {
     const field = this.props.adapter.context
+    if (!field.schema) {
+      return null
+    }
+    
     return <div id={generateId(this.props.namespace, '__Field')} className="InfernoFormlib-ObjectField">
         {renderRows({
           schema: field.schema,
