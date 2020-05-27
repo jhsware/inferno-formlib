@@ -44,8 +44,8 @@ class Row extends Component {
         animateOnRemove(findDOMNode(this), 'InfernoFormlib-Row--Animation')
     }
 
-    render ({validationError, submitted, options, children, id}) {
-        const field = this.props.adapter.context
+    render ({validationError, adapter, submitted, options, children, id}) {
+        const field = adapter.context
 
         const invariantError = unpackInvariantErrors(this.props.validationError, this.props.namespace)
 
@@ -54,9 +54,9 @@ class Row extends Component {
             <div className="InfernoFormlib-RowFieldContainer">
                 {children}
             </div>
-            {validationError ? <ErrorMsg validationError={validationError} submitted={submitted} options={options} /> : null}
-            {invariantError ? <ErrorMsg validationError={invariantError} submitted={submitted} options={options} /> : null}
-            <HelpMsg text={field.help} required={field._isRequired && !validationError} options={options} />
+            {validationError ? <ErrorMsg field={field} validationError={validationError} submitted={submitted} options={options} /> : null}
+            {invariantError ? <ErrorMsg field={field} validationError={invariantError} submitted={submitted} options={options} /> : null}
+            <HelpMsg field={field} text={field.help} required={field._isRequired && !validationError} options={options} />
         </FormGroup>
     }
 }
@@ -86,16 +86,16 @@ class ObjectRow extends Component {
         animateOnRemove(findDOMNode(this), 'InfernoFormlib-Row--Animation')
     }
 
-    render ({validationError, submitted, options, children, id}) {
-        const field = this.props.adapter.context
+    render ({validationError, adapter, submitted, options, children, id}) {
+        const field = adapter.context
         
         const invariantError = unpackInvariantErrors(this.props.validationError, this.props.namespace)
 
         return <FormGroup className="InfernoFormlib-ObjectRow">
             {field.label && <Label id={id} options={options}>{field.label}</Label>}
-            {validationError ? <ErrorMsg validationError={validationError} submitted={submitted} options={options} /> : null}
-            {invariantError ? <ErrorMsg validationError={invariantError} submitted={submitted} options={options} /> : null}
-            {field.help ? <HelpMsg text={field.help} required={field._isRequired} options={options} /> : null}
+            {validationError ? <ErrorMsg field={field} validationError={validationError} submitted={submitted} options={options} /> : null}
+            {invariantError ? <ErrorMsg field={field} validationError={invariantError} submitted={submitted} options={options} /> : null}
+            {field.help ? <HelpMsg field={field} text={field.help} required={field._isRequired} options={options} /> : null}
             <div className="InfernoFormlib-RowFieldContainer">
                 {children}
             </div>
@@ -127,16 +127,16 @@ class ListRow extends Component {
         animateOnRemove(findDOMNode(this), 'InfernoFormlib-Row--Animation')
     }
 
-    render ({validationError, submitted, options, children, id}) {
-        const field = this.props.adapter.context
+    render ({validationError, adapter, submitted, options, children, id}) {
+        const field = adapter.context
         
         const invariantError = unpackInvariantErrors(this.props.validationError, this.props.namespace)
 
         return <FormGroup className="InfernoFormlib-ListRow">
             {field.label && <Label id={id} options={options}>{field.label}</Label>}
-            {validationError ? <ErrorMsg validationError={validationError} submitted={submitted} options={options} /> : null}
-            {invariantError ? <ErrorMsg validationError={invariantError} submitted={submitted} options={options} /> : null}
-            {field.help ? <HelpMsg text={field.help} required={field._isRequired} options={options} /> : null}
+            {validationError ? <ErrorMsg field={field} validationError={validationError} submitted={submitted} options={options} /> : null}
+            {invariantError ? <ErrorMsg field={field} validationError={invariantError} submitted={submitted} options={options} /> : null}
+            {field.help ? <HelpMsg field={field} text={field.help} required={field._isRequired} options={options} /> : null}
             <div className="InfernoFormlib-RowFieldContainer">
                 {children}
             </div>
@@ -169,8 +169,8 @@ class CheckboxRow extends Component {
         animateOnRemove(findDOMNode(this), 'InfernoFormlib-Row--Animation')
     }
 
-    render ({validationError, submitted, options, children, id}) {
-        const field = this.props.adapter.context
+    render ({validationError, adapter, submitted, options, children, id}) {
+        const field = adapter.context
 
         const invariantError = unpackInvariantErrors(this.props.validationError, this.props.namespace)
 
@@ -182,9 +182,9 @@ class CheckboxRow extends Component {
                         {renderString(field.label, options && options.lang)}
                     </_bs_Label>
                 </div>
-                {validationError ? <ErrorMsg validationError={validationError} submitted={submitted} options={options} /> : null}
-                {invariantError ? <ErrorMsg validationError={invariantError} submitted={submitted} options={options} /> : null}
-                <HelpMsg text={field.help} required={field._isRequired} options={options} />
+                {validationError ? <ErrorMsg field={field} validationError={validationError} submitted={submitted} options={options} /> : null}
+                {invariantError ? <ErrorMsg field={field} validationError={invariantError} submitted={submitted} options={options} /> : null}
+                <HelpMsg field={field} text={field.help} required={field._isRequired} options={options} />
             </FormGroup>
         )
     }

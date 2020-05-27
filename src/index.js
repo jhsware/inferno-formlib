@@ -22,7 +22,7 @@ import CustomWidget from './CustomWidget'
 
 import { CheckboxRow, ObjectRow, Row } from './widgets/FormRow'
 import { ErrorMsg, HelpMsg, Label, unpackInvariantErrors } from './FormRowHelpers'
-import { renderString } from './widgets/common'
+import { renderString, renderVariables } from './widgets/common'
 import { getElOffset, escapeIdSelector, generateId, throttle } from './widgets/utils'
 
 import * as interfaces from './interfaces'
@@ -61,6 +61,7 @@ export {
     Label,
     unpackInvariantErrors,
     renderString,
+    renderVariables,
 
     getElOffset,
     escapeIdSelector,

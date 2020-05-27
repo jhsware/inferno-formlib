@@ -2,7 +2,7 @@
 
 import { Component } from 'inferno'
 
-import { renderString } from './widgets/common'
+import { renderString, renderVariables } from './widgets/common'
 import { i18n } from 'isomorphic-schema'
 
 import _bs_Label from 'inferno-bootstrap/lib/Form/Label'
@@ -22,18 +22,18 @@ function Label (props) {
   return <_bs_Label id={props.id}>{renderString(props.children, props.options && props.options.lang)}</_bs_Label>
 }
 
-function HelpMsg (props, context) {
+function HelpMsg ({ field, text, id, required, options = {}}, context) {
   // don't render if nothing to show
-  if (!props.text && !props.required) return null
+  if (!text && !required) return null
 
   const outp = []
-  if (props.text) outp.push(renderString(props.text, props.options && props.options.lang))
-  if (props.required) outp.push(renderString(i18n('isomorphic-schema--field_required', '(required)'), props.options && props.options.lang, '(required)'))
+  if (text) outp.push(renderVariables(field, renderString(text, options.lang)))
+  if (required) outp.push(renderVariables(field, renderString(i18n('isomorphic-schema--field_required', '(required)'), options.lang, '(required)')))
 
   if (context && context.renderHelpAsHtml) {
-      return <FormText className="text-muted" for={props.id} dangerouslySetInnerHTML={{ __html: outp.join(' ')}} />
+      return <FormText className="text-muted" for={id} dangerouslySetInnerHTML={{ __html: outp.join(' ')}} />
   } else {
-      return <FormText className="text-muted" for={props.id}>{outp.join(' ')}</FormText>
+      return <FormText className="text-muted" for={id}>{outp.join(' ')}</FormText>
   }
 }
 
@@ -71,8 +71,8 @@ class ErrorMsg extends Component {
         animateOnRemove(findDOMNode(this), 'InfernoFormlib-ErrorMsg--Animation')
     }
   
-    render () {
-        return <FormFeedback>{renderString(this.props.validationError.i18nLabel, this.props.options && this.props.options.lang, this.props.validationError.message)}</FormFeedback>
+    render ({ field, validationError, options = {}}) {
+        return <FormFeedback>{renderVariables(field, renderString(validationError.i18nLabel, options.lang, validationError.message))}</FormFeedback>
     }
   }
 

@@ -348,9 +348,9 @@ class Row extends Component {
         <div className="InfernoFormlib-RowFieldContainer">
             {this.props.children}
         </div>
-        {this.props.validationError ? <ErrorMsg validationError={this.props.validationError} submitted={this.props.submitted} /> : null}
+        {this.props.validationError ? <ErrorMsg field={field} validationError={this.props.validationError} submitted={this.props.submitted} /> : null}
         {(charsLeft !== undefined) && <CharsLeft charsLeft={charsLeft} />}
-        {field.help && <HelpMsg text={field.help} required={field._isRequired} />}
+        {field.help && <HelpMsg field={field} text={field.help} required={field._isRequired} />}
       </FormGroup>
     )
   }
