@@ -53,3 +53,14 @@ export const IDraggableController = new Interface({
 IDraggableController.prototype.getObject = function (data) {}
 // Check if we can drop source on target
 IDraggableController.prototype.mayDrop = function (source, target) {}
+
+export const IObjectFactory = new Interface({
+  // This named utility is used by list fields to create a new object when
+  // using the add button
+  name: 'IObjectFactory'
+})
+
+// getPrototype: "function returns an object prototype",
+IObjectFactory.prototype.getPrototype = function () {}
+// getObject: "function (data) returns a new object"
+IObjectFactory.prototype.getObject = function (data) {}

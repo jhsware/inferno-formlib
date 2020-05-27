@@ -15,7 +15,7 @@ import { renderString } from './common'
 import { i18n } from 'isomorphic-schema'
 
 import { interfaces } from 'isomorphic-schema'
-import { IInputFieldWidget }  from '../interfaces'
+import { IInputFieldWidget, IObjectFactory }  from '../interfaces'
 import { generateId } from './utils'
 
 import {
@@ -126,8 +126,19 @@ export default class ListFieldWidget extends Component {
     // Adding this because in some cases the event will keep on calling this event handler.
     // Could be due to propagation.
     e.stopPropagation()
+    const field = this.props.adapter.context
     const value = this.props.value || []
+
     value.push(undefined)
+
+    // Use object factory if specified
+    if (field.valueType && field.valueType.objectFactoryName) {
+      try {
+        value[value.length - 1] = new IObjectFactory(field.valueType.objectFactoryName).getObject()
+      } catch (e) {
+        // Do nothing (probably no IObjectFactory utility registered)
+      }
+    }
     this.props.onChange(this.props.propName, value)
   }
 
