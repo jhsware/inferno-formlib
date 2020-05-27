@@ -44,8 +44,8 @@ export default class ObjectFieldWidget extends Component {
 
   render() {
     const field = this.props.adapter.context
-
-    const schema = (this._interface ? this._interface.schema : this._schema || this.schema)
+    // Should this really be field.interface?
+    const schema = (field._interface ? field._interface.schema : field._schema || field.schema)
 
     if (!schema) {
       return null
