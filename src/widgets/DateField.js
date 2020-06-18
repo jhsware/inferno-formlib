@@ -300,7 +300,7 @@ class InputWidget extends Component {
                   
                   onInput={this.didGetInput} />
                 {this.props.children}
-                <a href="#clear" className="InfernoFormlib-DateField-unset" onClick={this.doUnset}>x</a>
+                <a href="#clear" className="InfernoFormlib-DateField-unset" onClick={this.doUnset}>{renderString('inferno-formlib--DateField-clear', undefined, 'clear')}</a>
               </InputGroup>
             </Target>
             <Calendar

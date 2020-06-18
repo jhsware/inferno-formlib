@@ -127,7 +127,7 @@ class InputWidget extends Component {
       const ariaLabels = {
         'aria-invalid': isValid !== undefined,
         'aria-labelledby': doesNotRenderLabel ? undefined : id,
-        'aria-label': doesNotRenderLabel ? renderString(field.label || 'inferno-formlib--InputField', options && options.lang, 'DateTime Field') : undefined,
+        'aria-label': doesNotRenderLabel ? renderString(field.label || 'inferno-formlib--DateTimeField', options && options.lang, 'DateTime Field') : undefined,
         'aria-required': field._isRequired ? field._isRequired : undefined
       } 
 
