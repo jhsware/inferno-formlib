@@ -17,6 +17,8 @@ import { generateId, escapeIdSelector } from './utils'
 import classnames from 'classnames'
 
 import {
+  DropdownToggle,
+  DropdownMenu,
   Input,
   InputGroup,
   Popover,
@@ -24,7 +26,8 @@ import {
   PopoverHeader,
   Nav,
   NavItem,
-  NavLink
+  NavLink,
+  NavDropdown
 } from 'inferno-bootstrap'
 
 import { Manager, Target } from 'inferno-popper'
@@ -85,62 +88,119 @@ function getCalendar (date, locale) {
   return cal
 }
 
-function Calendar (props) {
-  const { showMonth, ...popoverProps} = props
+class Calendar extends Component {
 
-  const tmpDate = new Date(showMonth.year, showMonth.month, 2)
-  const currentMonth = new Date(tmpDate)
+  state = {
+    yearSelectOpen: false,
+    showSelectYear: undefined
+  }
+
+  doStepYear = (e, year) => {
+    e && e.preventDefault()
+    this.setState({
+      showSelectYear: year
+    })
+  }
+
+  doSelectYear = (e, year) => {
+    e && e.preventDefault()
+
+    const { showMonth } = this.props
   
-  const calendar = getCalendar(tmpDate)
+    this.props.onNavigate(new Date(year, showMonth.month, 2))
+    this.doToggleYearSelect()
+  }
 
-  const rows = []
-  let days = []
-  let i = 0
-  calendar.days.forEach((day, i) => {
-    days.push(<CalendarDay value={day.value} isSelected={day.value === props.value} isCurrentMonth={day.isCurrentMonth} isToday={day.isToday} dayNr={day.dayNr} onClick={props.onSelect} />)
-    i++
-    if (i % 7 === 0) {
-      rows.push(<tr>{days}</tr>)
-      days = []
-    } else if (i === (calendar.days.length)) {
-      rows.push(<tr>{days}</tr>)
-      days = []
-    }
-  })
+  doToggleYearSelect = (e) => {
+    e && e.preventDefault()
 
-  return (
-    <Popover {...popoverProps}>
-      <PopoverHeader>
-        <Nav style={{ width: "100%"}}>
-          <NavItem>
-            <NavLink href="<" onClick={(e) => { e.preventDefault(); props.onNavigate(new Date(currentMonth.setMonth(currentMonth.getMonth() - 1))) }}>{'<'}</NavLink>
-          </NavItem>
-          <NavItem className="DateFieldMonth">
-            <NavLink href="#" onClick={(e) => { e.preventDefault(); }}>
-              <small>{calendar.year}</small>
-              {' ' + calendar.monthName}
-            </NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink href=">" onClick={(e) => { e.preventDefault(); props.onNavigate(new Date(currentMonth.setMonth(currentMonth.getMonth() + 1))) }}>{'>'}</NavLink>
-          </NavItem>
-        </Nav>
-      </PopoverHeader>
-      <PopoverBody className="DateFieldBody">
-        <table style={{ width: "100%"}}>
-          <tbody>
-            <tr className="DateFieldHeaderRow">
-              {calendar.dayHeaders.map(day => <th className="DateFieldHeaderItem">{day}</th>)}
-            </tr>
-            {rows}
-          </tbody>
-        </table>
-      </PopoverBody>
-      <div className="DateFieldFooter">
-        <a href="#showSelected" onClick={props.onShowSelected}>{props.value || renderString('inferno-formlib--DateField-select_date', undefined, 'välj ett datum')}</a>
-      </div>
-    </Popover>      
-  )
+    this.setState({
+      yearSelectOpen: !this.state.yearSelectOpen,
+      showSelectYear: this.props.showMonth.year
+    })
+  }
+
+  renderYearSelect () {
+    const startYear = this.state.showSelectYear - 4
+
+
+    return (
+      <ul className="DateField-YearSelect">
+          <a className="DateField-YearSelect-minus" onClick={(e) => this.doStepYear(e, startYear - 5)}><i>-</i></a>
+          {[0, 1, 2, 3, 4, 5, 6, 7, 8].map((i) => {
+            return (
+              <li className="DateField-YearSelect-day"><a onClick={(e) => this.doSelectYear(e, startYear + i)}>{startYear + i}</a></li>
+            )
+          })}
+          <a className="DateField-YearSelect-plus" onClick={(e) => this.doStepYear(e, startYear + 13)}><i>+</i></a>
+        </ul>
+    )
+  }
+
+  render (props) {
+    const { showMonth, ...popoverProps} = props
+  
+    const tmpDate = new Date(showMonth.year, showMonth.month, 2)
+    const currentMonth = new Date(tmpDate)
+    
+    const calendar = getCalendar(tmpDate)
+  
+    const rows = []
+    let days = []
+    let i = 0
+    calendar.days.forEach((day, i) => {
+      days.push(<CalendarDay value={day.value} isSelected={day.value === props.value} isCurrentMonth={day.isCurrentMonth} isToday={day.isToday} dayNr={day.dayNr} onClick={props.onSelect} />)
+      i++
+      if (i % 7 === 0) {
+        rows.push(<tr>{days}</tr>)
+        days = []
+      } else if (i === (calendar.days.length)) {
+        rows.push(<tr>{days}</tr>)
+        days = []
+      }
+    })
+  
+    return (
+      <Popover {...popoverProps}>
+        <PopoverHeader>
+          <Nav style={{ width: "100%"}}>
+            <NavItem>
+              <NavLink href="<" onClick={(e) => { e.preventDefault(); props.onNavigate(new Date(currentMonth.setMonth(currentMonth.getMonth() - 1))) }}>{'<'}</NavLink>
+            </NavItem>
+            <NavItem className="DateFieldMonth">
+              <NavDropdown isOpen={this.state.yearSelectOpen} toggle={this.doToggleYearSelect}>
+                <DropdownToggle nav caret>
+                  <small>{calendar.year}</small>
+                  {' ' + calendar.monthName}
+                </DropdownToggle>
+                <DropdownMenu>
+                  <div>
+                    {this.renderYearSelect()}
+                  </div>
+                </DropdownMenu>
+              </NavDropdown>
+            </NavItem>
+            <NavItem>
+              <NavLink href=">" onClick={(e) => { e.preventDefault(); props.onNavigate(new Date(currentMonth.setMonth(currentMonth.getMonth() + 1))) }}>{'>'}</NavLink>
+            </NavItem>
+          </Nav>
+        </PopoverHeader>
+        <PopoverBody className="DateFieldBody">
+          <table style={{ width: "100%"}}>
+            <tbody>
+              <tr className="DateFieldHeaderRow">
+                {calendar.dayHeaders.map(day => <th className="DateFieldHeaderItem">{day}</th>)}
+              </tr>
+              {rows}
+            </tbody>
+          </table>
+        </PopoverBody>
+        <div className="DateFieldFooter">
+          <a href="#showSelected" onClick={props.onShowSelected}>{props.value || renderString('inferno-formlib--DateField-select_date', undefined, 'select a date')}</a>
+        </div>
+      </Popover>      
+    )
+  }
 }
 
 class InputWidget extends Component {
@@ -273,7 +333,7 @@ class InputWidget extends Component {
         const ariaLabels = {
           'aria-invalid': isValid !== undefined,
           'aria-labelledby': doesNotRenderLabel ? undefined : id,
-          'aria-label': doesNotRenderLabel ? renderString(field.label || 'inferno-formlib--InputField', options && options.lang, 'Date Field') : undefined,
+          'aria-label': doesNotRenderLabel ? renderString(field.label || 'inferno-formlib--DateField', options && options.lang, 'Date Field') : undefined,
           'aria-required': field._isRequired ? field._isRequired : undefined
         } 
 
