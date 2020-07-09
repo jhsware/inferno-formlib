@@ -108,7 +108,7 @@ class FileUploadWidget extends Component {
     
     return (
       <div className="InfernoFormlib-FileUploadWidget">
-        {this.props.value === undefined && <DragNDrop onDrop={this.doUpload}>
+        {!this.props.value && <DragNDrop onDrop={this.doUpload}>
           {!this.props.hide && <span className="placeholder">{this.props.placeholder}</span>}
           {!this.props.hide &&
             <input ref={el => this._inputEl = el}
@@ -131,7 +131,7 @@ class FileUploadWidget extends Component {
   }
 
   render () {
-    if (this.props.value !== undefined) {
+    if (this.props.value) {
       return this.props.children
     } else if (this.state.errMsg) {
       return this.renderError()
