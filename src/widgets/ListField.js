@@ -127,21 +127,21 @@ export default class ListFieldWidget extends Component {
     // Could be due to propagation.
     e.stopPropagation()
     const value = this.props.value || []
-    value.push(undefined)
-    this.props.onChange(this.props.propName, value)
+    const newValue = [...value]
+    newValue.push(undefined)
+    this.props.onChange(this.props.propName, newValue)
   }
 
   doDeleteRow (index) {
     const value = this.props.value
-    const removedVal = value.splice(index, 1)
-    const removedKey = this.keys.splice(index, 1)
+    const newValue = value.filter((item, i) => i !== index)
 
-    this.props.onChange(this.props.propName, value)
+    this.props.onChange(this.props.propName, newValue)
   }
 
   // TODO: This should probably be removed
   didDrop (source, targetIndex) {
-    const value = this.props.value
+    const newValue = [...this.props.value]
     let sourceKey
     let sourceObj
 
@@ -151,16 +151,16 @@ export default class ListFieldWidget extends Component {
         this.keysNext++
     } else {
         const sourceIndex = source
-        sourceObj = value.splice(sourceIndex, 1)[0]
+        sourceObj = newValue.splice(sourceIndex, 1)[0]
         sourceKey = this.keys.splice(sourceIndex, 1)[0]
         if (sourceIndex < targetIndex) {
             targetIndex--
         }
     }
 
-    value.splice(targetIndex, 0, sourceObj)
+    newValue.splice(targetIndex, 0, sourceObj)
     this.keys.splice(targetIndex, 0, sourceKey)
-    this.props.onChange(this.props.propName, value)
+    this.props.onChange(this.props.propName, newValue)
   }
 
   renderAddButton ({ adapter, value, options }) {
