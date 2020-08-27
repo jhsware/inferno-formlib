@@ -253,7 +253,7 @@ class InputWidget extends Component {
       if (nextProps.value !== this.props.value) {
         this.setState({
             value: nextProps.value,
-            popoverOpen: this.state.popoverOpen && isProperDate(nextProps.value)
+            // popoverOpen: this.state.popoverOpen && isProperDate(nextProps.value)
         })
 
         // Update calendar
@@ -266,9 +266,10 @@ class InputWidget extends Component {
 
     doUpdateValue = (newDate) => {
       this.setState({
-        value: newDate // TODO: Update
+        value: newDate
       })
       this.props.onChange(this.props.propName, newDate)
+      this.doHidePopover()
     }
 
     doUpdateShowMonth = (newDate) => {
@@ -289,7 +290,7 @@ class InputWidget extends Component {
       const value = field.fromString(e.target.value)
       this.setState({
         value,
-        popoverOpen: this.state.popoverOpen && isProperDate(value)
+        // popoverOpen: this.state.popoverOpen && isProperDate(value)
       })
       if (value === undefined || isProperDate(value)) {
         this.props.onChange(this.props.propName, value)
@@ -297,9 +298,12 @@ class InputWidget extends Component {
     }
 
     togglePopover = () => {
-      this.setState({
-        popoverOpen: !this.state.popoverOpen
-      })
+      if (this.state.popoverOpen) {
+        this.doHidePopover()
+      }
+      else {
+        this.doShowPopover
+      }
     }
 
     doShowPopover = () => {
