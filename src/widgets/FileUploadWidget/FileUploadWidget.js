@@ -38,7 +38,21 @@ class FileUploadWidget extends Component {
   }
 
   didClick (e) {
-    this.props.onClick && this.props.onClick(e)
+    e && e.preventDefault()
+    
+    if (this.props.onClick) {
+      this.props.onClick(e)
+    }
+    else {
+      var input = document.createElement('input');
+      input.type = 'file';
+  
+      input.onchange = e => { 
+        this.doUpload(e.target.files)
+      }
+  
+      input.click();
+    }
   }
 
   doClearError (e) {
