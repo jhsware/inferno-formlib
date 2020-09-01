@@ -39,7 +39,7 @@ class FileUploadWidget extends Component {
 
   didClick (e) {
     e && e.preventDefault()
-    
+
     if (this.props.onClick) {
       this.props.onClick(e)
     }
@@ -48,7 +48,7 @@ class FileUploadWidget extends Component {
       input.type = 'file';
   
       input.onchange = e => { 
-        this.doUpload(e.target.files)
+        this.doUpload(e.target.files[0])
       }
   
       input.click();
@@ -70,7 +70,17 @@ class FileUploadWidget extends Component {
     })
   }
 
-  doUpload (file) {
+  doUpload (uploadObj) {
+    let file
+    if (uploadObj instanceof FileList) {
+      // Upload first file in list
+      // TODO: Should we support multiple file uploads?
+      file = uploadObj[0]
+    }
+    else if (uploadObj instanceof File) {
+      file = uploadObj
+    }
+
     // Fire change event on currently active element to trigger update of value
     this._inputEl.focus()
 
